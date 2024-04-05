@@ -669,17 +669,17 @@
     <script>
 
 
-      // fill the month table with column headings
+      // Fill the table with column headings
       function day_title(day_name) {
         document.write("<div class='c-cal__col'>" + day_name + "</div>");
       }
-      // fills the month table with numbers
+      // Fills the month table with the numbers of the days
       function fill_table(month, month_length, indexMonth) {
         day = 1;
-        // begin the new month table
+        // Begin the new month table
         document.write("<div class='c-main c-main-" + indexMonth + "'>");
 
-        // column headings
+        // Column headings
         document.write("<div class='c-cal__row'>");
         day_title("Lun");
         day_title("Mar");
@@ -699,7 +699,7 @@
           }
         }
 
-        // Fill the first week of days 🔴
+        // Fill the first week of days
         for (var i = start_day; i <= 7; i++) {
           document.write(
             "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
@@ -708,21 +708,16 @@
         }
         document.write("</div>");
 
-        // Fill the remaining weeks 🔴
+        // Fill the remaining weeks 🟡
         while (day <= month_length) {
           document.write("<div class='c-cal__row'>");
           for (var i = 1; i <= 7 && day <= month_length; i++) {
             if (day >= 1 && day <= 9) {
-              document.write(
-                "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
-              );
-              day++;
+              document.write("<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
             } else {
-              document.write(
-                "<div data-day='" + year + "-" + indexMonth + "-" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
-              );
-              day++;
+              document.write("<div data-day='" + year + "-" + indexMonth + "-" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
             }
+            day++;
           }
           document.write("</div>");
           // The first day of the next month
@@ -733,7 +728,7 @@
       }
 
 
-      var monthText = [
+      let monthText = [
         "Enero",
         "Febrero",
         "Marzo",
@@ -767,7 +762,8 @@
               <span class="c-paginator__month">Noviembre</span>
               <span class="c-paginator__month">Diciembre</span>
               <!-- <script>
-                monthText.forEach(month => {
+                // 🔴 Why its keep puting the last position of the array the first of the month!!!!
+                monthText.forEach( month => {
                   document.write("<span class='c-paginator__month'>"+month+"</span>");
                 });
               </script> -->
@@ -802,6 +798,7 @@
 
             // First day of the week for the first month of the year
             var start_day = <?php echo $firstWeekDay; ?>;
+
             fill_table("Enero", <?php echo days_in_month(1, $año) ?>, "01");
             fill_table("Febrero", <?php echo days_in_month(2, $año) ?>, "02");
             fill_table("Marzo", <?php echo days_in_month(3, $año) ?>, "03");
@@ -837,27 +834,13 @@
     </div>
 
     <script>
-      //global variables
+      // Global variables 🟡
       var monthEl = $(".c-main");
       var dataCel = $(".c-cal__cel");
       var dateObj = new Date();
-      var month = dateObj.getUTCMonth() + 1; // 🔴
-      var day = dateObj.getUTCDate();
+      var month = <?php echo $month ?>;
+      var day = <?php echo $day ?>;
       var year = <?php echo $año ?>;
-      // var monthText = [
-      //   "Enero",
-      //   "Febrero",
-      //   "Marzo",
-      //   "Abril",
-      //   "Mayo",
-      //   "Junio",
-      //   "Julio",
-      //   "Agosto",
-      //   "Septiembre",
-      //   "Octubre",
-      //   "Noviembre",
-      //   "Diciembre"
-      // ];
       var indexMonth = month;
       var todayBtn = $(".c-today__btn");
       var addBtn = $(".js-event__add");
@@ -868,7 +851,7 @@
       var today = year + "-" + month + "-" + day;
 
 
-      // ------ set default events -------
+      // ------ Set default events ------- 🟡
       function defaultEvents(dataDay, dataName, dataNotes, classTag) {
         var date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
@@ -877,14 +860,14 @@
         date.addClass("event--" + classTag);
       }
 
-      // Guardar eventos en el localstorage
+      // Guardar eventos en el localstorage 🔴
       defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
       defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
       defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
       defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
-      // ------ functions control -------
+      // ------ Control ------- 🟡
 
       //button of the current day
       todayBtn.on("click", function() {
