@@ -690,11 +690,10 @@
         day_title("Dom");
         document.write("</div>");
 
-        // Pad cells before first day of month 🔴
-        // --! Change the variable for the first day of the year 🟢
+        // Pad cells before first day of month
         document.write("<div class='c-cal__row'>");
         for (var i = 1; i < start_day; i++) {
-          // 🔴 Por algún motivo algunos lunes da 8 y el rango es 1..7 xd?
+          // 🔴 For some reason some Mondays return the value 8 and the range is 1..7 xd?
           if (i <= start_day && start_day != 8) {
             document.write("<div class='c-cal__cel'></div>");
           }
@@ -794,14 +793,14 @@
         </div>
         <div class="c-cal__container c-calendar__style">
           <script>
-            // CAHNGE the below variable to the CURRENT YEAR
+            // Current year
             year = <?php echo $año ?>;
             $('.c-paginator__year').text(year);
 
-            // first day of the week of the new year
+            // First day of the week of the new year
             var today = new Date("Enero 1, " + year);
-            // console.log(today);
-            // start_day = today.getDay() + 1;
+
+            // First day of the week for the first month of the year
             var start_day = <?php echo $firstWeekDay; ?>;
             fill_table("Enero", <?php echo days_in_month(1, $año) ?>, "01");
             fill_table("Febrero", <?php echo days_in_month(2, $año) ?>, "02");
@@ -842,7 +841,7 @@
       var monthEl = $(".c-main");
       var dataCel = $(".c-cal__cel");
       var dateObj = new Date();
-      var month = dateObj.getUTCMonth() + 1;
+      var month = dateObj.getUTCMonth() + 1; // 🔴
       var day = dateObj.getUTCDate();
       var year = <?php echo $año ?>;
       // var monthText = [
