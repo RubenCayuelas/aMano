@@ -690,16 +690,18 @@
         day_title("Dom");
         document.write("</div>");
 
-        // pad cells before first day of month
+        // Pad cells before first day of month 🔴
+        // --! Change the variable for the first day of the year 🟢
         document.write("<div class='c-cal__row'>");
         for (var i = 1; i < start_day; i++) {
-          if (start_day > 7) {} else {
+          // 🔴 Por algún motivo algunos lunes da 8 y el rango es 1..7 xd?
+          if (i <= start_day && start_day != 8) {
             document.write("<div class='c-cal__cel'></div>");
           }
         }
 
-        // fill the first week of days
-        for (var i = start_day; i < 8; i++) {
+        // Fill the first week of days 🔴
+        for (var i = start_day; i <= 7; i++) {
           document.write(
             "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
           );
@@ -707,7 +709,7 @@
         }
         document.write("</div>");
 
-        // fill the remaining weeks
+        // Fill the remaining weeks 🔴
         while (day <= month_length) {
           document.write("<div class='c-cal__row'>");
           for (var i = 1; i <= 7 && day <= month_length; i++) {
@@ -724,7 +726,7 @@
             }
           }
           document.write("</div>");
-          // the first day of the next month
+          // The first day of the next month
           start_day = i;
         }
 
@@ -800,7 +802,7 @@
             var today = new Date("Enero 1, " + year);
             // console.log(today);
             // start_day = today.getDay() + 1;
-            var start_day = <?php echo $primerDiaSemana; ?>;
+            var start_day = <?php echo $firstWeekDay; ?>;
             fill_table("Enero", <?php echo days_in_month(1, $año) ?>, "01");
             fill_table("Febrero", <?php echo days_in_month(2, $año) ?>, "02");
             fill_table("Marzo", <?php echo days_in_month(3, $año) ?>, "03");

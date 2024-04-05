@@ -10,8 +10,10 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // Declaración de variables
   // $resultado = $condicion ? 'verdadero' : 'falso';
+  $dia = date('d');
+  $mes = date('m');
   $año = isset($_GET['año']) ? $_GET['año'] : date('Y');
-  $primerDiaSemana = isset($_GET['año']) ? date('w',strtotime($año."-01-10"))-2 : date('w')-1;
+  $firstWeekDay = date('N', strtotime($año."-01-01"));
   function days_in_month($mes, $año) {
     return $mes == 2 ? ($año % 4 ? 28 : ($año % 100 ? 29 : ($año % 400 ? 28 : 29))) : (($mes - 1) % 7 % 2 ? 30 : 31);
   }
