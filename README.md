@@ -14,14 +14,14 @@ ____________________________________________________________________________
 ### Admin
 | Usuario | Contraseña |
 |---|---|
-| admin | admin |
+| `admin` | `admin` |
 
 ### Recepcionistas
 | Usuario | Contraseña |
 |---|---|
-| lola | lola |
+|  `lola` | `lola` |
 
 ### Clientes
 | Usuario | Contraseña |
 |---|---|
-| eugenia032 | eugenia032 |
+| `eugenia032` | `eugenia032` |
