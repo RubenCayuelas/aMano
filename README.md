@@ -1,6 +1,7 @@
 Datos para mí, a eliminar.
 
  Logo: https://www.zarla.com/design/f3jjh89rkkq748463h8x/palette
+ Git Buenas practicas: https://midu.dev/buenas-practicas-escribir-commits-git/
 ____________________________________________________________________________
 # Información:
 
