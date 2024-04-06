@@ -840,14 +840,14 @@
       var month = <?php echo $month ?>;
       var day = <?php echo $day ?>;
       var year = <?php echo $año ?>;
-      var indexMonth = month;
+      var indexMonth =  <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : 12) : $month ; ?>;
       var todayBtn = $(".c-today__btn");
       var addBtn = $(".js-event__add");
       var saveBtn = $(".js-event__save");
       var closeBtn = $(".js-event__close");
       var winCreator = $(".js-event__creator");
       var inputDate = $(this).data();
-      var today = year + "-" + month + "-" + day;
+      var today = year + "-" + month + "-" + <?php echo date('Y') ?>;
 
 
       // 🟡 ------ Set default events ------- 
@@ -870,12 +870,15 @@
 
       //button of the current day
       todayBtn.on("click", function() {
+        
         if (month < indexMonth) {
           var step = indexMonth % month;
           movePrev(step, true);
+          window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+year) : window.location.href+="?year="+year;
         } else if (month > indexMonth) {
           var step = month - indexMonth;
           moveNext(step, true);
+
         }
       });
 
@@ -1002,7 +1005,7 @@
 
       });
 
-      //function for move the months
+      // 🔴 Function for move the months
       function moveNext(fakeClick, indexNext) {
         for (var i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -1050,10 +1053,8 @@
                 });
                 indexMonth -= 1;
               } else {
-                // 🔴 Añadir el ir al año anterior
-                // Does not work if you go 2 years past the "?año=" gets superposed in the url
-                window.location.href.includes("?año=") ? window.location.href.replace("?año="+year, "?año="+(year-1)): window.location.href+="?año="+(year-1);
-                // window.location.href.replace("?año="+year, "?año="+(year-1));
+                // Redirect to the past year
+                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)) : window.location.href+="?year="+(year-1);
               }
               return indexMonth;
             });
@@ -1069,11 +1070,8 @@
                 });
                 indexMonth += 1;
               } else {
-                // 🔴 Añadir pasar al año siguiente !--
-                // This is not even working xd
-                window.location.href.replace("?a%C3%B1o="+year, "?año="+(year+1));
-                // window.location.href.includes("?año=") ? window.location.href.replace("?año="+year-1, "?año="+(year+1)): window.location.href+="?año="+(year+1);
-                console.log(window.location.href.replace("?a%C3%B1o="+year, "?año="+(2023+1)));
+                // Redirect to the next year
+                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)) : window.location.href+="?year="+(year+1);
               }
               return indexMonth;
             });
@@ -1087,15 +1085,16 @@
       // 🔴 Launch function to set the current month
       // 🔴 Make sure when we go up or down a year it have to be the first or the last month.
       <?php
-        if (isset($_GET['año'])) {
-          if ($_GET['año'] > $año_actual) {
-            echo "moveNext(1, false);";
-          } elseif ($_GET['año'] < $año_actual) {
-              echo "moveNext(12, false);";
-          }
-        } else {
+        // if (isset($_GET['año'])) {
+        //   if ($_GET['año'] > date('Y')) {
+        //     echo "moveNext(12, false);";
+        //   } elseif ($_GET['año'] < date('Y')) {
+        //     // echo "console.log($_GET[año])";
+        //     echo "moveNext(1-1, false);";
+        //   }
+        // } else {
           echo "moveNext(indexMonth - 1, false);";
-        }
+        // }
       ?>
       
 
