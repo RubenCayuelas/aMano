@@ -104,7 +104,9 @@
         justify-content: left!important;
       }
       .c-sort {
-        margin-left: 5%;
+        @media screen and (min-width: 375px) {
+          margin-left: 5%;
+        }
       }
 
       a {
@@ -161,13 +163,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 1%;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         color: #ffffff;
         letter-spacing: 2px;
         font-size: 13px;
+        @media screen and (min-width: 768px) {
+          padding: 0 20px;
+        }
       }
 
       main nav>.wrapper a {
@@ -308,7 +313,10 @@
       .c-paginator__year {
         height: 80px;
         line-height: 80px;
-        padding: 0 20px;
+        padding: 0 10px;
+        @media screen and (min-width: 375px) {
+          padding: 0 20px;
+        }
       }
 
       .o-btn {
@@ -347,7 +355,10 @@
         padding-top: 80px;
         display: flex;
         justify-content: space-between;
-        flex-direction: row;
+        flex-direction: column;
+        @media screen and (min-width: 768px) {
+          flex-direction: row;
+        }
       }
 
       .c-calendar__style {
@@ -362,10 +373,13 @@
 
       .c-cal__container {
         position: relative;
-        width: calc(100% - 300px);
         height: 0;
-        padding-bottom: 65%;
+        padding-bottom: 75%;
         overflow: hidden;
+        @media screen and (min-width: 768px) {
+          padding-bottom: 75%;
+          width: calc(100% - 300px);
+        }
       }
 
       .c-main {
@@ -477,11 +491,11 @@
         padding-top: 100%;
       }
 
-      .c-cal__cel:nth-child(1) p {
+      .c-cal__cel:nth-child(7) p {
         background: rgba(215, 16, 15, 0.2);
       }
 
-      .c-cal__cel:nth-child(7) p {
+      .c-cal__cel:nth-child(6) p {
         background: #003b71;
       }
 
@@ -543,8 +557,10 @@
       }
 
       .c-aside {
-        width: 300px;
         padding: 20px;
+        @media screen and (min-width: 768px) {
+          width: 300px;
+        }
       }
 
       .c-aside__day {
@@ -837,8 +853,8 @@
       var monthEl = $(".c-main");
       var dataCel = $(".c-cal__cel");
       var dateObj = new Date();
-      var month = <?php echo $month ?>;
-      var day = <?php echo $day ?>;
+      var month = "<?php echo $month ?>";
+      var day = "<?php echo $day ?>";
       var year = <?php echo $año ?>;
       var indexMonth =  <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month ; ?>;
       var todayBtn = $(".c-today__btn");
@@ -847,12 +863,12 @@
       var closeBtn = $(".js-event__close");
       var winCreator = $(".js-event__creator");
       var inputDate = $(this).data();
-      var today = year + "-" + month + "-" + <?php echo date('Y') ?>;
+      var today = <?php echo date('Y') ?>+"-"+month+"-"+day;
 
 
       // 🟡 ------ Set default events ------- 
       function defaultEvents(dataDay, dataName, dataNotes, classTag) {
-        var date = $('*[data-day=' + dataDay + ']');
+        let date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
         date.attr("data-notes", dataNotes);
         date.addClass("event");
@@ -860,13 +876,14 @@
       }
 
       // 🔴 Guardar eventos en el localstorage 
+      // 🔴 Make sure you can have multiple events at the same day
       // defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
-      // defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      // defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
+      // defaultEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
+      // defaultEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
       // defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
-      // 🟡 ------ Control ------- 
+      // 🟡 ------ Controls ------- 
 
       //button of the current day
       todayBtn.on("click", function() {
@@ -880,7 +897,7 @@
         window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href ;
       });
 
-      //higlight the cel of current day
+      // Higlight the cel of current day
       dataCel.each(function() {
         if ($(this).data("day") === today) {
           $(this).addClass("isToday");
@@ -1031,7 +1048,6 @@
           switch (true) {
             case indexPrev:
               indexMonth -= 1;
-              // console.log(indexMonth);
               break;
           }
         }
@@ -1074,7 +1090,12 @@
                 indexMonth += 1;
               } else {
                 // Redirect to the next year
-                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next") : window.location.href+="?year="+(year+1);
+                // window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next") : window.location.href+="?year="+(year+1);
+                if (window.location.href.includes("?year=")) {
+                  window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next");
+                } else {
+                  window.location.href+="?year="+(year+1);
+                }
               }
               return indexMonth;
             });
@@ -1085,21 +1106,8 @@
       buttonsPaginator("#next", monthEl, ".c-paginator__month", false, true);
       buttonsPaginator("#prev", monthEl, ".c-paginator__month", true, false);
 
-      // 🔴 Launch function to set the current month
-      // 🔴 Make sure when we go up or down a year it have to be the first or the last month.
-      <?php
-        // if (isset($_GET['año'])) {
-        //   if ($_GET['año'] > date('Y')) {
-        //     echo "moveNext(12, false);";
-        //   } elseif ($_GET['año'] < date('Y')) {
-        //     // echo "console.log($_GET[año])";
-        //     echo "moveNext(1-1, false);";
-        //   }
-        // } else {
-          echo "moveNext(indexMonth - 1, false);";
-        // }
-      ?>
-      
+      // Launch function to set the current month
+      moveNext(indexMonth - 1, false);
 
       //fill the sidebar with current day
       $(".c-aside__num").text(day);
