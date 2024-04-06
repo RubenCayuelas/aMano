@@ -708,7 +708,7 @@
         }
         document.write("</div>");
 
-        // Fill the remaining weeks 🟡
+        // 🟡 Fill the remaining weeks
         while (day <= month_length) {
           document.write("<div class='c-cal__row'>");
           for (var i = 1; i <= 7 && day <= month_length; i++) {
@@ -726,7 +726,6 @@
 
         document.write("</div>");
       }
-
 
       let monthText = [
         "Enero",
@@ -762,7 +761,7 @@
               <span class="c-paginator__month">Noviembre</span>
               <span class="c-paginator__month">Diciembre</span>
               <!-- <script>
-                // 🔴 Why its keep puting the last position of the array the first of the month!!!!
+                // 🔴 Why this keep puting the last position of the array the first of the month ???!!!!
                 monthText.forEach( month => {
                   document.write("<span class='c-paginator__month'>"+month+"</span>");
                 });
@@ -834,7 +833,7 @@
     </div>
 
     <script>
-      // Global variables 🟡
+      // 🟡 Global variables 
       var monthEl = $(".c-main");
       var dataCel = $(".c-cal__cel");
       var dateObj = new Date();
@@ -851,7 +850,7 @@
       var today = year + "-" + month + "-" + day;
 
 
-      // ------ Set default events ------- 🟡
+      // 🟡 ------ Set default events ------- 
       function defaultEvents(dataDay, dataName, dataNotes, classTag) {
         var date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
@@ -860,14 +859,14 @@
         date.addClass("event--" + classTag);
       }
 
-      // Guardar eventos en el localstorage 🔴
-      defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
-      defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
-      defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
+      // 🔴 Guardar eventos en el localstorage 
+      // defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
+      // defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
+      // defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
+      // defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
-      // ------ Control ------- 🟡
+      // 🟡 ------ Control ------- 
 
       //button of the current day
       todayBtn.on("click", function() {
@@ -934,7 +933,8 @@
         $("#addEvent")[0].reset();
       });
 
-      //fill sidebar event info
+      // 🟡 Fill sidebar event info
+      // 🔴 Change the names of the events
       function fillEventSidebar(self) {
         $(".c-aside__event").remove();
         var thisName = self.attr("data-name");
@@ -1014,7 +1014,6 @@
           switch (true) {
             case indexNext:
               indexMonth += 1;
-              // console.log(indexMonth);
               break;
           }
         }
@@ -1051,7 +1050,8 @@
                 });
                 indexMonth -= 1;
               } else {
-                // Añadir el ir al año anterior !--
+                // 🔴 Añadir el ir al año anterior
+                // Does not work if you go 2 years past the "?año=" gets superposed in the url
                 window.location.href.includes("?año=") ? window.location.href.replace("?año="+year, "?año="+(year-1)): window.location.href+="?año="+(year-1);
                 // window.location.href.replace("?año="+year, "?año="+(year-1));
               }
@@ -1069,7 +1069,8 @@
                 });
                 indexMonth += 1;
               } else {
-                // Añadir pasar al año siguiente !--
+                // 🔴 Añadir pasar al año siguiente !--
+                // This is not even working xd
                 window.location.href.replace("?a%C3%B1o="+year, "?año="+(year+1));
                 // window.location.href.includes("?año=") ? window.location.href.replace("?año="+year-1, "?año="+(year+1)): window.location.href+="?año="+(year+1);
                 console.log(window.location.href.replace("?a%C3%B1o="+year, "?año="+(2023+1)));
@@ -1083,8 +1084,20 @@
       buttonsPaginator("#next", monthEl, ".c-paginator__month", false, true);
       buttonsPaginator("#prev", monthEl, ".c-paginator__month", true, false);
 
-      //launch function to set the current month
-      moveNext(indexMonth - 1, false);
+      // 🔴 Launch function to set the current month
+      // 🔴 Make sure when we go up or down a year it have to be the first or the last month.
+      <?php
+        if (isset($_GET['año'])) {
+          if ($_GET['año'] > $año_actual) {
+            echo "moveNext(1, false);";
+          } elseif ($_GET['año'] < $año_actual) {
+              echo "moveNext(12, false);";
+          }
+        } else {
+          echo "moveNext(indexMonth - 1, false);";
+        }
+      ?>
+      
 
       //fill the sidebar with current day
       $(".c-aside__num").text(day);
