@@ -840,7 +840,7 @@
       var month = <?php echo $month ?>;
       var day = <?php echo $day ?>;
       var year = <?php echo $año ?>;
-      var indexMonth =  <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : 12) : $month ; ?>;
+      var indexMonth =  <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month ; ?>;
       var todayBtn = $(".c-today__btn");
       var addBtn = $(".js-event__add");
       var saveBtn = $(".js-event__save");
@@ -870,16 +870,14 @@
 
       //button of the current day
       todayBtn.on("click", function() {
-        
-        if (month < indexMonth) {
-          var step = indexMonth % month;
-          movePrev(step, true);
-          window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+year) : window.location.href+="?year="+year;
-        } else if (month > indexMonth) {
-          var step = month - indexMonth;
-          moveNext(step, true);
-
-        }
+        // if (month < indexMonth) {
+        //   var step = indexMonth % month;
+        //   movePrev(step, true);
+        // } else if (month > indexMonth) {
+        //   var step = month - indexMonth;
+        //   moveNext(step, true);
+        // }
+        window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href ;
       });
 
       //higlight the cel of current day
@@ -1054,7 +1052,12 @@
                 indexMonth -= 1;
               } else {
                 // Redirect to the past year
-                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)) : window.location.href+="?year="+(year-1);
+                // window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)) : window.location.href+="?year="+(year-1);
+                if (window.location.href.includes("?year=")) {
+                  window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)+"&prev")
+                } else {
+                  window.location.href+="?year="+(year-1);
+                }
               }
               return indexMonth;
             });
@@ -1071,7 +1074,7 @@
                 indexMonth += 1;
               } else {
                 // Redirect to the next year
-                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)) : window.location.href+="?year="+(year+1);
+                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next") : window.location.href+="?year="+(year+1);
               }
               return indexMonth;
             });
