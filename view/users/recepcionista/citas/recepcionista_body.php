@@ -104,7 +104,9 @@
         justify-content: left!important;
       }
       .c-sort {
-        margin-left: 5%;
+        @media screen and (min-width: 375px) {
+          margin-left: 5%;
+        }
       }
 
       a {
@@ -161,13 +163,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 1%;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         color: #ffffff;
         letter-spacing: 2px;
         font-size: 13px;
+        @media screen and (min-width: 768px) {
+          padding: 0 20px;
+        }
       }
 
       main nav>.wrapper a {
@@ -308,7 +313,10 @@
       .c-paginator__year {
         height: 80px;
         line-height: 80px;
-        padding: 0 20px;
+        padding: 0 10px;
+        @media screen and (min-width: 375px) {
+          padding: 0 20px;
+        }
       }
 
       .o-btn {
@@ -347,7 +355,10 @@
         padding-top: 80px;
         display: flex;
         justify-content: space-between;
-        flex-direction: row;
+        flex-direction: column;
+        @media screen and (min-width: 768px) {
+          flex-direction: row;
+        }
       }
 
       .c-calendar__style {
@@ -362,10 +373,13 @@
 
       .c-cal__container {
         position: relative;
-        width: calc(100% - 300px);
         height: 0;
-        padding-bottom: 65%;
+        padding-bottom: 75%;
         overflow: hidden;
+        @media screen and (min-width: 768px) {
+          padding-bottom: 75%;
+          width: calc(100% - 300px);
+        }
       }
 
       .c-main {
@@ -543,8 +557,10 @@
       }
 
       .c-aside {
-        width: 300px;
         padding: 20px;
+        @media screen and (min-width: 768px) {
+          width: 300px;
+        }
       }
 
       .c-aside__day {
@@ -852,7 +868,7 @@
 
       // 🟡 ------ Set default events ------- 
       function defaultEvents(dataDay, dataName, dataNotes, classTag) {
-        var date = $('*[data-day=' + dataDay + ']');
+        let date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
         date.attr("data-notes", dataNotes);
         date.addClass("event");
@@ -860,9 +876,10 @@
       }
 
       // 🔴 Guardar eventos en el localstorage 
+      // 🔴 Make sure you can have multiple events at the same day
       // defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
-      // defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      // defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
+      // defaultEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
+      // defaultEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
       // defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
