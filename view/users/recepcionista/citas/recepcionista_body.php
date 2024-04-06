@@ -887,13 +887,6 @@
 
       //button of the current day
       todayBtn.on("click", function() {
-        // if (month < indexMonth) {
-        //   var step = indexMonth % month;
-        //   movePrev(step, true);
-        // } else if (month > indexMonth) {
-        //   var step = month - indexMonth;
-        //   moveNext(step, true);
-        // }
         window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href ;
       });
 
@@ -1053,7 +1046,7 @@
         }
       }
 
-      //months paginator
+      // Months paginator
       function buttonsPaginator(buttonId, mainClass, monthClass, next, prev) {
         switch (true) {
           case next:
@@ -1109,7 +1102,7 @@
       // Launch function to set the current month
       moveNext(indexMonth - 1, false);
 
-      //fill the sidebar with current day
+      // Fill the sidebar with current day
       $(".c-aside__num").text(day);
       $(".c-aside__month").text(monthText[month - 1]);
     </script>
