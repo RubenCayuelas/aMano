@@ -21,7 +21,7 @@
                   <td>' . $cliente['tlf'] . '</td>
                   <!--
                   <td class="w-10">
-                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['idSerie'], $cliente['idPlataforma'] . '">Editar</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'], $cliente['idPlataforma'] . '">Editar</button>
                   </td>
                   <td class="w-10">
                       <form action="#" method="post">
@@ -51,7 +51,7 @@
                               </div>
                               <div class="col-5 d-flex justify-content-around align-items-center">
                                   <div>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Editar</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Añadir Cita</button>
                                   </div>
                                   <div>
                                       <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Añadir Cita</button>

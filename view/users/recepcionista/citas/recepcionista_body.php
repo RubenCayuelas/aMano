@@ -669,17 +669,17 @@
     <script>
 
 
-      // fill the month table with column headings
+      // Fill the table with column headings
       function day_title(day_name) {
         document.write("<div class='c-cal__col'>" + day_name + "</div>");
       }
-      // fills the month table with numbers
+      // Fills the month table with the numbers of the days
       function fill_table(month, month_length, indexMonth) {
         day = 1;
-        // begin the new month table
+        // Begin the new month table
         document.write("<div class='c-main c-main-" + indexMonth + "'>");
 
-        // column headings
+        // Column headings
         document.write("<div class='c-cal__row'>");
         day_title("Lun");
         day_title("Mar");
@@ -690,16 +690,17 @@
         day_title("Dom");
         document.write("</div>");
 
-        // pad cells before first day of month
+        // Pad cells before first day of month
         document.write("<div class='c-cal__row'>");
         for (var i = 1; i < start_day; i++) {
-          if (start_day > 7) {} else {
+          // 🔴 For some reason some Mondays return the value 8 and the range is 1..7 xd?
+          if (i <= start_day && start_day != 8) {
             document.write("<div class='c-cal__cel'></div>");
           }
         }
 
-        // fill the first week of days
-        for (var i = start_day; i < 8; i++) {
+        // Fill the first week of days
+        for (var i = start_day; i <= 7; i++) {
           document.write(
             "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
           );
@@ -707,32 +708,26 @@
         }
         document.write("</div>");
 
-        // fill the remaining weeks
+        // 🟡 Fill the remaining weeks
         while (day <= month_length) {
           document.write("<div class='c-cal__row'>");
           for (var i = 1; i <= 7 && day <= month_length; i++) {
             if (day >= 1 && day <= 9) {
-              document.write(
-                "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
-              );
-              day++;
+              document.write("<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
             } else {
-              document.write(
-                "<div data-day='" + year + "-" + indexMonth + "-" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
-              );
-              day++;
+              document.write("<div data-day='" + year + "-" + indexMonth + "-" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
             }
+            day++;
           }
           document.write("</div>");
-          // the first day of the next month
+          // The first day of the next month
           start_day = i;
         }
 
         document.write("</div>");
       }
 
-
-      var monthText = [
+      let monthText = [
         "Enero",
         "Febrero",
         "Marzo",
@@ -766,7 +761,8 @@
               <span class="c-paginator__month">Noviembre</span>
               <span class="c-paginator__month">Diciembre</span>
               <!-- <script>
-                monthText.forEach(month => {
+                // 🔴 Why this keep puting the last position of the array the first of the month ???!!!!
+                monthText.forEach( month => {
                   document.write("<span class='c-paginator__month'>"+month+"</span>");
                 });
               </script> -->
@@ -792,15 +788,16 @@
         </div>
         <div class="c-cal__container c-calendar__style">
           <script>
-            // CAHNGE the below variable to the CURRENT YEAR
+            // Current year
             year = <?php echo $año ?>;
             $('.c-paginator__year').text(year);
 
-            // first day of the week of the new year
+            // First day of the week of the new year
             var today = new Date("Enero 1, " + year);
-            // console.log(today);
-            // start_day = today.getDay() + 1;
-            var start_day = <?php echo $primerDiaSemana; ?>;
+
+            // First day of the week for the first month of the year
+            var start_day = <?php echo $firstWeekDay; ?>;
+
             fill_table("Enero", <?php echo days_in_month(1, $año) ?>, "01");
             fill_table("Febrero", <?php echo days_in_month(2, $año) ?>, "02");
             fill_table("Marzo", <?php echo days_in_month(3, $año) ?>, "03");
@@ -836,38 +833,24 @@
     </div>
 
     <script>
-      //global variables
+      // 🟡 Global variables 
       var monthEl = $(".c-main");
       var dataCel = $(".c-cal__cel");
       var dateObj = new Date();
-      var month = dateObj.getUTCMonth() + 1;
-      var day = dateObj.getUTCDate();
+      var month = <?php echo $month ?>;
+      var day = <?php echo $day ?>;
       var year = <?php echo $año ?>;
-      // var monthText = [
-      //   "Enero",
-      //   "Febrero",
-      //   "Marzo",
-      //   "Abril",
-      //   "Mayo",
-      //   "Junio",
-      //   "Julio",
-      //   "Agosto",
-      //   "Septiembre",
-      //   "Octubre",
-      //   "Noviembre",
-      //   "Diciembre"
-      // ];
-      var indexMonth = month;
+      var indexMonth =  <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month ; ?>;
       var todayBtn = $(".c-today__btn");
       var addBtn = $(".js-event__add");
       var saveBtn = $(".js-event__save");
       var closeBtn = $(".js-event__close");
       var winCreator = $(".js-event__creator");
       var inputDate = $(this).data();
-      var today = year + "-" + month + "-" + day;
+      var today = year + "-" + month + "-" + <?php echo date('Y') ?>;
 
 
-      // ------ set default events -------
+      // 🟡 ------ Set default events ------- 
       function defaultEvents(dataDay, dataName, dataNotes, classTag) {
         var date = $('*[data-day=' + dataDay + ']');
         date.attr("data-name", dataName);
@@ -876,24 +859,25 @@
         date.addClass("event--" + classTag);
       }
 
-      // Guardar eventos en el localstorage
-      defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
-      defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
-      defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
+      // 🔴 Guardar eventos en el localstorage 
+      // defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
+      // defaultEvents('2024-03-25', 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
+      // defaultEvents('2024-05-04', "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
+      // defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
-      // ------ functions control -------
+      // 🟡 ------ Control ------- 
 
       //button of the current day
       todayBtn.on("click", function() {
-        if (month < indexMonth) {
-          var step = indexMonth % month;
-          movePrev(step, true);
-        } else if (month > indexMonth) {
-          var step = month - indexMonth;
-          moveNext(step, true);
-        }
+        // if (month < indexMonth) {
+        //   var step = indexMonth % month;
+        //   movePrev(step, true);
+        // } else if (month > indexMonth) {
+        //   var step = month - indexMonth;
+        //   moveNext(step, true);
+        // }
+        window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href ;
       });
 
       //higlight the cel of current day
@@ -950,7 +934,8 @@
         $("#addEvent")[0].reset();
       });
 
-      //fill sidebar event info
+      // 🟡 Fill sidebar event info
+      // 🔴 Change the names of the events
       function fillEventSidebar(self) {
         $(".c-aside__event").remove();
         var thisName = self.attr("data-name");
@@ -1018,7 +1003,7 @@
 
       });
 
-      //function for move the months
+      // 🔴 Function for move the months
       function moveNext(fakeClick, indexNext) {
         for (var i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -1030,7 +1015,6 @@
           switch (true) {
             case indexNext:
               indexMonth += 1;
-              // console.log(indexMonth);
               break;
           }
         }
@@ -1067,9 +1051,13 @@
                 });
                 indexMonth -= 1;
               } else {
-                // Añadir el ir al año anterior !--
-                window.location.href.includes("?año=") ? window.location.href.replace("?año="+year, "?año="+(year-1)): window.location.href+="?año="+(year-1);
-                // window.location.href.replace("?año="+year, "?año="+(year-1));
+                // Redirect to the past year
+                // window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)) : window.location.href+="?year="+(year-1);
+                if (window.location.href.includes("?year=")) {
+                  window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)+"&prev")
+                } else {
+                  window.location.href+="?year="+(year-1);
+                }
               }
               return indexMonth;
             });
@@ -1085,10 +1073,8 @@
                 });
                 indexMonth += 1;
               } else {
-                // Añadir pasar al año siguiente !--
-                window.location.href.replace("?a%C3%B1o="+year, "?año="+(year+1));
-                // window.location.href.includes("?año=") ? window.location.href.replace("?año="+year-1, "?año="+(year+1)): window.location.href+="?año="+(year+1);
-                console.log(window.location.href.replace("?a%C3%B1o="+year, "?año="+(2023+1)));
+                // Redirect to the next year
+                window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next") : window.location.href+="?year="+(year+1);
               }
               return indexMonth;
             });
@@ -1099,8 +1085,21 @@
       buttonsPaginator("#next", monthEl, ".c-paginator__month", false, true);
       buttonsPaginator("#prev", monthEl, ".c-paginator__month", true, false);
 
-      //launch function to set the current month
-      moveNext(indexMonth - 1, false);
+      // 🔴 Launch function to set the current month
+      // 🔴 Make sure when we go up or down a year it have to be the first or the last month.
+      <?php
+        // if (isset($_GET['año'])) {
+        //   if ($_GET['año'] > date('Y')) {
+        //     echo "moveNext(12, false);";
+        //   } elseif ($_GET['año'] < date('Y')) {
+        //     // echo "console.log($_GET[año])";
+        //     echo "moveNext(1-1, false);";
+        //   }
+        // } else {
+          echo "moveNext(indexMonth - 1, false);";
+        // }
+      ?>
+      
 
       //fill the sidebar with current day
       $(".c-aside__num").text(day);
