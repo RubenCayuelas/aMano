@@ -396,7 +396,11 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
   padding-bottom: 75%;
   overflow: hidden;
   @media screen and (min-width: 768px) {
-    padding-bottom: 75%;
+    padding-bottom: 48%;
+    width: calc(100% - 300px);
+  }
+  @media screen and (min-width: 900px) {
+    padding-bottom: 53%;
     width: calc(100% - 300px);
   }
 }
