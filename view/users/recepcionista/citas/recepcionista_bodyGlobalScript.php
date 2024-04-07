@@ -50,7 +50,7 @@
     }
   });
 
-  //window event creator
+  // Window event creator
   addBtn.on("click", function() {
     winCreator.addClass("isVisible");
     $("body").addClass("overlay");
