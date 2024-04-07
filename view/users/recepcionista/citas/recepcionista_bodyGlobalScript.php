@@ -1,4 +1,3 @@
-
 <script>
   // 🟡 Global variables 
   var monthEl = $(".c-main");
@@ -17,21 +16,21 @@
   var today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
-  // 🟡 ------ Set default events ------- 
-  function defaultEvents(dataDay, dataName, dataNotes, classTag) {
-    let date = $('*[data-day=' + dataDay + ']');
-    date.attr("data-name", dataName);
-    date.attr("data-notes", dataNotes);
-    date.addClass("event");
-    date.addClass("event--" + classTag);
-  }
+  // 🟡 ------ Set events ------- 
+  // function createEvents(dataDay, dataName, dataNotes, classTag) {
+  //   let date = $('*[data-day=' + dataDay + ']');
+  //   date.attr("data-name", dataName);
+  //   date.attr("data-notes", dataNotes);
+  //   date.addClass("event");
+  //   date.addClass("event--" + classTag);
+  // }
 
   // 🔴 Guardar eventos en el localstorage 
   // 🔴 Make sure you can have multiple events at the same day
-  // defaultEvents(today, 'YEAH!', 'Today is your day', 'important');
-  // defaultEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-  // defaultEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
-  // defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
+  // createEvents(today, 'YEAH!', 'Today is your day', 'important');
+  // createEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
+  // createEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
+  // createEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
 
 
   // 🟡 ------ Controls ------- 
@@ -42,7 +41,9 @@
   });
 
   // Higlight the cel of current day
-  dataCel.each(() => {
+  dataCel.each(function () {
+    console.log($(this).data("day"));
+    console.log(today);
     if ($(this).data("day") === today) {
       $(this).addClass("isToday");
       fillEventSidebar($(this));
