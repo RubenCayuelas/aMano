@@ -74,8 +74,8 @@ main.overlay:before {
 
 main {
   height: 100%;
-  background: #003567;
-  color: #ffffff;
+  /* background: #003567; */
+  /* color: #ffffff; */
   font-size: 13px;
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -144,7 +144,8 @@ main nav {
   height: 80px;
   width: 100%;
   z-index: 50;
-  background: #003567;
+  background: #5e4f2600;
+  backdrop-filter: blur(10px);
 }
 
 main nav>.wrapper {
@@ -254,7 +255,7 @@ main nav>.wrapper a {
   width: 30px;
   height: 30px;
   padding: 9px 12px;
-  background-color: #004b8f;
+  background-color: #5e4f26;
   cursor: pointer;
   z-index: 10;
   box-sizing: border-box;
@@ -286,7 +287,7 @@ main nav>.wrapper a {
 
 .c-month .prev:hover {
   padding: 9px 10px;
-  background-color: #0055a4;
+  background-color: #8a712e;
 }
 
 .c-month .next {
@@ -295,7 +296,7 @@ main nav>.wrapper a {
 
 .c-month .next:hover {
   padding: 9px 14px;
-  background-color: #0055a4;
+  background-color: #8a712e;
 }
 
 .c-paginator__year {
@@ -312,7 +313,7 @@ main nav>.wrapper a {
   padding: 0 10px;
   line-height: 30px;
   height: 30px;
-  background-color: #004b8f;
+  background-color: #5e4f26;
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 15px;
@@ -336,7 +337,7 @@ main nav>.wrapper a {
 }
 
 .o-btn:hover {
-  background-color: #0055a4;
+  background-color: #5e4f26;
 }
 
 .c-calendar {
@@ -350,7 +351,7 @@ main nav>.wrapper a {
 }
 
 .c-calendar__style {
-  background-color: #00407b;
+  background-color: #35332f;
   margin: 20px;
   padding: 10px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.18);
@@ -464,7 +465,7 @@ main nav>.wrapper a {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #004585;
+  background: #8a712e6b;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -480,35 +481,35 @@ main nav>.wrapper a {
 }
 
 .c-cal__cel:nth-child(7) p {
-  background: rgba(215, 16, 15, 0.2);
+  background: #8a712e;
 }
 
 .c-cal__cel:nth-child(6) p {
-  background: #003b71;
+  background: #8a712e;
 }
 
 .c-cal__cel:hover {
-  background-color: #004b8f !important;
+  background-color: #8a712e42 !important;
 }
 
 .c-cal__cel:hover p {
-  background: #003b71 !important;
+  background: #8a712e !important;
 }
 
 .c-cal__cel.isSelected {
-  background-color: #004b8f;
+  background-color: #7d6d45c9;
 }
 
 .c-cal__cel.isSelected p {
-  background: #003b71;
+  background: #a38636;
 }
 
 .c-cal__cel.isToday {
-  background-color: rgba(245, 113, 112, 0.2);
+  background-color: #8a712e42;
 }
 
 .c-cal__cel.isToday p {
-  background: rgba(245, 113, 112, 0.4);
+  background: #bf9b3c;
 }
 
 .c-cal__cel.other_month {
@@ -532,7 +533,7 @@ main nav>.wrapper a {
   -webkit-transform: translate(-50%, calc(50% + 20px/2));
 }
 
-.event--birthday:before {
+/* .event--birthday:before {
   background-color: #facc2e;
 }
 
@@ -542,7 +543,7 @@ main nav>.wrapper a {
 
 .event--important:before {
   background-color: #f57170;
-}
+} */
 
 .c-aside {
   padding: 20px;
