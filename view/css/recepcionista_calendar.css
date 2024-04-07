@@ -68,7 +68,6 @@ main.overlay:before {
   left: 0;
   right: 0;
   bottom: 0;
-  /* background-color: rgba(0, 0, 0, 0.4); */
   z-index: 100;
 }
   body[data-bs-theme="dark"] main.overlay:before {
@@ -147,7 +146,7 @@ main nav {
   height: 80px;
   width: 100%;
   z-index: 50;
-  /* background: #5e4f2600; */
+  background: #5e4f2614;
   backdrop-filter: blur(10px);
 }
   body[data-bs-theme="dark"] main nav {
@@ -267,7 +266,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
   width: 30px;
   height: 30px;
   padding: 9px 12px;
-  /* background-color: #5e4f26; */
+  background-color: #b29036;
   cursor: pointer;
   z-index: 10;
   box-sizing: border-box;
@@ -303,7 +302,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 
 .c-month .prev:hover {
   padding: 9px 10px;
-  /* background-color: #8a712e; */
+  background-color: #c49f3e;
 }
   body[data-bs-theme="dark"] .c-month .prev:hover {
     background-color: #8a712e;
@@ -335,7 +334,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
   padding: 0 10px;
   line-height: 30px;
   height: 30px;
-  /* background-color: #5e4f26; */
+  background-color: #b29036;
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 15px;
@@ -362,7 +361,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 }
 
 .o-btn:hover {
-  /* background-color: #5e4f26; */
+  background-color: #c49f3e;
 }
   body[data-bs-theme="dark"] .o-btn:hover {
     background-color: #5e4f26;
@@ -379,7 +378,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 }
 
 .c-calendar__style {
-  /* background-color: #35332f; */
+  background-color: #d4d4d4;
   margin: 20px;
   padding: 10px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.18);
@@ -496,7 +495,7 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #8a712e6b;
+  background: #b29c62;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -515,12 +514,12 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 }
 
 .c-cal__cel:nth-child(7) p {
-  /* background: #8a712e; */
+  background: #cda845;
 }
 
 
 .c-cal__cel:nth-child(6) p {
-  /* background: #8a712e; */
+  background: #cda845;
 }
 
 
@@ -530,12 +529,12 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 
 
 .c-cal__cel:hover p {
-  /* background: #8a712e !important; */
+  background: #987c32 !important;
 }
 
 
 .c-cal__cel.isSelected {
-  /* background-color: #7d6d45c9; */
+  background-color: #7d6d451f;
 }
 
 
@@ -545,12 +544,13 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
 
 
 .c-cal__cel.isToday {
-  /* background-color: #8a712e42; */
+  background-color: #8a712e4f;
 }
 
 
 .c-cal__cel.isToday p {
-  /* background: #bf9b3c; */
+  background: #856e30;
+  color: aliceblue;
 }
 
 
