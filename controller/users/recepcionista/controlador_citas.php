@@ -19,11 +19,20 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   }
 
   // Head
-  include('../../../view/users/recepcionista/recepcionista_head.php');
+  include('../../../view/users/recepcionista/citas/recepcionista_head.php');
   
   // Body recepcionista - citas
   include('../../../view/users/recepcionista/citas/recepcionista_body.php');
 
+  include('../../../view/users/recepcionista/citas/recepcionista_bodyScript.php');
+
+  include('../../../view/users/recepcionista/citas/recepcionista_body2.php');
+
+  include('../../../view/users/recepcionista/citas/recepcionista_bodyGlobalScript.php');
+
+  include('../../../view/users/recepcionista/citas/recepcionista_body3.php');
+
+  
   // https://alvarotrigo.com/blog/css-calendar/
   // 
   // Para el fotógrafo
