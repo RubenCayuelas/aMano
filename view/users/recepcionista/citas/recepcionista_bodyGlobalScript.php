@@ -35,7 +35,7 @@
 
   // 🟡 ------ Controls ------- 
 
-  //button of the current day
+  // Button of the current day
   todayBtn.on("click", function() {
     window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href;
   });
