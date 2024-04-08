@@ -141,7 +141,7 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
 .header nav a#desplegar-aside2 {
   display: none;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .header nav i#desplegar-aside {
     display: none;
   }

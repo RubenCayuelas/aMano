@@ -17,13 +17,13 @@
 
 
   // 🟡 ------ Set events ------- 
-  // function createEvents(dataDay, dataName, dataNotes, classTag) {
-  //   let date = $('*[data-day=' + dataDay + ']');
-  //   date.attr("data-name", dataName);
-  //   date.attr("data-notes", dataNotes);
-  //   date.addClass("event");
-  //   date.addClass("event--" + classTag);
-  // }
+  function createEvents(dataDay, dataName, dataNotes, classTag) {
+    let date = $('*[data-day=' + dataDay + ']');
+    date.attr("data-name", dataName);
+    date.attr("data-notes", dataNotes);
+    date.addClass("event");
+    date.addClass("event--" + classTag);
+  }
 
   // 🔴 Guardar eventos en el localstorage 
   // 🔴 Make sure you can have multiple events at the same day
@@ -36,7 +36,7 @@
   // 🟡 ------ Controls ------- 
 
   //button of the current day
-  todayBtn.on("click", () => {
+  todayBtn.on("click", function() {
     window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href;
   });
 
@@ -50,11 +50,11 @@
     }
   });
 
-  //window event creator
-  addBtn.on("click", () => {
+  // Window event creator
+  addBtn.on("click", function() {
     winCreator.addClass("isVisible");
     $("body").addClass("overlay");
-    dataCel.each(() => {
+    dataCel.each(function() {
       if ($(this).hasClass("isSelected")) {
         today = $(this).data("day");
         document.querySelector('input[type="date"]').value = today;
@@ -63,11 +63,11 @@
       }
     });
   });
-  closeBtn.on("click", () => {
+  closeBtn.on("click", function() {
     winCreator.removeClass("isVisible");
     $("body").removeClass("overlay");
   });
-  saveBtn.on("click", () => {
+  saveBtn.on("click", function() {
     var inputName = $("input[name=name]").val();
     var inputDate = $("input[name=date]").val();
     var inputNotes = $("textarea[name=notes]").val();
@@ -75,7 +75,7 @@
       .find(":selected")
       .text();
 
-    dataCel.each(() => {
+    dataCel.each(function() {
       if ($(this).data("day") === inputDate) {
         if (inputName != null) {
           $(this).attr("data-name", inputName);
@@ -146,7 +146,7 @@
         break;
     }
   };
-  dataCel.on("click", () => {
+  dataCel.on("click", function() {
     var thisEl = $(this);
     var thisDay = $(this)
       .attr("data-day")
@@ -202,7 +202,7 @@
   function buttonsPaginator(buttonId, mainClass, monthClass, next, prev) {
     switch (true) {
       case next:
-        $(buttonId).on("click", () => {
+        $(buttonId).on("click", function() {
           if (indexMonth >= 2) {
             $(mainClass).css({
               left: "+=100%"
@@ -224,7 +224,7 @@
         });
         break;
       case prev:
-        $(buttonId).on("click", () => {
+        $(buttonId).on("click", function() {
           if (indexMonth <= 11) {
             $(mainClass).css({
               left: "-=100%"
