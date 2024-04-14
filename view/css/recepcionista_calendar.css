@@ -143,12 +143,26 @@ a {
 /* STYLE ===========================================================*/
 main nav {
   position: fixed;
-  height: 80px;
+  /* height: 80px; */
   width: 100%;
   z-index: 50;
   background: #5e4f2614;
   backdrop-filter: blur(10px);
+  transition: 0.3s;
+  @media screen and (min-width: 1000px) {
+    width: calc(100% - 350px);
+  }
 }
+  aside.aside-show ~ main nav {
+    @media screen and (min-width: 900px) {
+      width: calc(100% - 250px);
+    }
+  }
+  aside.aside-hidden ~ main nav {
+    @media screen and (min-width: 900px) {
+      width: 100%;
+    }
+  }
   body[data-bs-theme="dark"] main nav {
     background: #5e4f2600;
   }
@@ -167,6 +181,11 @@ main nav>.wrapper {
   @media screen and (min-width: 768px) {
     padding: 0 20px;
   }
+  @media screen and (max-width: 470px) {
+    flex-direction: column;
+    align-items: start;
+    height: auto;
+  }
 }
   body[data-bs-theme="dark"] main nav>.wrapper {
     color: #ffffff;
@@ -179,6 +198,16 @@ main nav>.wrapper a {
 }
 body[data-bs-theme="dark"] main nav>.wrapper a {
   color: #ffffff;
+}
+
+main nav>.wrapper div.add_button {
+  @media screen and (max-width: 470px) {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    /* margin-right: 10%; */
+    padding-right: 2%;
+  }
 }
 
 .c-monthyear {
@@ -374,6 +403,9 @@ body[data-bs-theme="dark"] main nav>.wrapper a {
   flex-direction: column;
   @media screen and (min-width: 768px) {
     flex-direction: row;
+  }
+  @media screen and (max-width: 470px) {
+    padding-top: 120px;
   }
 }
 
