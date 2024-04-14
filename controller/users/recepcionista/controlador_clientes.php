@@ -35,6 +35,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   } else {
     include('../../../view/users/recepcionista/clientes/bodyParts/body_results.php');
   }
+
+  // JS
+  include('../../../view/users/recepcionista/clientes/js/recepcionista_js.html');
   
   // End
   include('../../../view/users/recepcionista/recepcionista_end.php');
