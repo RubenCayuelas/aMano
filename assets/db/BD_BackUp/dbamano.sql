@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql
--- Generation Time: Mar 26, 2024 at 04:36 PM
--- Server version: 5.7.44
--- PHP Version: 8.2.8
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-04-2024 a las 21:51:05
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbamano`
+-- Base de datos: `dbamano`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cita`
+-- Estructura de tabla para la tabla `cita`
 --
 
 CREATE TABLE `cita` (
@@ -32,15 +32,22 @@ CREATE TABLE `cita` (
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `estado` set('0','1') DEFAULT NULL,
-  `id_trabajo` int(11) NOT NULL,
+  `id_trabajo` int(11) DEFAULT NULL,
   `id_estudio` int(11) NOT NULL,
   `id_fotografo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cita`
+--
+
+INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_trabajo`, `id_estudio`, `id_fotografo`) VALUES
+(1, '2023-03-23', '10:00:00', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Estructura de tabla para la tabla `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -52,10 +59,10 @@ CREATE TABLE `cliente` (
   `tlf` int(9) NOT NULL,
   `tlf2` int(9) DEFAULT NULL,
   `activo` set('0','1') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `cliente`
+-- Volcado de datos para la tabla `cliente`
 --
 
 INSERT INTO `cliente` (`id`, `nombre`, `nick`, `pass`, `foto`, `tlf`, `tlf2`, `activo`) VALUES
@@ -84,17 +91,17 @@ INSERT INTO `cliente` (`id`, `nombre`, `nick`, `pass`, `foto`, `tlf`, `tlf2`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estudio`
+-- Estructura de tabla para la tabla `estudio`
 --
 
 CREATE TABLE `estudio` (
   `id` int(11) NOT NULL,
   `dirreccion` varchar(80) NOT NULL,
   `tlf` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `estudio`
+-- Volcado de datos para la tabla `estudio`
 --
 
 INSERT INTO `estudio` (`id`, `dirreccion`, `tlf`) VALUES
@@ -109,19 +116,19 @@ INSERT INTO `estudio` (`id`, `dirreccion`, `tlf`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `foto`
+-- Estructura de tabla para la tabla `foto`
 --
 
 CREATE TABLE `foto` (
   `id` int(11) NOT NULL,
   `foto` varchar(70) NOT NULL,
   `id_trabajo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fotografo`
+-- Estructura de tabla para la tabla `fotografo`
 --
 
 CREATE TABLE `fotografo` (
@@ -134,10 +141,10 @@ CREATE TABLE `fotografo` (
   `habilidades` varchar(100) NOT NULL,
   `id_estudio` int(11) NOT NULL,
   `activo` set('0','1') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `fotografo`
+-- Volcado de datos para la tabla `fotografo`
 --
 
 INSERT INTO `fotografo` (`id`, `nombre`, `nick`, `pass`, `foto`, `descripcion`, `habilidades`, `id_estudio`, `activo`) VALUES
@@ -153,7 +160,7 @@ INSERT INTO `fotografo` (`id`, `nombre`, `nick`, `pass`, `foto`, `descripcion`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `peticion`
+-- Estructura de tabla para la tabla `peticion`
 --
 
 CREATE TABLE `peticion` (
@@ -164,12 +171,12 @@ CREATE TABLE `peticion` (
   `estado` set('1','0') DEFAULT NULL,
   `id_cliente` int(11) NOT NULL,
   `id_cita` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recepcionista`
+-- Estructura de tabla para la tabla `recepcionista`
 --
 
 CREATE TABLE `recepcionista` (
@@ -180,10 +187,10 @@ CREATE TABLE `recepcionista` (
   `tlf` int(11) NOT NULL,
   `id_estudio` int(11) NOT NULL,
   `activo` set('0','1') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `recepcionista`
+-- Volcado de datos para la tabla `recepcionista`
 --
 
 INSERT INTO `recepcionista` (`id`, `nombre`, `nick`, `pass`, `tlf`, `id_estudio`, `activo`) VALUES
@@ -193,7 +200,7 @@ INSERT INTO `recepcionista` (`id`, `nombre`, `nick`, `pass`, `tlf`, `id_estudio`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `servicio`
+-- Estructura de tabla para la tabla `servicio`
 --
 
 CREATE TABLE `servicio` (
@@ -201,12 +208,19 @@ CREATE TABLE `servicio` (
   `nombre` varchar(80) NOT NULL,
   `descripcion` varchar(500) NOT NULL,
   `precio` double(7,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `servicio`
+--
+
+INSERT INTO `servicio` (`id`, `nombre`, `descripcion`, `precio`) VALUES
+(1, 'Sessión Estandart', 'Sesión de fotos básica (foto carnet, dni, etc...)', 10.00);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trabajo`
+-- Estructura de tabla para la tabla `trabajo`
 --
 
 CREATE TABLE `trabajo` (
@@ -217,14 +231,14 @@ CREATE TABLE `trabajo` (
   `id_servicio` int(11) NOT NULL,
   `id_fotografo` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `cita`
+-- Indices de la tabla `cita`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id`),
@@ -233,33 +247,33 @@ ALTER TABLE `cita`
   ADD KEY `cita_ibfk_3` (`id_trabajo`);
 
 --
--- Indexes for table `cliente`
+-- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `estudio`
+-- Indices de la tabla `estudio`
 --
 ALTER TABLE `estudio`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `foto`
+-- Indices de la tabla `foto`
 --
 ALTER TABLE `foto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `foto_ibfk_1` (`id_trabajo`);
 
 --
--- Indexes for table `fotografo`
+-- Indices de la tabla `fotografo`
 --
 ALTER TABLE `fotografo`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fotografo_ibfk_1` (`id_estudio`);
 
 --
--- Indexes for table `peticion`
+-- Indices de la tabla `peticion`
 --
 ALTER TABLE `peticion`
   ADD PRIMARY KEY (`id`),
@@ -267,20 +281,20 @@ ALTER TABLE `peticion`
   ADD KEY `peticion_ibfk_2` (`id_cliente`);
 
 --
--- Indexes for table `recepcionista`
+-- Indices de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
   ADD PRIMARY KEY (`id`),
   ADD KEY `recepcionista_ibfk_1` (`id_estudio`);
 
 --
--- Indexes for table `servicio`
+-- Indices de la tabla `servicio`
 --
 ALTER TABLE `servicio`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `trabajo`
+-- Indices de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
   ADD PRIMARY KEY (`id`),
@@ -289,69 +303,69 @@ ALTER TABLE `trabajo`
   ADD KEY `trabajo_ibfk_3` (`id_servicio`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `cita`
+-- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `cliente`
+-- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `estudio`
+-- AUTO_INCREMENT de la tabla `estudio`
 --
 ALTER TABLE `estudio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `foto`
+-- AUTO_INCREMENT de la tabla `foto`
 --
 ALTER TABLE `foto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fotografo`
+-- AUTO_INCREMENT de la tabla `fotografo`
 --
 ALTER TABLE `fotografo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `peticion`
+-- AUTO_INCREMENT de la tabla `peticion`
 --
 ALTER TABLE `peticion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `recepcionista`
+-- AUTO_INCREMENT de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `servicio`
+-- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `trabajo`
+-- AUTO_INCREMENT de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `cita`
+-- Filtros para la tabla `cita`
 --
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_fotografo`) REFERENCES `fotografo` (`id`),
@@ -359,32 +373,32 @@ ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajo` (`id`);
 
 --
--- Constraints for table `foto`
+-- Filtros para la tabla `foto`
 --
 ALTER TABLE `foto`
   ADD CONSTRAINT `foto_ibfk_1` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajo` (`id`);
 
 --
--- Constraints for table `fotografo`
+-- Filtros para la tabla `fotografo`
 --
 ALTER TABLE `fotografo`
   ADD CONSTRAINT `fotografo_ibfk_1` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`);
 
 --
--- Constraints for table `peticion`
+-- Filtros para la tabla `peticion`
 --
 ALTER TABLE `peticion`
   ADD CONSTRAINT `peticion_ibfk_1` FOREIGN KEY (`id_cita`) REFERENCES `cita` (`id`),
   ADD CONSTRAINT `peticion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
--- Constraints for table `recepcionista`
+-- Filtros para la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
   ADD CONSTRAINT `recepcionista_ibfk_1` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`);
 
 --
--- Constraints for table `trabajo`
+-- Filtros para la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
   ADD CONSTRAINT `trabajo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`),
