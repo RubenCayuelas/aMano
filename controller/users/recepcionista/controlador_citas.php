@@ -17,6 +17,8 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
     return $mes == 2 ? ($año % 4 ? 28 : ($año % 100 ? 29 : ($año % 400 ? 28 : 29))) : (($mes - 1) % 7 % 2 ? 30 : 31);
   }
 
+  include_once('../../../assets/db/db.php');
+
   // Sessions solicitudes
   include('../../../model/php/citas.php');
   $citas = new Citas();
