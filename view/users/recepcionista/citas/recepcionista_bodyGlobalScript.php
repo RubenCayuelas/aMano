@@ -16,7 +16,7 @@
   var today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
-  // 🟡 ------ Set events ------- 
+  // 🟡 ------ Set events -------
   function createEvents(dataDay, dataName, dataNotes, classTag) {
     let date = $('*[data-day=' + dataDay + ']');
     date.attr("data-name", dataName);
@@ -42,8 +42,6 @@
 
   // Higlight the cel of current day
   dataCel.each(function () {
-    console.log($(this).data("day"));
-    console.log(today);
     if ($(this).data("day") === today) {
       $(this).addClass("isToday");
       fillEventSidebar($(this));
