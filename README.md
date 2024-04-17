@@ -5,7 +5,7 @@ Datos para mí, a eliminar.
 ____________________________________________________________________________
 # Información:
 
- La copia de la base de datos se encuentra en assets/db/DB_BackUp/dbamano.sql
+ La copia de la base de datos se encuentra en `assets/db/DB_BackUp/dbamano.sql`
 ____________________________________________________________________________
 
 

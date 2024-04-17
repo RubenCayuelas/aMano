@@ -58,22 +58,22 @@
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalNewCliente">Añadir un nuevo Cliente</h1>
+                <h1 class="modal-title fs-5" id="modalNewCliente">Añadir una nueva cita</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form action="#" method="post" class="row g-3" enctype="multipart/form-data">
-                  <!-- Nombre -->
+                  <!-- fecha -->
                   <div class="col-12">
                     <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
                     <input type="text" name="nombre" id="nombre" required class="form-control">
                   </div>
-                  <!-- tlf -->
+                  <!-- cliente -->
                   <div class="col-md-6">
                     <label for="tlf" class="form_label">Tlf:<span class="text-danger">*</span> </label>
                     <input type="tlf" name="tlf" id="tlf" required class="form-control">
                   </div>
-                  <!-- tlf2 -->
+                  <!-- tipo de cita -->
                   <div class="col-md-6">
                     <label for="tlf2" class="form_label">Tlf2: </label>
                     <input type="tlf" name="tlf2" id="tlf2" required class="form-control">

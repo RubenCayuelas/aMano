@@ -425,14 +425,14 @@ main nav>.wrapper div.add_button {
 .c-cal__container {
   position: relative;
   height: 0;
-  padding-bottom: 75%;
+  padding-bottom: 85%;
   overflow: hidden;
   @media screen and (min-width: 768px) {
-    padding-bottom: 48%;
+    padding-bottom: 55%;
     width: calc(100% - 300px);
   }
   @media screen and (min-width: 900px) {
-    padding-bottom: 53%;
+    padding-bottom: 65%;
     width: calc(100% - 300px);
   }
 }
