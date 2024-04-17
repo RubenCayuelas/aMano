@@ -25,9 +25,8 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   $citas = new Citas();
   $clientes = new Clientes();
   $solicitudes = $citas->getSessionSolicitudes();
-  
-  foreach ($solicitudes as $solicitud) {
-    $datosClientes = $clientes->getCliente($solicitud['id_cliente']);
+  for ($i=0; $i < count($solicitudes) ; $i++) { 
+    $datosClientes[$i] = $clientes->getCliente($solicitudes[$i]['id_cliente']);
   }
 
   // Head

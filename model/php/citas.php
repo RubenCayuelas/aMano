@@ -25,6 +25,7 @@ class Citas
     return $datos;
   }
 
+
 // Obtain the session solicitudes for that year
 
 

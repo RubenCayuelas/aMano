@@ -304,6 +304,11 @@ header {
 .solicitudes {
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
 }
+.solicitudes .card {
+  @media screen and (min-width: 768px) {
+    width: calc(50% - 2rem);
+  }
+}
 
 
 /* Footer ------------------------------ */
