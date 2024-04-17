@@ -21,8 +21,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // Sessions solicitudes
   include('../../../model/php/citas.php');
+  include('../../../model/php/clientes.php');
   $citas = new Citas();
-
+  $clientes = new Clientes();
+  $solicitudes = $citas->getSessionSolicitudes();
+  
+  foreach ($solicitudes as $solicitud) {
+    $datosClientes = $clientes->getCliente($solicitud['id_cliente']);
+  }
 
   // Head
   include('../../../view/users/recepcionista/citas/recepcionista_head.php');

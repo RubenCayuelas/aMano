@@ -84,7 +84,32 @@ class Clientes
     return $this->clientes;
   }
 
-
+// Obtener datos de cliente
+  public function getCliente($id)
+  {
+    $consulta = $this->BD->prepare('
+                SELECT id, nombre, nick, foto, tlf, tlf2
+                FROM cliente 
+                WHERE id = ?
+                    AND activo = "1"
+    ');
+    $consulta->bind_param('i', $id);
+    $consulta->bind_result($id, $nombre, $nick, $foto, $tlf1, $tlf2);
+    $consulta->execute();
+    $i = 0;
+    $this->clientes = null;
+    while ($consulta->fetch()) {
+      $this->clientes[$i]['id'] = $id;
+      $this->clientes[$i]['nombre'] = $nombre;
+      $this->clientes[$i]['nick'] = $nick;
+      $this->clientes[$i]['foto'] = $foto;
+      $this->clientes[$i]['tlf'] = $tlf1;
+      $this->clientes[$i]['tlf2'] = $tlf2;
+      $i++;
+    }
+    $consulta->close();
+    return $this->clientes;
+  }
 
 
 

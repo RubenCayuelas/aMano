@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2024 a las 21:51:05
+-- Tiempo de generación: 17-04-2024 a las 20:33:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -32,6 +32,7 @@ CREATE TABLE `cita` (
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `estado` set('0','1') DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL,
   `id_trabajo` int(11) DEFAULT NULL,
   `id_estudio` int(11) NOT NULL,
   `id_fotografo` int(11) NOT NULL
@@ -41,8 +42,8 @@ CREATE TABLE `cita` (
 -- Volcado de datos para la tabla `cita`
 --
 
-INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_trabajo`, `id_estudio`, `id_fotografo`) VALUES
-(1, '2023-03-23', '10:00:00', NULL, NULL, 1, 1);
+INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`, `id_estudio`, `id_fotografo`) VALUES
+(2, '2023-03-23', '10:00:00', NULL, 3, NULL, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -244,7 +245,8 @@ ALTER TABLE `cita`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cita_ibfk_1` (`id_fotografo`),
   ADD KEY `cita_ibfk_2` (`id_estudio`),
-  ADD KEY `cita_ibfk_3` (`id_trabajo`);
+  ADD KEY `cita_ibfk_3` (`id_trabajo`),
+  ADD KEY `fk_cliente_id` (`id_cliente`);
 
 --
 -- Indices de la tabla `cliente`
@@ -310,7 +312,7 @@ ALTER TABLE `trabajo`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -370,7 +372,8 @@ ALTER TABLE `trabajo`
 ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_fotografo`) REFERENCES `fotografo` (`id`),
   ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`),
-  ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajo` (`id`);
+  ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajo` (`id`),
+  ADD CONSTRAINT `fk_cliente_id` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
 -- Filtros para la tabla `foto`

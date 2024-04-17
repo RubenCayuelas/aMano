@@ -12,30 +12,18 @@ class Citas
   }
 
 // Obtain the session solicitudes
-  // public function getSessionSolicitudes()
-  // {
-  //   $consulta = $this->BD->prepare('
-  //         SELECT id, fecha, hora, estado, id_estudio, id_fotógrafo
-  //         from cliente
-  //         WHERE nick = ?
-  //             AND pass = ?
-  //   ');
-  //   $consulta->bind_param('ss', $nick, $contraseña);
-  //   $consulta->execute();
-  //   $resultado = $consulta->get_result();
-  //   if ($resultado->num_rows > 0) {
-  //     $datosReseult = $resultado->fetch_assoc();
-  //     $datos['id'] = $datosReseult['id'];
-  //     $datos['nick'] = $datosReseult['nick'];
-  //     $datos['nombre'] = $datosReseult['nombre'];
-  //     $datos['foto'] = $datosReseult['foto'];
-  //     $datos['tipo'] = 'C';
-  //   } else {
-  //     $datos['id'] = -1;
-  //   }
-  //   return $datos;
-  //   $consulta->close();
-  // }
+  public function getSessionSolicitudes()
+  {
+    $consulta = $this->BD->prepare('
+        SELECT id, fecha, hora, id_cliente, id_estudio, id_fotografo
+        FROM cita
+        WHERE estado IS NULL
+    ');
+    $consulta->execute();
+    $datos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consulta->close();
+    return $datos;
+  }
 
 // Obtain the session solicitudes for that year
 
