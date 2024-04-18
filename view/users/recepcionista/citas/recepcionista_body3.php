@@ -65,7 +65,7 @@
         let nav = '';
 
         for (let i = 1; i <= totalPaginas; i++) {
-            nav += '<li class="page-item"><button class="page-link pagina" data-pagina="' + i + '">' + i + '</button></li>';
+          nav += '<li class="page-item"><button class="page-link pagina" data-pagina="' + i + '">' + i + '</button></li>';
         }
 
         document.getElementById('paginacion').innerHTML = nav;
@@ -82,21 +82,23 @@
 
     // Función para actualizar la clase 'active' en los botones de paginación
     function actualizarBotonesPaginacion() {
-        var botonesPagina = document.querySelectorAll('.pagina');
-        botonesPagina.forEach(function (boton) {
-            var numPagina = parseInt(boton.getAttribute('data-pagina'));
-            if (numPagina === paginaActual) {
-                boton.classList.add('active');
-            } else {
-                boton.classList.remove('active');
-            }
-        });
+      var botonesPagina = document.querySelectorAll('.pagina');
+      botonesPagina.forEach(function (boton) {
+        var numPagina = parseInt(boton.getAttribute('data-pagina'));
+        if (numPagina === paginaActual) {
+          boton.classList.add('active');
+        } else {
+          boton.classList.remove('active');
+        }
+      });
     }
 
     // Mostrar las solicitudes y generar los botones de paginación al cargar la página
     mostrarSolicitudes();
-    generarBotonesPaginacion();
-    actualizarBotonesPaginacion();
+    if (solicitudes.length > solicitudesPorPagina) {
+      generarBotonesPaginacion();
+      actualizarBotonesPaginacion();
+    }
   </script>
 
   <div class="mb-5"></div>
