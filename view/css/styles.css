@@ -141,7 +141,7 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
 .header nav a#desplegar-aside2 {
   display: none;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .header nav i#desplegar-aside {
     display: none;
   }
@@ -272,6 +272,34 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
   }
 }
 
+/* Paginación */
+
+.active>.page-link, .page-link.active {
+  background-color: #5e4f26;
+  border-color: #5e4f26;
+}
+.page-link{
+  color: white;
+
+}
+body[data-bs-theme="light"] .page-link,
+body[data-bs-theme="light"] .page-link.active {
+  color: white;
+  background-color: #b29036;
+  border-color: #b29036;
+}
+body[data-bs-theme="light"] .page-link{
+  color: #212529;
+  background-color: #dcdcdc;
+}
+.page-link:focus {
+  box-shadow: 0 0 0 0.25rem #5e4f266b;;
+}
+.page-link:hover {
+  color: #c2b48f;
+}
+
+
 /* ------------------------------------- */
 
 header {
@@ -300,6 +328,15 @@ header {
 
 
 /* Calendario Recepcionista - Clientes */
+
+.solicitudes {
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
+}
+.solicitudes .card {
+  @media screen and (min-width: 768px) {
+    width: calc(50% - 2rem);
+  }
+}
 
 
 /* Footer ------------------------------ */

@@ -22,7 +22,7 @@ let width = document.documentElement.clientWidth;
 
 window.addEventListener('resize', () => {
   width = document.documentElement.clientWidth;
-  if (width <= 768) {
+  if (width <= 900) {
   // Si la resolución es demasiado pequeña oculta por completo el menu.
     if (Aside.classList.contains('aside-hidden')) {
       Aside.classList.remove('aside-hidden');
