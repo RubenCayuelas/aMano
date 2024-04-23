@@ -4,22 +4,11 @@
   <hr>
   <div class="row gap-3 justify-content-center" id="solicitudesContainer">
     <?php
-      // for ($i=0; $i < count($solicitudes); $i++) { 
-      //   echo '<div class="card col-12 ps-0 pe-0 mt-0">
-      //           <div class="card-header">
-      //             '.$datosClientes[$i][0]['nombre'].'
-      //           </div>
-      //           <div class="card-body">
-      //             <blockquote class="blockquote mb-0">
-      //               <p>A well-known quote, contained in a blockquote element.</p>
-      //               <div class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></div>
-      //             </blockquote>
-      //             <div class="w-100 d-flex justify-content-end">
-      //               <button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3">Aceptar</button>
-      //             </div>
-      //           </div>
-      //         </div>';
-      // }
+      if (count($solicitudes) == 0) {
+        echo '<div class="no_results" style="height: 20vh;">
+                <p class="text-center">No hay solicitudes</p>
+              </div>';
+      }
     ?>
   </div>
   <div class="col-12 mt-4 d-flex justify-content-center">
