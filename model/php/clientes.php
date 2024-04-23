@@ -45,7 +45,6 @@ class Clientes
             SELECT id, nombre, nick, foto, tlf, tlf2
             FROM cliente
             WHERE activo = "1"
-              LIMIT 20
     ');
     $this->clientes = null;
     $this->clientes = $consulta->fetch_all(MYSQLI_ASSOC);

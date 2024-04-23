@@ -254,6 +254,9 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
       font-size: 2rem;
       color: #3737376c;
   }
+  body[data-bs-theme="dark"] .no_results>p {
+    color: #fffafa8f;
+}
 .justify-content-around {
   justify-content: space-around!important;
 }
