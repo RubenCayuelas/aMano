@@ -1,18 +1,18 @@
 <?php
-  // Definir la cantidad de registros por página
-  $registrosPorPagina = 20;
+  // Clients per page
+  $clientsPerPage = 20;
 
-  // Calcular el número total de páginas
-  $totalPaginas = ceil(count($listaClientes) / $registrosPorPagina);
+  // Total of pages
+  $totalPages = ceil(count($clientsList) / $clientsPerPage);
 
-  // Obtener el número de página actual
-  $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+  // Actual page number
+  $actualPage = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-  // Calcular el índice inicial del primer registro en la página actual
-  $indiceInicial = ($paginaActual - 1) * $registrosPorPagina;
+  // Calculate the initial index of the first record on the current page
+  $initialIndex = ($actualPage - 1) * $clientsPerPage;
 
-  // Obtener una porción de la lista de clientes según la página actual
-  $clientesPagina = array_slice($listaClientes, $indiceInicial, $registrosPorPagina);
+  // List of the clients in the current page
+  $clientsInPage = array_slice($clientsList, $initialIndex, $clientsPerPage);
 
   echo '
       <div class="table-responsive">
@@ -27,7 +27,7 @@
           </thead>
         <tbody>
                 ';
-    foreach ($clientesPagina  as $cliente) {
+    foreach ($clientsInPage  as $cliente) {
       echo '
                 <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '">
                     <th scope="row">' . $cliente['id'] . '</th>
@@ -151,8 +151,8 @@
   echo '<nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">';
     // Show the numbers of pages
-    for ($i = 1; $i <= $totalPaginas; $i++) {
-      echo '<li class="page-item mt-4 mb-3 ' . ($i == $paginaActual ? 'active' : '') . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+    for ($i = 1; $i <= $totalPages; $i++) {
+      echo '<li class="page-item mt-4 mb-3 ' . ($i == $actualPage ? 'active' : '') . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
     }
   echo '</ul>
       </nav>';
