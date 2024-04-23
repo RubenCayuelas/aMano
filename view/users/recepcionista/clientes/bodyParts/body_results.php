@@ -1,5 +1,5 @@
 <?php
-  // Clients per page Mondongo
+  // Clients per page
   $clientsPerPage = 20;
 
   // Total of pages
