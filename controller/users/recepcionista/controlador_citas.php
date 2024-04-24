@@ -34,13 +34,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   
   // Body recepcionista - citas
   include('../../../view/users/recepcionista/citas/recepcionista_body.php');
-
   // include('../../../view/users/recepcionista/citas/recepcionista_bodyScript.php');
-
   // include('../../../view/users/recepcionista/citas/recepcionista_body2.php');
-
   // include('../../../view/users/recepcionista/citas/recepcionista_bodyGlobalScript.php');
-
   include('../../../view/users/recepcionista/citas/recepcionista_body_solicitudes.php');
 
   
