@@ -151,8 +151,10 @@
   echo '<nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">';
     // Show the numbers of pages
-    for ($i = 1; $i <= $totalPages; $i++) {
-      echo '<li class="page-item mt-4 mb-3 ' . ($i == $actualPage ? 'active' : '') . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+    if ($totalPages != 1) {
+        for ($i = 1; $i <= $totalPages; $i++) {
+            echo '<li class="page-item mt-4 mb-3 ' . ($i == $actualPage ? 'active' : '') . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+        }
     }
   echo '</ul>
       </nav>';
