@@ -6,7 +6,7 @@
     <?php
       if (count($solicitudes) == 0) {
         echo '<div class="no_results" style="height: 20vh;">
-                <p class="text-center">No hay solicitudes</p>
+                <p class="text-center">No hay solicitudes pendientes</p>
               </div>';
       }
     ?>
@@ -83,7 +83,9 @@
     }
 
     // Mostrar las solicitudes y generar los botones de paginación al cargar la página
-    mostrarSolicitudes();
+    if (count($solicitudes) != 0) {
+      mostrarSolicitudes();
+    }
     if (solicitudes.length > solicitudesPorPagina) {
       generarBotonesPaginacion();
       actualizarBotonesPaginacion();
