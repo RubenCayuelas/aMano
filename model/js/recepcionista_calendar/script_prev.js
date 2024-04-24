@@ -56,17 +56,17 @@ function fill_table(month, month_length, indexMonth) {
   document.write("</div>");
 }
 
-let monthText = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre"
-];
+// let monthText = [
+//   "Enero",
+//   "Febrero",
+//   "Marzo",
+//   "Abril",
+//   "Mayo",
+//   "Junio",
+//   "Julio",
+//   "Agosto",
+//   "Septiembre",
+//   "Octubre",
+//   "Noviembre",
+//   "Diciembre"
+// ];

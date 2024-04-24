@@ -11,7 +11,73 @@
     
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">// Add jQuery</script>
 
-    <script src="../../../model/js/recepcionista_calendar/script_prev.js">// Script prev</script>
+    <!-- <script src="../../../model/js/recepcionista_calendar/script_prev.js">// Script prev</script> -->
+    <script>
+      // Fill the table with column headings
+      function day_title(day_name) {
+        document.write("<div class='c-cal__col'>" + day_name + "</div>");
+      }
+      // Fills the month table with the numbers of the days
+      function fill_table(month, month_length, indexMonth) {
+        day = 1;
+        // Begin the new month table
+        document.write("<div class='c-main c-main-" + indexMonth + "'>");
+
+        // Column headings
+        document.write("<div class='c-cal__row'>");
+        day_title("Lun");
+        day_title("Mar");
+        day_title("Mie");
+        day_title("Jue");
+        day_title("Vie");
+        day_title("Sab");
+        day_title("Dom");
+        document.write("</div>");
+
+        // Pad cells before first day of month
+        document.write("<div class='c-cal__row'>");
+        for (let i = 1; i < start_day; i++) {
+          // 🔴 For some reason some Mondays return the value 8 and the range is 1..7 xd?
+          if (i <= start_day && start_day != 8) {
+            document.write("<div class='c-cal__cel'></div>");
+          }
+        }
+
+        // Fill the first week of days
+        for (let i = start_day; i <= 7; i++) {
+          document.write(
+            "<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>"
+          );
+          day++;
+        }
+        document.write("</div>");
+
+        // Fill the remaining weeks
+        while (day <= month_length) {
+          document.write("<div class='c-cal__row'>");
+          for (var i = 1; i <= 7 && day <= month_length; i++) {
+            if (day >= 1 && day <= 9) {
+              document.write("<div data-day='" + year + "-" + indexMonth + "-0" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
+            } else {
+              document.write("<div data-day='" + year + "-" + indexMonth + "-" + day + "'class='c-cal__cel'><p>" + day + "</p></div>");
+            }
+            day++;
+          }
+          // The first day of the next month
+          start_day = i;
+          document.write("</div>");
+        }
+
+        document.write("</div>");
+      }
+      
+      // Month names array
+      let monthText = [];
+      for (let i = 0; i < 12; i++) {
+        let monthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date(2022, i, 1));
+        monthText.push(monthName.charAt(0).toUpperCase() + monthName.slice(1));
+      }
+    </script>
 
     <nav>
       <div class="wrapper">
@@ -20,24 +86,11 @@
             <div class="c-month">
               <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
               <div id="c-paginator">
-                <span class="c-paginator__month">Enero</span>
-                <span class="c-paginator__month">Febrero</span>
-                <span class="c-paginator__month">Marzo</span>
-                <span class="c-paginator__month">Abril</span>
-                <span class="c-paginator__month">Mayo</span>
-                <span class="c-paginator__month">Junio</span>
-                <span class="c-paginator__month">Julio</span>
-                <span class="c-paginator__month">Agosto</span>
-                <span class="c-paginator__month">Septiembre</span>
-                <span class="c-paginator__month">Octubre</span>
-                <span class="c-paginator__month">Noviembre</span>
-                <span class="c-paginator__month">Diciembre</span>
-                <!-- <script>
-                  // 🔴 Why this keep puting the last position of the array the first of the month ???!!!!
-                  monthText.forEach( month => {
-                    document.write("<span class='c-paginator__month'>"+month+"</span>");
-                  });
-                </script> -->
+                <?php
+                  for ($i = 0; $i < 12; $i++) {
+                    echo '<span class="c-paginator__month">' . strftime('%B', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
+                  }
+                ?>
               </div>
               <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
             </div>
@@ -106,10 +159,10 @@
             $('.c-paginator__year').text(year);
 
             // First day of the week of the new year
-            var today = new Date("Enero 1, " + year);
+            let today = new Date("Enero 1, " + year);
 
             // First day of the week for the first month of the year
-            var start_day = <?php echo $firstWeekDay; ?>;
+            let start_day = <?php echo $firstWeekDay; ?>;
 
             <?php
               // Generate the JS script
@@ -143,21 +196,21 @@
       </div>
     </div>
     <script>
-      // 🟡 Global variables 
-      var monthEl = $(".c-main");
-      var dataCel = $(".c-cal__cel");
-      var dateObj = new Date();
-      var month = "<?php echo $month ?>";
-      var day = "<?php echo $day ?>";
-      var year = <?php echo $año ?>;
-      var indexMonth = <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month; ?>;
-      var todayBtn = $(".c-today__btn");
-      var addBtn = $(".js-event__add");
-      var saveBtn = $(".js-event__save");
-      var closeBtn = $(".js-event__close");
-      var winCreator = $(".js-event__creator");
-      var inputDate = $(this).data();
-      var today = <?php echo date('Y') ?> + "-" + month + "-" + day;
+      // Global variables 
+      const monthEl = $(".c-main");
+      const dataCel = $(".c-cal__cel");
+      const todayBtn = $(".c-today__btn");
+      const addBtn = $(".js-event__add");
+      const saveBtn = $(".js-event__save");
+      const closeBtn = $(".js-event__close");
+      const winCreator = $(".js-event__creator");
+      let dateObj = new Date();
+      let month = "<?php echo $month ?>";
+      let day = "<?php echo $day ?>";
+      let year = <?php echo $año ?>;
+      let indexMonth = <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month; ?>;
+      let inputDate = $(this).data();
+      today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
       // 🟡 ------ Set events -------
@@ -210,10 +263,10 @@
         $("body").removeClass("overlay");
       });
       saveBtn.on("click", function() {
-        var inputName = $("input[name=name]").val();
-        var inputDate = $("input[name=date]").val();
-        var inputNotes = $("textarea[name=notes]").val();
-        var inputTag = $("select[name=tags]")
+        let inputName = $("input[name=name]").val();
+        let inputDate = $("input[name=date]").val();
+        let inputNotes = $("textarea[name=notes]").val();
+        let inputTag = $("select[name=tags]")
           .find(":selected")
           .text();
 
@@ -289,11 +342,11 @@
         }
       };
       dataCel.on("click", function() {
-        var thisEl = $(this);
-        var thisDay = $(this)
+        let thisEl = $(this);
+        let thisDay = $(this)
           .attr("data-day")
           .slice(8);
-        var thisMonth = $(this)
+        let thisMonth = $(this)
           .attr("data-day")
           .slice(5, 7);
 
@@ -309,7 +362,7 @@
 
       // 🔴 Function for move the months
       function moveNext(fakeClick, indexNext) {
-        for (var i = 0; i < fakeClick; i++) {
+        for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
             left: "-=100%"
           });
@@ -325,7 +378,7 @@
       }
 
       function movePrev(fakeClick, indexPrev) {
-        for (var i = 0; i < fakeClick; i++) {
+        for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
             left: "+=100%"
           });
