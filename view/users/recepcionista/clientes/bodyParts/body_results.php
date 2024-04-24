@@ -3,7 +3,7 @@
   $clientsPerPage = 20;
 
   // Total of pages
-  $totalPages = ceil(count($clientsList) / $clientsPerPage);
+  $totalPages = ceil(count($listaClientes) / $clientsPerPage);
 
   // Actual page number
   $actualPage = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -12,7 +12,7 @@
   $initialIndex = ($actualPage - 1) * $clientsPerPage;
 
   // List of the clients in the current page
-  $clientsInPage = array_slice($clientsList, $initialIndex, $clientsPerPage);
+  $clientsInPage = array_slice($listaClientes, $initialIndex, $clientsPerPage);
 
   echo '
       <div class="table-responsive">
@@ -27,7 +27,7 @@
           </thead>
         <tbody>
                 ';
-    foreach ($clientsInPage  as $cliente) {
+    foreach ($clientsInPage as $cliente) {
       echo '
                 <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '">
                     <th scope="row">' . $cliente['id'] . '</th>
