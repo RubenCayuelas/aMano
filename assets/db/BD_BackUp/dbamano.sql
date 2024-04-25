@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2024 a las 20:33:23
+-- Tiempo de generación: 25-04-2024 a las 22:11:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,18 @@ CREATE TABLE `cita` (
 --
 
 INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`, `id_estudio`, `id_fotografo`) VALUES
-(2, '2023-03-23', '10:00:00', NULL, 3, NULL, 6, 1);
+(2, '2023-03-23', '10:00:00', NULL, 3, NULL, 6, 1),
+(3, '2024-04-23', '10:00:00', '', 1, NULL, 1, 9),
+(4, '2024-04-22', '11:30:00', NULL, 2, NULL, 2, 10),
+(5, '2024-04-25', '15:45:00', NULL, 3, NULL, 3, 11),
+(6, '2024-05-05', '09:00:00', NULL, 4, NULL, 4, 12),
+(7, '2024-05-10', '13:20:00', NULL, 5, NULL, 5, 13),
+(8, '2024-05-15', '14:00:00', NULL, 6, NULL, 6, 14),
+(9, '2024-05-20', '16:30:00', NULL, 7, NULL, 1, 15),
+(10, '2024-05-25', '08:45:00', NULL, 8, NULL, 2, 9),
+(11, '2024-05-28', '12:15:00', NULL, 9, NULL, 3, 10),
+(12, '2024-05-30', '17:00:00', NULL, 10, NULL, 4, 11),
+(13, '2024-05-30', '17:00:00', NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -312,7 +323,7 @@ ALTER TABLE `trabajo`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
