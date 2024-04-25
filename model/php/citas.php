@@ -29,6 +29,31 @@ class Citas
     return $datos;
   }
 
+// Calcel past session solicitudes
+  public function closePastsSessions($solicitudes)
+  {
+    $sessions = [];
+
+    foreach ($solicitudes as $solicitud) {
+      if ($solicitud['fecha'] < date('Y-m-d')) {
+        $this->sessionStatusUpdate($solicitud['id'], 0);
+      } else {
+        $sessions[] = $solicitud;
+      }
+    }
+
+    return $sessions;
+  }
+
+// Update the status of the session
+  public function sessionStatusUpdate($idCita, $nuevoEstado)
+  {
+    $consulta = $this->BD->prepare('UPDATE cita SET estado = ? WHERE id = ?');
+    $consulta->bind_param('ii', $nuevoEstado, $idCita);
+    $consulta->execute();
+    $consulta->close();
+  }
+
 
 // Obtain the session solicitudes for that year
 

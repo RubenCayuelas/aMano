@@ -4,15 +4,19 @@
 
   // Total of pages
   $totalPages = ceil(count($listaClientes) / $clientsPerPage);
+ 
+  if ($totalPages != 1) {
+    // Actual page number
+    $actualPage = isset($_GET['pag']) ? $_GET['pag'] : 1;
 
-  // Actual page number
-  $actualPage = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-
-  // Calculate the initial index of the first record on the current page
-  $initialIndex = ($actualPage - 1) * $clientsPerPage;
-
-  // List of the clients in the current page
-  $clientsInPage = array_slice($listaClientes, $initialIndex, $clientsPerPage);
+    // Calculate the initial index of the first record on the current page
+    $initialIndex = ($actualPage - 1) * $clientsPerPage;
+    
+    // List of the clients in the current page
+    $clientsInPage = array_slice($listaClientes, $initialIndex, $clientsPerPage);
+  } else {
+    $clientsInPage = $listaClientes;
+  }
 
   echo '
       <div class="table-responsive">
@@ -153,7 +157,7 @@
     // Show the numbers of pages
     if ($totalPages != 1) {
         for ($i = 1; $i <= $totalPages; $i++) {
-            echo '<li class="page-item mt-4 mb-3 ' . ($i == $actualPage ? 'active' : '') . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+            echo '<li class="page-item mt-4 mb-3 ' . ($i == $actualPage ? 'active' : '') . '"><a class="page-link" href="?pag=' . $i . '">' . $i . '</a></li>';
         }
     }
   echo '</ul>

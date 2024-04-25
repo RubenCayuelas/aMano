@@ -38,50 +38,75 @@ class Fotografos
   }
   
 // Listar Fotógrafos
-public function listarFotografos()
-{
-  $consulta = $this->BD->query('
-          SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
-          FROM fotografo
-          WHERE activo = "1"
-  ');
-  $this->fotografos = null;
-  $this->fotografos = $consulta->fetch_all(MYSQLI_ASSOC);
-  return $this->fotografos;
-}
+  public function listarFotografos()
+  {
+    $consulta = $this->BD->query('
+            SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
+            FROM fotografo
+            WHERE activo = "1"
+    ');
+    $this->fotografos = null;
+    $this->fotografos = $consulta->fetch_all(MYSQLI_ASSOC);
+    return $this->fotografos;
+  }
 
 // Buscar fotografo
-public function buscarFotografos($search)
-{
-  $busqueda = $search . '%';
-  $consulta = $this->BD->prepare('
-              SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
-              FROM fotografo 
-              WHERE (nombre like ? 
-                OR nick like ?)
-                  AND activo = "1"
-                  AND id != 0
-  ');
-  $consulta->bind_param('ss', $busqueda, $busqueda);
-  $consulta->bind_result($id, $nombre, $nick, $foto, $descripcion, $habilidades, $id_estudio);
-  $consulta->execute();
-  $i = 0;
-  $this->fotografos = null;
-  while ($consulta->fetch()) {
-    $this->fotografos[$i]['id'] = $id;
-    $this->fotografos[$i]['nombre'] = $nombre;
-    $this->fotografos[$i]['nick'] = $nick;
-    $this->fotografos[$i]['foto'] = $foto;
-    $this->fotografos[$i]['descripcion'] = $descripcion;
-    $this->fotografos[$i]['habilidades'] = $habilidades;
-    $this->fotografos[$i]['id_estudio'] = $id_estudio;
-    $i++;
+  public function buscarFotografos($search)
+  {
+    $busqueda = $search . '%';
+    $consulta = $this->BD->prepare('
+                SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
+                FROM fotografo 
+                WHERE (nombre like ? 
+                  OR nick like ?)
+                    AND activo = "1"
+                    AND id != 0
+    ');
+    $consulta->bind_param('ss', $busqueda, $busqueda);
+    $consulta->bind_result($id, $nombre, $nick, $foto, $descripcion, $habilidades, $id_estudio);
+    $consulta->execute();
+    $i = 0;
+    $this->fotografos = null;
+    while ($consulta->fetch()) {
+      $this->fotografos[$i]['id'] = $id;
+      $this->fotografos[$i]['nombre'] = $nombre;
+      $this->fotografos[$i]['nick'] = $nick;
+      $this->fotografos[$i]['foto'] = $foto;
+      $this->fotografos[$i]['descripcion'] = $descripcion;
+      $this->fotografos[$i]['habilidades'] = $habilidades;
+      $this->fotografos[$i]['id_estudio'] = $id_estudio;
+      $i++;
+    }
+    $consulta->close();
+    return $this->fotografos;
   }
-  $consulta->close();
-  return $this->fotografos;
-}
 
-
+// Obtener datos de fotografo
+  public function getFotografo($id)
+  {
+    $consulta = $this->BD->prepare('
+        SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
+          FROM fotografo 
+          WHERE id = ?
+    ');
+    $consulta->bind_param('i', $id);
+    $consulta->bind_result($id, $nombre, $nick, $foto, $descripcion, $habilidades, $id_estudio);
+    $consulta->execute();
+    $i = 0;
+    $this->fotografos = null;
+    while ($consulta->fetch()) {
+      $this->fotografos[$i]['id'] = $id;
+      $this->fotografos[$i]['nombre'] = $nombre;
+      $this->fotografos[$i]['nick'] = $nick;
+      $this->fotografos[$i]['foto'] = $foto;
+      $this->fotografos[$i]['descripcion'] = $descripcion;
+      $this->fotografos[$i]['habilidades'] = $habilidades;
+      $this->fotografos[$i]['id_estudio'] = $id_estudio;
+      $i++;
+    }
+    $consulta->close();
+    return $this->fotografos;
+  }
 
 
 

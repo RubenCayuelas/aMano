@@ -8,47 +8,52 @@ $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['id'] > 0) {
 
+  setlocale(LC_ALL, 'spanish');
+
+  function days_in_month($mes, $año) {
+    return $mes == 2 ? ($año % 4 ? 28 : ($año % 100 ? 29 : ($año % 400 ? 28 : 29))) : (($mes - 1) % 7 % 2 ? 30 : 31);
+  }
+
   // Declaración de variables
   $day = date('d');
   $month = date('m');
   $año = isset($_GET['year']) ? $_GET['year'] : date('Y');
   $firstWeekDay = date('N', strtotime($año."-01-01"));
-  function days_in_month($mes, $año) {
-    return $mes == 2 ? ($año % 4 ? 28 : ($año % 100 ? 29 : ($año % 400 ? 28 : 29))) : (($mes - 1) % 7 % 2 ? 30 : 31);
-  }
 
   include_once('../../../assets/db/db.php');
 
   // Sessions solicitudes
   include('../../../model/php/citas.php');
   include('../../../model/php/clientes.php');
+  include('../../../model/php/estudios.php');
+  include('../../../model/php/fotografos.php');
   $citas = new Citas();
   $clientes = new Clientes();
+  $estudios = new Estudios();
+  $fotografos = new Fotografos();
   $solicitudes = $citas->getSessionSolicitudes();
+
+  // Cancel past sessions
+  $solicitudes = $citas->closePastsSessions($solicitudes);
+
+  // Get the data of the session solicitude
   for ($i=0; $i < count($solicitudes) ; $i++) { 
     $datosClientes[$i] = $clientes->getCliente($solicitudes[$i]['id_cliente']);
   }
+  // Get the data of the session solicitude for Fotografo
+  for ($i=0; $i < count($solicitudes); $i++) {
+    $datosFotografos[$i] = $fotografos->getFotografo($solicitudes[$i]['id_fotografo']);
+  }
+  // Get the data of the session solicitude for Estudio
+  // $datosEstudios = $estudios->getEstudio($solicitudes[0]['id_estudio']);
 
   // Head
   include('../../../view/users/recepcionista/citas/recepcionista_head.php');
   
   // Body recepcionista - citas
   include('../../../view/users/recepcionista/citas/recepcionista_body.php');
-
-  // include('../../../view/users/recepcionista/citas/recepcionista_bodyScript.php');
-
-  // include('../../../view/users/recepcionista/citas/recepcionista_body2.php');
-
-  // include('../../../view/users/recepcionista/citas/recepcionista_bodyGlobalScript.php');
-
   include('../../../view/users/recepcionista/citas/recepcionista_body_solicitudes.php');
 
-  
-  // https://alvarotrigo.com/blog/css-calendar/
-  // 
-  // Para el fotógrafo
-  // https://codepen.io/alvarotrigo/pen/KKQzvdr?editors=1100
-  
   // End
   include('../../../view/users/recepcionista/recepcionista_end.php');
 

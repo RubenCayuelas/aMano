@@ -19,22 +19,41 @@
     // Variables para almacenar los datos y el número de página actual
     let solicitudes = <?php echo json_encode($solicitudes); ?>;
     let datosClientes = <?php echo json_encode($datosClientes); ?>;
+    // let datosEstudios = <?php // echo json_encode($datosEstudios); ?>;
+    let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
-    // Función para mostrar las solicitudes en la página actual
-    function mostrarSolicitudes() {
+    console.log(solicitudes);
+    console.log(datosClientes);
+    // console.log(datosEstudios);
+    console.log(datosFotografos);
+
+      // Función para mostrar las solicitudes en la página actual
+      function mostrarSolicitudes() {
         let inicio = (paginaActual - 1) * solicitudesPorPagina;
         let fin = inicio + solicitudesPorPagina;
         let html = '';
+        function espDate (fecha) {
+          // Dividir la fecha en año, mes y día
+          let partes = fecha.split("-");
+          // Crear una nueva fecha con el formato dd/mm/yyyy
+          let nuevaFecha = partes[2] + "/" + partes[1] + "/" + partes[0];
+          // Devolver la nueva fecha
+          return nuevaFecha;
+        }
 
         for (let i = inicio; i < fin && i < solicitudes.length; i++) {
             html += '<div class="card col-12 ps-0 pe-0 mt-0">' +
                       '<div class="card-header">' + datosClientes[i][0]['nombre'] + '</div>' +
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
-                          '<p>' + solicitudes[i] + '</p>' +
-                          '<div class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></div>' +
+                          '<p>' +  +'</p>' +
+
+                          '<p>' + espDate(solicitudes[i].fecha) + ' - ' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + 'h </p>' +
+                          
+                          // '<p>' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + '</p>' +
+                          // '<div class="blockquote-footer d-flex justify-content-end me-5 pe-5"><cite title="hour">'+ solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] +'</cite></div>' +
                         '</blockquote>' +
                         '<div class="w-100 d-flex justify-content-end">' +
                           '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3">Aceptar</button>' +
@@ -83,7 +102,7 @@
     }
 
     // Mostrar las solicitudes y generar los botones de paginación al cargar la página
-    if (count($solicitudes) != 0) {
+    if (solicitudes.length != 0) {
       mostrarSolicitudes();
     }
     if (solicitudes.length > solicitudesPorPagina) {
@@ -92,7 +111,6 @@
     }
   </script>
 
-  <div class="mb-5"></div>
 </section>
 </main>
 </body>
