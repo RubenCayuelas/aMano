@@ -15,7 +15,7 @@ class Citas
   public function getSessionSolicitudes()
   {
     $consulta = $this->BD->prepare('
-        SELECT id, fecha, hora, id_cliente, id_estudio, id_fotografo
+        SELECT id, fecha, hora, id_cliente, id_fotografo, id_servicio
         FROM cita
         WHERE estado IS NULL
           AND id_estudio = (SELECT id_estudio 

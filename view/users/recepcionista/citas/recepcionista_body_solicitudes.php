@@ -19,14 +19,14 @@
     // Variables para almacenar los datos y el número de página actual
     let solicitudes = <?php echo json_encode($solicitudes); ?>;
     let datosClientes = <?php echo json_encode($datosClientes); ?>;
-    // let datosEstudios = <?php // echo json_encode($datosEstudios); ?>;
+    let datosServicios = <?php echo json_encode($datosServicios); ?>;
     let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
     console.log(solicitudes);
     console.log(datosClientes);
-    // console.log(datosEstudios);
+    console.log(datosServicios);
     console.log(datosFotografos);
 
       // Función para mostrar las solicitudes en la página actual
@@ -45,7 +45,7 @@
 
         for (let i = inicio; i < fin && i < solicitudes.length; i++) {
             html += '<div class="card col-12 ps-0 pe-0 mt-0">' +
-                      '<div class="card-header">' + datosClientes[i][0]['nombre'] + '</div>' +
+                      '<div class="card-header">' + datosClientes[i][0]['nombre'] +' - '+ datosServicios[i][0].nombre + '</div>' +
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
                           '<p>' +  +'</p>' +

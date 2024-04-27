@@ -25,12 +25,12 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   // Sessions solicitudes
   include('../../../model/php/citas.php');
   include('../../../model/php/clientes.php');
-  include('../../../model/php/estudios.php');
   include('../../../model/php/fotografos.php');
+  include('../../../model/php/servicios.php');
   $citas = new Citas();
   $clientes = new Clientes();
-  $estudios = new Estudios();
   $fotografos = new Fotografos();
+  $servicios = new Servicios();
   $solicitudes = $citas->getSessionSolicitudes();
 
   // Cancel past sessions
@@ -44,8 +44,10 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   for ($i=0; $i < count($solicitudes); $i++) {
     $datosFotografos[$i] = $fotografos->getFotografo($solicitudes[$i]['id_fotografo']);
   }
-  // Get the data of the session solicitude for Estudio
-  // $datosEstudios = $estudios->getEstudio($solicitudes[0]['id_estudio']);
+  // Get the data of the session solicitude for Services
+  for ($i=0; $i < count($solicitudes); $i++) {
+    $datosServicios[$i] = $servicios->getServicio($solicitudes[$i]['id_servicio']);
+  }
 
   // Head
   include('../../../view/users/recepcionista/citas/recepcionista_head.php');
