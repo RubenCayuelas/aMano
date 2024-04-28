@@ -21,9 +21,6 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
     $listaClientes = $clientes->listarClientes();
   }
 
-  // Paginación de la lista
-  
-
   // Head
   include('../../../view/users/recepcionista/recepcionista_head.php');
 
