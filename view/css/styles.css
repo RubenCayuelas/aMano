@@ -104,6 +104,18 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
   background-color: #777879!important;
 }
 
+.btn-outline-danger {
+  border-color: #932630;
+}
+  .btn-outline-danger:hover {
+    background-color: #932630;
+    border-color: #932630;
+  }
+  .btn-outline-danger:active {
+    background-color: #932630;
+    border-color: #932630;
+  }
+
 
 
 /* Funcionamiento del botón para mostrar/ocultar el aside */
@@ -212,6 +224,15 @@ body[data-bs-theme="dark"] .btn .btn-secondary {
 }
 .w-10 {
   width: 10%;
+}
+.h-10 {
+  height: 10%;
+}
+.w-2_5rem {
+  width: 2.5rem;
+}
+.h-2_5rem {
+  height: 2.5rem;
 }
 .h-75px {
   height: 75px!important;
