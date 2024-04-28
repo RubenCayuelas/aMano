@@ -88,6 +88,7 @@
               <div id="c-paginator">
                 <?php
                   for ($i = 0; $i < 12; $i++) {
+                    // echo '<span class="c-paginator__month">' . date('F', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
                     echo '<span class="c-paginator__month">' . strftime('%B', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
                   }
                 ?>
