@@ -12,7 +12,6 @@ if (isset($_GET['logout'])) {
   if (isset($_COOKIE['session'])) {
     setcookie('session', "", time() - 6000, "/");
   }
-  session_start();
   session_destroy();
   header("refresh:0;url=../index.php");
 } else {

@@ -50,14 +50,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   }
 
   // Head
-  include('../../../view/users/recepcionista/citas/recepcionista_head.php');
+  include('../../../view/users/recepcionista/citas/recepcionista_head.html');
   
   // Body recepcionista - citas
   include('../../../view/users/recepcionista/citas/recepcionista_body.php');
   include('../../../view/users/recepcionista/citas/recepcionista_body_solicitudes.php');
 
   // End
-  include('../../../view/users/recepcionista/recepcionista_end.php');
+  include('../../../view/users/recepcionista/recepcionista_end.html');
 
 } else {
   header("Location: ../../../index.php");

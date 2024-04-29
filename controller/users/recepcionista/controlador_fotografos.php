@@ -23,19 +23,19 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   }
 
   // Head
-  include('../../../view/users/recepcionista/recepcionista_head.php');
+  include('../../../view/users/recepcionista/recepcionista_head.html');
   
   // Body recepcionista - fotógrafos
   include('../../../view/users/recepcionista/fotógrafos/recepcionista_body.php');
 
   if ($listaFotografos == null || $listaFotografos == '') {
-    include('../../../view/users/recepcionista/fotógrafos/bodyParts/body_no_results.php');
+    include('../../../view/users/recepcionista/fotógrafos/bodyParts/body_no_results.html');
   } else {
     include('../../../view/users/recepcionista/fotógrafos/bodyParts/body_results.php');
   }
   
   // End
-  include('../../../view/users/recepcionista/recepcionista_end.php');
+  include('../../../view/users/recepcionista/recepcionista_end.html');
 
 } else {
   header("Location: ../../../index.php");

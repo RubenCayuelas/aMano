@@ -22,13 +22,13 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   }
 
   // Head
-  include('../../../view/users/recepcionista/recepcionista_head.php');
+  include('../../../view/users/recepcionista/recepcionista_head.html');
 
   // Body recepcionista - clientes
   include('../../../view/users/recepcionista/clientes/recepcionista_body.php');
 
   if ($listaClientes == null || $listaClientes == '') {
-    include('../../../view/users/recepcionista/clientes/bodyParts/body_no_results.php');
+    include('../../../view/users/recepcionista/clientes/bodyParts/body_no_results.html');
   } else {
     include('../../../view/users/recepcionista/clientes/bodyParts/body_results.php');
   }
@@ -37,7 +37,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   include('../../../view/users/recepcionista/clientes/js/recepcionista_js.html');
   
   // End
-  include('../../../view/users/recepcionista/recepcionista_end.php');
+  include('../../../view/users/recepcionista/recepcionista_end.html');
 
 } else {
   header("Location: ../../../index.php");
