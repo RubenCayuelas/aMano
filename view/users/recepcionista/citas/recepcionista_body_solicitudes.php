@@ -1,7 +1,11 @@
-<section class="solicitudes container-xxl mt-5">
+<section id="solicitudes" class="solicitudes container-xxl mt-5">
   <link rel="stylesheet" href="../../../view/css/styles.css">
   <h2>Solicitudes</h2>
   <hr>
+
+  <?php include_once('../../../view/layout/loading.html'); ?>
+  <script src="../../../model/js/loading/loading_recepcionista_solicitudeForm.js"></script>
+
   <div class="row gap-3 justify-content-center" id="solicitudesContainer">
     <?php
       if (count($solicitudes) == 0) {
@@ -19,15 +23,15 @@
     // Variables para almacenar los datos y el número de página actual
     let solicitudes = <?php echo json_encode($solicitudes); ?>;
     let datosClientes = <?php echo json_encode($datosClientes); ?>;
-    // let datosEstudios = <?php // echo json_encode($datosEstudios); ?>;
+    let datosServicios = <?php echo json_encode($datosServicios); ?>;
     let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
-    console.log(solicitudes);
-    console.log(datosClientes);
-    // console.log(datosEstudios);
-    console.log(datosFotografos);
+    // console.log(solicitudes);
+    // console.log(datosClientes);
+    // console.log(datosServicios);
+    // console.log(datosFotografos);
 
       // Función para mostrar las solicitudes en la página actual
       function mostrarSolicitudes() {
@@ -45,25 +49,33 @@
 
         for (let i = inicio; i < fin && i < solicitudes.length; i++) {
             html += '<div class="card col-12 ps-0 pe-0 mt-0">' +
-                      '<div class="card-header">' + datosClientes[i][0]['nombre'] + '</div>' +
+                      '<div class="card-header">'+ datosServicios[i][0].nombre + ' - <cite title="hour">'+  espDate(solicitudes[i].fecha) +'</cite></div>' +
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
-                          '<p>' +  +'</p>' +
-
-                          '<p>' + espDate(solicitudes[i].fecha) + ' - ' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + 'h </p>' +
-                          
-                          // '<p>' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + '</p>' +
-                          // '<div class="blockquote-footer d-flex justify-content-end me-5 pe-5"><cite title="hour">'+ solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] +'</cite></div>' +
+                          '<div class="d-flex mb-2">' +
+                            '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i][0]['foto'] +'" alt="UserPicture '+ datosClientes[i][0]['nombre'] +'">' + 
+                            '<p class="mb-0 d-flex align-items-center">' + datosClientes[i][0]['nombre'] + '</p>' +
+                          '</div>' +
+                          '<p> Fotógrafo: ' + datosFotografos[i][0].nombre + '</p>' +
+                          // '<p> ' +  espDate(solicitudes[i].fecha) + ' - ' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + 'h </p>' +
+                          '<div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end me-5 pe-5">' +
+                            '<cite title="hour">'+  espDate(solicitudes[i].fecha) +' - '+ solicitudes[i].hora.split(':')[0] +':'+ solicitudes[i].hora.split(':')[1] +'h</cite>' +
+                          '</div>' +
                         '</blockquote>' +
                         '<div class="w-100 d-flex justify-content-end">' +
-                          '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3">Aceptar</button>' +
+                          // '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                          // '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                          '<form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">' +
+                            '<button type="submit" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                          '</form>' +
+                          '<form id="rejectForm" action="controlador_citas.php#solicitudes" method="post">' +
+                            '<button type="submit" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                          '</form>' +
                         '</div>' +
                       '</div>' +
                     '</div>';
         }
-
         document.getElementById('solicitudesContainer').innerHTML = html;
-
         actualizarBotonesPaginacion();
     }
 

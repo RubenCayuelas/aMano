@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2024 a las 22:11:35
+-- Tiempo de generación: 27-04-2024 a las 20:02:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,26 +35,27 @@ CREATE TABLE `cita` (
   `id_cliente` int(11) NOT NULL,
   `id_trabajo` int(11) DEFAULT NULL,
   `id_estudio` int(11) NOT NULL,
-  `id_fotografo` int(11) NOT NULL
+  `id_fotografo` int(11) NOT NULL,
+  `id_servicio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cita`
 --
 
-INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`, `id_estudio`, `id_fotografo`) VALUES
-(2, '2023-03-23', '10:00:00', NULL, 3, NULL, 6, 1),
-(3, '2024-04-23', '10:00:00', '', 1, NULL, 1, 9),
-(4, '2024-04-22', '11:30:00', NULL, 2, NULL, 2, 10),
-(5, '2024-04-25', '15:45:00', NULL, 3, NULL, 3, 11),
-(6, '2024-05-05', '09:00:00', NULL, 4, NULL, 4, 12),
-(7, '2024-05-10', '13:20:00', NULL, 5, NULL, 5, 13),
-(8, '2024-05-15', '14:00:00', NULL, 6, NULL, 6, 14),
-(9, '2024-05-20', '16:30:00', NULL, 7, NULL, 1, 15),
-(10, '2024-05-25', '08:45:00', NULL, 8, NULL, 2, 9),
-(11, '2024-05-28', '12:15:00', NULL, 9, NULL, 3, 10),
-(12, '2024-05-30', '17:00:00', NULL, 10, NULL, 4, 11),
-(13, '2024-05-30', '17:00:00', NULL, 1, NULL, 1, 1);
+INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`, `id_estudio`, `id_fotografo`, `id_servicio`) VALUES
+(2, '2023-03-23', '10:00:00', NULL, 3, NULL, 6, 1, 1),
+(3, '2024-04-23', '10:00:00', '', 1, NULL, 1, 9, 1),
+(4, '2024-04-22', '11:30:00', NULL, 2, NULL, 2, 10, 1),
+(5, '2024-04-25', '15:45:00', NULL, 3, NULL, 3, 11, 1),
+(6, '2024-05-05', '09:00:00', NULL, 4, NULL, 4, 12, 1),
+(7, '2024-05-10', '13:20:00', NULL, 5, NULL, 5, 13, 1),
+(8, '2024-05-15', '14:00:00', NULL, 6, NULL, 6, 14, 1),
+(9, '2024-05-20', '16:30:00', NULL, 7, NULL, 1, 15, 1),
+(10, '2024-05-25', '08:45:00', NULL, 8, NULL, 2, 9, 1),
+(11, '2024-05-28', '12:15:00', NULL, 9, NULL, 3, 10, 1),
+(12, '2024-05-30', '17:00:00', NULL, 10, NULL, 4, 11, 1),
+(13, '2024-05-30', '17:00:00', NULL, 1, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -257,7 +258,8 @@ ALTER TABLE `cita`
   ADD KEY `cita_ibfk_1` (`id_fotografo`),
   ADD KEY `cita_ibfk_2` (`id_estudio`),
   ADD KEY `cita_ibfk_3` (`id_trabajo`),
-  ADD KEY `fk_cliente_id` (`id_cliente`);
+  ADD KEY `fk_cliente_id` (`id_cliente`),
+  ADD KEY `fk_servicio_id` (`id_servicio`);
 
 --
 -- Indices de la tabla `cliente`
@@ -384,7 +386,8 @@ ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`id_fotografo`) REFERENCES `fotografo` (`id`),
   ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`),
   ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`id_trabajo`) REFERENCES `trabajo` (`id`),
-  ADD CONSTRAINT `fk_cliente_id` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
+  ADD CONSTRAINT `fk_cliente_id` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`),
+  ADD CONSTRAINT `fk_servicio_id` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id`);
 
 --
 -- Filtros para la tabla `foto`

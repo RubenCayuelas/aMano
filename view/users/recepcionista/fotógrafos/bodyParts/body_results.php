@@ -12,16 +12,16 @@
         </thead>
       <tbody>
               ';
-        foreach ($listaClientes as $cliente) {
+        foreach ($listaFotografos as $fotografo) {
           echo '
-              <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '">
-                  <th scope="row">' . $cliente['id'] . '</th>
-                  <td>' . $cliente['nombre'] . '</td>
-                  <td>' . $cliente['nick'] . '</td>
-                  <td>' . $cliente['tlf'] . '</td>
+              <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $fotografo['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $fotografo['id'] . '">
+                  <th scope="row">' . $fotografo['id'] . '</th>
+                  <td>' . $fotografo['nombre'] . '</td>
+                  <td>' . $fotografo['nick'] . '</td>
+                  <td>' . $fotografo['habilidades'] . '</td>
                   <!--
                   <td class="w-10">
-                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['idSerie'], $cliente['idPlataforma'] . '">Editar</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $fotografo['id']. '">Editar</button>
                   </td>
                   <td class="w-10">
                       <form action="#" method="post">
@@ -37,24 +37,24 @@
               </tr>
               <tr>
                   <td colspan="4" class="p-0">
-                      <div class="collapse" id="infoUsuario' . $cliente['id'] . '">
-                          <button type="button" class="btn-close float-end mt-2 me-2" aria-label="Close" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '"></button>
+                      <div class="collapse" id="infoUsuario' . $fotografo['id'] . '">
+                          <button type="button" class="btn-close float-end mt-2 me-2" aria-label="Close" data-bs-toggle="collapse" href="#infoUsuario' . $fotografo['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $fotografo['id'] . '"></button>
                           <div class="card card-body w-100 bw-0 row flex-row pt-0 ms-0">
                               <div class="col-2 d-flex align-items-center justify-content-center">
                                   <div class="imgUsuario">
-                                  <img src="../../../assets/img/usersPictures/' . $cliente['foto'] . '" alt="Foto de perfil del usuario" class="img-fluid">
+                                  <img src="../../../assets/img/usersPictures/' . $fotografo['foto'] . '" alt="Foto de perfil del usuario" class="img-fluid">
                               </div>
                               </div>
                               <div class="col-4">
                                   <h4>Nombre:</h4>
-                                  <h5>' . $cliente['nombre'] . '</h5>
+                                  <h5>' . $fotografo['nombre'] . '</h5>
                               </div>
                               <div class="col-5 d-flex justify-content-around align-items-center">
                                   <div>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Editar</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $fotografo['id'] . '">Editar</button>
                                   </div>
                                   <div>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Añadir Cita</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $fotografo['id'] . '">Añadir Cita</button>
                                   </div>
                               </div>
                           </div>
@@ -62,11 +62,11 @@
                   </td>
               </tr>
               
-            <div class="modal fade" id="modCliente' . $cliente['id'] . '" tabindex="-1" aria-labelledby="modalModCliente' . $cliente['id'] . '" style="display: none;" aria-hidden="true">
+            <div class="modal fade" id="modCliente' . $fotografo['id'] . '" tabindex="-1" aria-labelledby="modalModCliente' . $fotografo['id'] . '" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalModCliente' . $cliente['id'] . '">Editar Cliente</h1>
+                            <h1 class="modal-title fs-5" id="modalModCliente' . $fotografo['id'] . '">Editar Cliente</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body row g-3">
@@ -74,40 +74,40 @@
                                 <!-- Nombre -->
                                 <div class="col-6">
                                     <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
-                                    <input type="text" name="nombre" id="nombre' . $cliente['id'] . '" required class="form-control" value="' . $cliente['nombre'] . '">
+                                    <input type="text" name="nombre" id="nombre' . $fotografo['id'] . '" required class="form-control" value="' . $fotografo['nombre'] . '">
                                 </div>
                                 <!-- Nick -->
                                 <div class="col-6">
                                     <label for="nick" class="form_label">Nick:<span class="text-danger">*</span> </label>
-                                    <input type="text" name="nick" id="nick' . $cliente['id'] . '" required class="form-control" value="' . $cliente['nick'] . '">
+                                    <input type="text" name="nick" id="nick' . $fotografo['id'] . '" required class="form-control" value="' . $fotografo['nick'] . '">
                                 </div>
                                 <!-- Tlf -->
                                 <div class="col-6">
                                     <label for="tlf" class="form_label">Tlf:<span class="text-danger">*</span> </label>
-                                    <input type="text" name="tlf" id="tlf' . $cliente['id'] . '" required class="form-control" value="' . $cliente['tlf'] . '">
+                                    <input type="text" name="tlf" id="tlf' . $fotografo['id'] . '" required class="form-control" value="' . $fotografo['descripcion'] . '">
                                 </div>
                                 <!-- Tlf2 -->
                                 <div class="col-6">
                                     <label for="tlf2" class="form_label">Tlf2: </label>
-                                    <input type="text" name="tlf2" id="tlf2' . $cliente['id'] . '" required class="form-control" value="' . $cliente['tlf2'] . '">
+                                    <input type="text" name="tlf2" id="tlf2' . $fotografo['id'] . '" required class="form-control" value="' . $fotografo['habilidades'] . '">
                                 </div>
                                 <!-- Cambiar contraseña -->
                                 <div class="col-12 d-flex align-items-center justify-content-center">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded mt-4" data-bs-toggle="modal" data-bs-target="#modPass' . $cliente['id'] . '">Cambiar Contraseña</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded mt-4" data-bs-toggle="modal" data-bs-target="#modPass' . $fotografo['id'] . '">Cambiar Contraseña</button>
                                 </div>
                                 <div class="col-12 d-flex align-items-center justify-content-end">
-                                    <button type="submit" name="modCliente" value="' . $cliente['id'] . '" class="btn btn-secondary">Enviar</button>
+                                    <button type="submit" name="modCliente" value="' . $fotografo['id'] . '" class="btn btn-secondary">Enviar</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="modPass' . $cliente['id'] . '" tabindex="-1" aria-labelledby="modalModPass' . $cliente['id'] . '" style="display: none;" aria-hidden="true">
+            <div class="modal fade" id="modPass' . $fotografo['id'] . '" tabindex="-1" aria-labelledby="modalModPass' . $fotografo['id'] . '" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalModPass' . $cliente['id'] . '">Cambiar Contraseña</h1>
+                            <h1 class="modal-title fs-5" id="modalModPass' . $fotografo['id'] . '">Cambiar Contraseña</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body row g-3">
@@ -115,10 +115,10 @@
                                 <!-- Contraseña -->
                                 <div class="col-10">
                                     <label for="pass" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
-                                    <input type="password" name="pass" id="pass' . $cliente['id'] . '" required class="form-control">
+                                    <input type="password" name="pass" id="pass' . $fotografo['id'] . '" required class="form-control">
                                 </div>
                                 <div class="col-2 d-flex align-items-center justify-content-end mt-2_5rem">
-                                    <button type="submit" name="modPass" value="' . $cliente['id'] . '" class="btn btn-secondary">Enviar</button>
+                                    <button type="submit" name="modPass" value="' . $fotografo['id'] . '" class="btn btn-secondary">Enviar</button>
                                 </div>
                             </form>
                         </div>
