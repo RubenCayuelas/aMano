@@ -99,9 +99,9 @@
 
     // Función para actualizar la clase 'active' en los botones de paginación
     function actualizarBotonesPaginacion() {
-      var botonesPagina = document.querySelectorAll('.pagina');
+      let botonesPagina = document.querySelectorAll('.pagina');
       botonesPagina.forEach(function (boton) {
-        var numPagina = parseInt(boton.getAttribute('data-pagina'));
+        let numPagina = parseInt(boton.getAttribute('data-pagina'));
         if (numPagina === paginaActual) {
           boton.classList.add('active');
         } else {
