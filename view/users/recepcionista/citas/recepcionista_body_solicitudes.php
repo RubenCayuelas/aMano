@@ -28,11 +28,6 @@
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
-    // console.log(solicitudes);
-    // console.log(datosClientes);
-    // console.log(datosServicios);
-    // console.log(datosFotografos);
-
       // Función para mostrar las solicitudes en la página actual
       function mostrarSolicitudes() {
         let inicio = (paginaActual - 1) * solicitudesPorPagina;
