@@ -1,7 +1,11 @@
-<section class="solicitudes container-xxl mt-5">
+<section id="solicitudes" class="solicitudes container-xxl mt-5">
   <link rel="stylesheet" href="../../../view/css/styles.css">
   <h2>Solicitudes</h2>
   <hr>
+
+  <?php include_once('../../../view/layout/loading.html'); ?>
+  <script src="../../../model/js/loading/loading_recepcionista_solicitudeForm.js"></script>
+
   <div class="row gap-3 justify-content-center" id="solicitudesContainer">
     <?php
       if (count($solicitudes) == 0) {
@@ -24,10 +28,10 @@
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
-    console.log(solicitudes);
-    console.log(datosClientes);
-    console.log(datosServicios);
-    console.log(datosFotografos);
+    // console.log(solicitudes);
+    // console.log(datosClientes);
+    // console.log(datosServicios);
+    // console.log(datosFotografos);
 
       // Función para mostrar las solicitudes en la página actual
       function mostrarSolicitudes() {
@@ -59,15 +63,19 @@
                           '</div>' +
                         '</blockquote>' +
                         '<div class="w-100 d-flex justify-content-end">' +
-                          '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
-                          '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                          // '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                          // '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                          '<form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">' +
+                            '<button type="submit" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                          '</form>' +
+                          '<form id="rejectForm" action="controlador_citas.php#solicitudes" method="post">' +
+                            '<button type="submit" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                          '</form>' +
                         '</div>' +
                       '</div>' +
                     '</div>';
         }
-
         document.getElementById('solicitudesContainer').innerHTML = html;
-
         actualizarBotonesPaginacion();
     }
 
