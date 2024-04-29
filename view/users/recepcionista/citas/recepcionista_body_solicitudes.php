@@ -61,10 +61,12 @@
                           // '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
                           // '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
                           '<form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">' +
-                            '<button type="submit" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                            '<input type="hidden" name="id" value="'+ solicitudes[i].id +'">' +
+                            '<button type="submit" name="sessionSolicitudeAccept" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
                           '</form>' +
                           '<form id="rejectForm" action="controlador_citas.php#solicitudes" method="post">' +
-                            '<button type="submit" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                            '<input type="hidden" name="id" value="'+ solicitudes[i].id +'">' +
+                            '<button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
                           '</form>' +
                         '</div>' +
                       '</div>' +
