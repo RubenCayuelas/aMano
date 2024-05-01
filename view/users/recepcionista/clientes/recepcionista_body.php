@@ -38,9 +38,19 @@
             <div class="modal-body">
               <form action="#" method="post" class="row g-3" enctype="multipart/form-data">
                 <!-- Nombre -->
-                <div class="col-12">
+                <div class="col-7">
                   <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
                   <input type="text" name="nombre" id="nombre" required class="form-control">
+                </div>
+                <!-- Nick -->
+                <div class="col-5">
+                  <label for="nick" class="form_label">Nick:<span class="text-danger">*</span> </label>
+                  <input type="text" name="nick" id="nick" required class="form-control">
+                </div>
+                <!-- Pass -->
+                <div class="col-12">
+                  <label for="password" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
+                  <input type="text" name="password" id="password" required class="form-control">
                 </div>
                 <!-- tlf -->
                 <div class="col-md-6">
@@ -50,7 +60,7 @@
                 <!-- tlf2 -->
                 <div class="col-md-6">
                   <label for="tlf2" class="form_label">Tlf2: </label>
-                  <input type="tlf" name="tlf2" id="tlf2" required class="form-control">
+                  <input type="tlf" name="tlf2" id="tlf2" class="form-control">
                 </div>
                 <div class="col-12 d-flex align-items-center justify-content-end">
                   <button type="submit" name="newCliente" class="btn btn-secondary">Crear</button>
