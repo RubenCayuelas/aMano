@@ -23,7 +23,7 @@
         <table class="table mx-auto m-0 w-md-90">
           <thead class="table-dark">
             <tr class="text-center">
-              <th scope="col" class="lt-rounded">Id</th>
+              <th scope="col" class="lt-rounded">Foto</th>
               <th scope="col">Nombre</th>
               <th scope="col">Nick</th>
               <th scope="col" class="rt-rounded">Tlf</th>
@@ -34,8 +34,10 @@
     foreach ($clientsInPage as $cliente) {
       echo '
                 <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '">
-                    <th scope="row">' . $cliente['id'] . '</th>
-                    <td>' . $cliente['nombre'] . '</td>
+                    <td scope="row">
+                      <img src="../../../assets/img/usersPictures/'. $cliente['foto'] .'" alt="Foto de perfil del usuario" class="img-fluid w-2rem h-2rem">
+                    </td>
+                    <th>' . $cliente['nombre'] . '</th>
                     <td>' . $cliente['nick'] . '</td>
                     <td>' . $cliente['tlf'] . '</td>
                     <!--
