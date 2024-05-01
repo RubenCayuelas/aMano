@@ -12,12 +12,25 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   include('../../../model/php/clientes.php');
   $clientes = new Clientes();
 
+  // Añadir o modificar clientes
+  if (isset($_POST['modCliente'])) {
+    $clientes->editCliente($_POST['id'], $_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
+  } elseif (isset($_POST['addCliente'])) {
+    // $nombre, $nick, $password, $tlf1, $tlf2
+    $clientes->añadirCliente($_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
+  }
+
+  // Crear cita para un cliente
+  if (isset($_POST['addCita'])) {
+    
+  }
+
   // Controlador de la busqueda de clientes
   if (isset($_POST['busqueda']) && trim($_POST['search']) != '') {
-  // Guarda la lista de todas las socios coincidentes con la busqueda
+    // Guarda la lista de todas las socios coincidentes con la busqueda
     $listaClientes = $clientes->buscarClientes($_POST['search']);
   } else {
-  // Guarda la lista de todas las socios
+    // Guarda la lista de todas las socios
     $listaClientes = $clientes->listarClientes();
   }
 
@@ -35,10 +48,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // JS
   include('../../../view/users/recepcionista/clientes/js/recepcionista_js.html');
-  
+
   // End
   include('../../../view/users/recepcionista/recepcionista_end.html');
-
 } else {
   header("Location: ../../../index.php");
 }

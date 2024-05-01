@@ -42,7 +42,7 @@
                     <td>' . $cliente['tlf'] . '</td>
                     <!--
                     <td class="w-10">
-                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'], $cliente['idPlataforma'] . '">Editar</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Editar</button>
                     </td>
                     <td class="w-10">
                         <form action="#" method="post">
@@ -66,16 +66,24 @@
                                     <img src="../../../assets/img/usersPictures/' . $cliente['foto'] . '" alt="Foto de perfil del usuario" class="img-fluid">
                                 </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <h4>Nombre:</h4>
-                                    <h5>' . $cliente['nombre'] . '</h5>
+                                    <h5 class="ms-1">' . $cliente['nombre'] . '</h5>
+                                    <p>Nick: ' . $cliente['nick'] . '</p>
                                 </div>
-                                <div class="col-5 d-flex justify-content-around align-items-center">
+                                <div class="col-3">
+                                    <h4>Teléfono/s</h4>
+                                    <p class="m-0 ms-1"><i class="bi bi-telephone-fill"></i> ' . $cliente['tlf'] . '</p>';
+                                    if ($cliente['tlf2'] != '') {
+                                      echo '<p class="m-0 ms-1"><i class="bi bi-telephone-fill"></i> ' . $cliente['tlf2'] . '</p>';
+                                    }
+      echo                     '</div>
+                                <div class="col-3 d-flex justify-content-around align-items-center flex-wrap">
                                     <div>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Añadir Cita</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Editar</button>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Añadir Cita</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#addCita' . $cliente['id'] . '">Añadir Cita</button>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +99,7 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body row g-3">
-                              <form action="#" method="post" enctype="multipart/form-data">
+                              <form action="#" method="post">
                                   <!-- Nombre -->
                                   <div class="col-6">
                                       <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
@@ -110,7 +118,7 @@
                                   <!-- Tlf2 -->
                                   <div class="col-6">
                                       <label for="tlf2" class="form_label">Tlf2: </label>
-                                      <input type="text" name="tlf2" id="tlf2' . $cliente['id'] . '" required class="form-control" value="' . $cliente['tlf2'] . '">
+                                      <input type="text" name="tlf2" id="tlf2' . $cliente['id'] . '" class="form-control" value="' . $cliente['tlf2'] . '">
                                   </div>
                                   <!-- Cambiar contraseña -->
                                   <div class="col-12 d-flex align-items-center justify-content-center">
