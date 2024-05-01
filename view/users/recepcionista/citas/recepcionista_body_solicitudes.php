@@ -25,6 +25,7 @@
     let datosClientes = <?php echo json_encode($datosClientes); ?>;
     let datosServicios = <?php echo json_encode($datosServicios); ?>;
     let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
+    
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
 
