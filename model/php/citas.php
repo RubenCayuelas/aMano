@@ -33,15 +33,13 @@ class Citas
   public function closePastsSessions($solicitudes)
   {
     $sessions = [];
-
     foreach ($solicitudes as $solicitud) {
       if ($solicitud['fecha'] < date('Y-m-d')) {
-        $this->sessionStatusUpdate($solicitud['id'], 0);
+        $this->sessionStatusUpdate($solicitud['id'], '0');
       } else {
         $sessions[] = $solicitud;
       }
     }
-
     return $sessions;
   }
 
@@ -49,7 +47,7 @@ class Citas
   public function sessionStatusUpdate($idCita, $nuevoEstado)
   {
     $consulta = $this->BD->prepare('UPDATE cita SET estado = ? WHERE id = ?');
-    $consulta->bind_param('ii', $nuevoEstado, $idCita);
+    $consulta->bind_param('si', $nuevoEstado, $idCita);
     $consulta->execute();
     $consulta->close();
   }

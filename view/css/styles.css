@@ -286,6 +286,12 @@ body[data-bs-theme="dark"] #loader {
 .h-2_5rem {
   height: 2.5rem;
 }
+.w-2rem {
+  width: 2rem;
+}
+.h-2rem {
+  height: 2rem;
+}
 .h-75px {
   height: 75px!important;
 }
@@ -401,9 +407,6 @@ header {
 .wrapper-up {
   width: calc(100% - 250px);
 }
-
-
-/* Calendario Recepcionista - Clientes */
 
 .solicitudes {
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;

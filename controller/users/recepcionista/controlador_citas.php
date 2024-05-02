@@ -31,6 +31,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   $clientes = new Clientes();
   $fotografos = new Fotografos();
   $servicios = new Servicios();
+
+  // Accept or denny a solicitude from a client for a session
+  if (isset($_POST['sessionSolicitudeAccept'])) {
+    $citas->sessionStatusUpdate($_POST['id'], '1');
+  } elseif (isset($_POST['sessionSolicitudeReject'])) {
+    $citas->sessionStatusUpdate($_POST['id'], '0');
+  }
+
   $solicitudes = $citas->getSessionSolicitudes();
 
   // Cancel past sessions

@@ -5,13 +5,13 @@ class Clientes
   private $BD;
   private $clientes;
 
-// Constructor
+  // Constructor
   public function __construct()
   {
     $this->BD = BD::connect();
   }
 
-// Login
+  // Login
   public function login($nick, $pass)
   {
     $consulta = $this->BD->prepare('
@@ -38,7 +38,7 @@ class Clientes
     $consulta->close();
   }
 
-// Listar Clientes
+  // Listar Clientes
   public function listarClientes()
   {
     $consulta = $this->BD->query('
@@ -51,7 +51,7 @@ class Clientes
     return $this->clientes;
   }
 
-// Buscar cliente
+  // Buscar cliente
   public function buscarClientes($search)
   {
     $busqueda = $search . '%';
@@ -83,7 +83,7 @@ class Clientes
     return $this->clientes;
   }
 
-// Obtener datos de cliente
+  // Obtener datos de cliente
   public function getCliente($id)
   {
     $consulta = $this->BD->prepare('
@@ -110,11 +110,94 @@ class Clientes
     return $this->clientes;
   }
 
+  // Createa a new client
+  public function añadirCliente($nombre, $nick, $password, $tlf1, $tlf2)
+  {
+    if (trim($nombre) != '' && trim($nick) != '' && trim($tlf1) != '' && trim($password) != '') {
+      if (is_numeric($tlf1) && strlen(trim($tlf1)) === 9 && trim($tlf1) > 0) {
+        $pass = md5(md5(md5(md5(md5($password)))));
+        if (trim($tlf2) != '') {
+          if (is_numeric($tlf2) && strlen(trim($tlf2)) === 9 && trim($tlf2) > 0) {
+            $consulta = $this->BD->prepare('INSERT INTO cliente VALUES (null,?,?,?,"defaultUser.png",?,?,"1")');
+            $consulta->bind_param('sssss', $nombre, $nick, $pass, $tlf1, $tlf2);
+            $consulta->execute();
+            $consulta->close();
+          } else {
+            $consulta = false;
+          }
+        } else {
+          $consulta = $this->BD->prepare('INSERT INTO cliente VALUES (null,?,?,?,"defaultUser.png",?,null,"1")');
+          $consulta->bind_param('ssss', $nombre, $nick, $pass, $tlf1);
+          $consulta->execute();
+          $consulta->close();
+        }
+      } else {
+        $consulta = false;
+      }
+    } else {
+      $consulta = false;
+    }
+    return $consulta;
+  }
+
+
+  // Edit a client
+  function editCliente($id, $nombre, $nick, $tlf1, $tlf2)
+  {
+    if (trim($id) != '' && trim($nombre) != '' && trim($nick) != '' && trim($tlf1) != '') {
+      if (is_numeric($tlf1) && strlen(trim($tlf1)) === 9 && trim($tlf1) > 0) {
+        if (trim($tlf2) != '') {
+          if (is_numeric($tlf2) && strlen(trim($tlf2)) === 9 && trim($tlf2) > 0) {
+            $consulta = $this->BD->prepare('UPDATE cliente
+                                            SET nombre=?, 
+                                                nick=?, 
+                                                tlf=?, 
+                                                tlf2=?  
+                                              WHERE id=?');
+            $consulta->bind_param('ssssi', $nombre, $nick, $tlf1, $tlf2, $id);
+            $consulta->execute();
+            $consulta->close();
+          } else {
+            $consulta = false;
+          }
+        } else {
+          $consulta = $this->BD->prepare('UPDATE cliente
+                                          SET nombre=?, 
+                                              nick=?,
+                                              tlf=?, 
+                                              tlf2=NULL
+                                          WHERE id=?');
+          $consulta->bind_param('sssi', $nombre, $nick, $tlf1, $id);
+          $consulta->execute();
+          $consulta->close();
+        }
+      } else {
+        $consulta = false;
+      }
+    } else {
+      $consulta = false;
+    }
+    return $consulta;
+  }
+
+  // Editar contraseña Cliente
+  function editClientePass($id, $password)
+  {
+    if (trim($password) != '') {
+      $pass = md5(md5(md5(md5(md5($password)))));
+      $consulta = $this->BD->prepare('UPDATE cliente
+                                      SET password=?, 
+                                      WHERE id=?');
+      $consulta->bind_param('si', $pass, $id);
+      $consulta->execute();
+      $consulta->close();
+    } else {
+      $consulta = false;
+    }
+    return $consulta;
+  }
 
 
 
-
-
-
-
+  
 }

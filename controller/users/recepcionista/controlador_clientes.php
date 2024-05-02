@@ -12,12 +12,41 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   include('../../../model/php/clientes.php');
   $clientes = new Clientes();
 
+  // Añadir o modificar clientes
+  if (isset($_POST['modCliente'])) {
+    $result = $clientes->editCliente($_POST['modCliente'], $_POST['nombre'], $_POST['nick'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'El cliente se modificado correctamente.';
+    $msgError = 'Ha habido un error al modificar el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['modPass'])) {
+    $result = $clientes->editClientePass($_POST['modPass'], $_POST['pass']);
+    $msg = 'El cliente se modificado correctamente.';
+    $msgError = 'Ha habido un error al modificar el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
+  }elseif (isset($_POST['newCliente'])) {
+    $result = $clientes->añadirCliente($_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'El cliente se ha añadido correctamente.';
+    $msgError = 'Ha habido un error al añadir el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
+  }
+
+  // Crear cita para un cliente
+  if (isset($_POST['addCita'])) {
+    
+  }
+
   // Controlador de la busqueda de clientes
   if (isset($_POST['busqueda']) && trim($_POST['search']) != '') {
-  // Guarda la lista de todas las socios coincidentes con la busqueda
+    // Guarda la lista de todas las socios coincidentes con la busqueda
     $listaClientes = $clientes->buscarClientes($_POST['search']);
   } else {
-  // Guarda la lista de todas las socios
+    // Guarda la lista de todas las socios
     $listaClientes = $clientes->listarClientes();
   }
 
@@ -26,7 +55,11 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // Body recepcionista - clientes
   include('../../../view/users/recepcionista/clientes/recepcionista_body.php');
+ 
+  // Msg of the result for adding a new client
+  include('../../../view/users/recepcionista/clientes/bodyParts/msg.html');
 
+  // Search results 
   if ($listaClientes == null || $listaClientes == '') {
     include('../../../view/users/recepcionista/clientes/bodyParts/body_no_results.html');
   } else {
@@ -35,10 +68,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // JS
   include('../../../view/users/recepcionista/clientes/js/recepcionista_js.html');
-  
+
   // End
   include('../../../view/users/recepcionista/recepcionista_end.html');
-
 } else {
   header("Location: ../../../index.php");
 }

@@ -25,13 +25,9 @@
     let datosClientes = <?php echo json_encode($datosClientes); ?>;
     let datosServicios = <?php echo json_encode($datosServicios); ?>;
     let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
+    
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
-
-    // console.log(solicitudes);
-    // console.log(datosClientes);
-    // console.log(datosServicios);
-    // console.log(datosFotografos);
 
       // Función para mostrar las solicitudes en la página actual
       function mostrarSolicitudes() {
@@ -66,10 +62,12 @@
                           // '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
                           // '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
                           '<form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">' +
-                            '<button type="submit" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
+                            '<input type="hidden" name="id" value="'+ solicitudes[i].id +'">' +
+                            '<button type="submit" name="sessionSolicitudeAccept" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
                           '</form>' +
                           '<form id="rejectForm" action="controlador_citas.php#solicitudes" method="post">' +
-                            '<button type="submit" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                            '<input type="hidden" name="id" value="'+ solicitudes[i].id +'">' +
+                            '<button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
                           '</form>' +
                         '</div>' +
                       '</div>' +
@@ -102,9 +100,9 @@
 
     // Función para actualizar la clase 'active' en los botones de paginación
     function actualizarBotonesPaginacion() {
-      var botonesPagina = document.querySelectorAll('.pagina');
+      let botonesPagina = document.querySelectorAll('.pagina');
       botonesPagina.forEach(function (boton) {
-        var numPagina = parseInt(boton.getAttribute('data-pagina'));
+        let numPagina = parseInt(boton.getAttribute('data-pagina'));
         if (numPagina === paginaActual) {
           boton.classList.add('active');
         } else {
