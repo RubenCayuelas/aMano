@@ -1,20 +1,20 @@
 <?php
 echo "
   <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          var add = ". json_encode($add) ." // Suponiendo que contiene true o false
+      document.addEventListener('DOMContentLoaded', () => {
+          let result = ". json_encode($result) ." // true o false
 
-          var mensajeElement = document.getElementById('mensaje');
-          var mensajeTextElement = document.getElementById('mensaje-text');
-          var closeButton = mensajeElement.querySelector('.btn-close');
+          let mensajeElement = document.getElementById('mensaje');
+          let mensajeTextElement = document.getElementById('mensaje-text');
+          let closeButton = mensajeElement.querySelector('.btn-close');
 
-          if (add) {
+          if (result) {
               // Si la operación fue exitosa
-              mensajeTextElement.textContent = 'El cliente se ha añadido correctamente.';
+              mensajeTextElement.textContent = ". json_encode($msg) .";
               mensajeElement.classList.add('alert-success');
           } else {
               // Si hubo un error
-              mensajeTextElement.textContent = 'Ha habido un error al añadir el cliente.';
+              mensajeTextElement.textContent = ". json_encode($msgError) .";
               mensajeElement.classList.add('alert-danger');
           }
 
@@ -22,7 +22,7 @@ echo "
           mensajeElement.style.display = 'flex';
 
           // Cerrar el mensaje al hacer clic en el botón de cerrar
-          closeButton.addEventListener('click', function() {
+          closeButton.addEventListener('click', () => {
               mensajeElement.style.display = 'none';
           });
       });

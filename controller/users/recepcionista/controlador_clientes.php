@@ -14,10 +14,26 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   // Añadir o modificar clientes
   if (isset($_POST['modCliente'])) {
-    $clientes->editCliente($_POST['id'], $_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
-  } elseif (isset($_POST['newCliente'])) {
-    $add = $clientes->añadirCliente($_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
+    $result = $clientes->editCliente($_POST['modCliente'], $_POST['nombre'], $_POST['nick'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'El cliente se modificado correctamente.';
+    $msgError = 'Ha habido un error al modificar el cliente.';
+
     include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['modPass'])) {
+    $result = $clientes->editClientePass($_POST['modPass'], $_POST['pass']);
+    $msg = 'El cliente se modificado correctamente.';
+    $msgError = 'Ha habido un error al modificar el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
+  }elseif (isset($_POST['newCliente'])) {
+    $result = $clientes->añadirCliente($_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'El cliente se ha añadido correctamente.';
+    $msgError = 'Ha habido un error al añadir el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+
   }
 
   // Crear cita para un cliente
