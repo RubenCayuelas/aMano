@@ -143,7 +143,7 @@
                               <form action="#" method="post" enctype="multipart/form-data">
                                   <!-- Contraseña -->
                                   <div class="col-10">
-                                      <label for="pass" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
+                                      <label for="pass' . $cliente['id'] . '" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
                                       <input type="password" name="pass" id="pass' . $cliente['id'] . '" required class="form-control">
                                   </div>
                                   <div class="col-2 d-flex align-items-center justify-content-end mt-2_5rem">
@@ -165,17 +165,17 @@
                               <form action="#" method="post">
                                   <!-- Date -->
                                   <div class="col-7">
-                                      <label for="date" class="form_label">Fecha:<span class="text-danger">*</span> </label>
+                                      <label for="date' . $cliente['id'] . '" class="form_label">Fecha:<span class="text-danger">*</span> </label>
                                       <input type="date" name="date" id="date' . $cliente['id'] . '" required class="form-control">
                                   </div>
                                   <!-- Time -->
                                   <div class="col-5">
-                                      <label for="time" class="form_label">Hora:<span class="text-danger">*</span> </label>
+                                      <label for="time' . $cliente['id'] . '" class="form_label">Hora:<span class="text-danger">*</span> </label>
                                       <input type="time" name="time" id="time' . $cliente['id'] . '" required class="form-control">
                                   </div>
                                   <!-- Fotógrafo -->
                                   <div class="col-6">
-                                      <label for="fotografo" class="form_label">Fotógrafo:<span class="text-danger">*</span> </label>
+                                      <label for="fotografo' . $cliente['id'] . '" class="form_label">Fotógrafo:<span class="text-danger">*</span> </label>
                                       <select name="fotografo" id="fotografo' . $cliente['id'] . '" required class="form-select">';
                                         foreach ($listaFotografos as $fotografo) {
                                           echo '<option value="'. $fotografo['id'] .'">'. $fotografo['nombre'] .'</option>';
@@ -184,7 +184,7 @@
                                   </div>
                                   <!-- Servicio -->
                                   <div class="col-6">
-                                      <label for="servicio" class="form_label">Servicio:<span class="text-danger">*</span> </label>4
+                                      <label for="servicio' . $cliente['id'] . '" class="form_label">Servicio:<span class="text-danger">*</span> </label>4
                                       <select type="text" name="servicio" id="servicio' . $cliente['id'] . '" required class="form-select">';
                                         foreach ($listaServicios as $servicio) {
                                           echo '<option value="'. $servicio['id'] .'">'. $servicio['nombre'] .'</option>';
