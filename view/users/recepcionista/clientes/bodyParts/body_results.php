@@ -184,8 +184,12 @@
                                   </div>
                                   <!-- Servicio -->
                                   <div class="col-6">
-                                      <label for="servicio" class="form_label">Servicio:<span class="text-danger">*</span> </label>
-                                      <input type="text" name="servicio" id="servicio' . $cliente['id'] . '" required class="form-control">
+                                      <label for="servicio" class="form_label">Servicio:<span class="text-danger">*</span> </label>4
+                                      <select type="text" name="servicio" id="servicio' . $cliente['id'] . '" required class="form-select">';
+                                        foreach ($listaServicios as $servicio) {
+                                          echo '<option value="'. $servicio['id'] .'">'. $servicio['nombre'] .'</option>';
+                                        }
+      echo                            '</select>
                                   </div>
                                   <div class="col-12 d-flex align-items-center justify-content-end">
                                       <button type="submit" name="addCita" value="' . $cliente['id'] . '" class="btn btn-secondary">Enviar</button>
