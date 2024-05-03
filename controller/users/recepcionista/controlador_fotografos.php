@@ -15,10 +15,10 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   
   // Controlador de la busqueda de fotografos
   if (isset($_POST['busqueda']) && trim($_POST['search']) != '') {
-  // Guarda la lista de todas las socios coincidentes con la busqueda
+  // Guarda la lista de todos los fotografos coincidentes con la busqueda
     $listaFotografos = $fotografos->buscarFotografos($_POST['search']);
   } else {
-  // Guarda la lista de todas las socios
+  // Guarda la lista de los fotografos del mismo estudio
     $listaFotografos = $fotografos->listarFotografosRecepcionista();
   }
 
