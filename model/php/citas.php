@@ -18,11 +18,9 @@ class Citas
         SELECT id, fecha, hora, id_cliente, id_fotografo, id_servicio
         FROM cita
         WHERE estado IS NULL
-          AND id_estudio = (SELECT id_estudio 
-                              FROM recepcionista
-                              WHERE id = ?)
+          AND id_estudio = ?
     ');
-    $consulta->bind_param('i', $_SESSION['id']);
+    $consulta->bind_param('i', $_SESSION['id_estudio']);
     $consulta->execute();
     $datos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
     $consulta->close();

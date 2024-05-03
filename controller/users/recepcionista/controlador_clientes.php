@@ -10,9 +10,16 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
   include_once('../../../assets/db/db.php');
   include('../../../model/php/clientes.php');
+  include('../../../model/php/fotografos.php');
+  include('../../../model/php/servicios.php');
   $clientes = new Clientes();
+  $fotografos = new Fotografos();
+  $servicios = new Servicios();
 
-  // Añadir o modificar clientes
+  $listaFotografos = $fotografos->listarFotografosRecepcionista();
+  $listaServicios = $servicios->listarServicios();
+
+  // Añadir citas y añadir y modificar datos de clientes
   if (isset($_POST['modCliente'])) {
     $result = $clientes->editCliente($_POST['modCliente'], $_POST['nombre'], $_POST['nick'], $_POST['tlf'], $_POST['tlf2']);
     $msg = 'El cliente se modificado correctamente.';
@@ -34,6 +41,12 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
     include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
 
+  } elseif (isset($_POST['addCita'])) {
+    $result = $clientes->añadirCitaCliente( $_POST['fecha'], $_POST['hora'], $_POST['addCita'], $_SESSION['id_estudio'], $_POST['fotografo'], $_POST['servicio']);
+    $msg = 'Se ha creado la cita para el cliente correctamente.';
+    $msgError = 'Ha habido un error al crear la cita para el cliente.';
+
+    include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
   }
 
   // Crear cita para un cliente

@@ -52,11 +52,19 @@ class Fotografos
   }
 
 // Listar Fotografos que trabajen en el mismo estudio que el recepcionista que realiza la llamada
- public function listarFotografosRecepcionista()
- {
-  // Terminar
-  return $this->listarFotografos();
- }
+  public function listarFotografosRecepcionista()
+  {
+    $consulta = $this->BD->prepare('SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
+                                    FROM fotografo
+                                    WHERE activo = "1"
+                                      AND id_estudio = ? ');
+    $consulta->bind_param('i', $_SESSION['id_estudio']);
+    $consulta->execute();
+    $this->fotografos = null;
+    $this->fotografos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consulta->close();
+    return $this->fotografos;
+  }
 
 // Buscar fotografo
   public function buscarFotografos($search)
