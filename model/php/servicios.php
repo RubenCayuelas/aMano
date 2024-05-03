@@ -35,4 +35,26 @@ class Servicios
     return $this->servicios;
   }
 
+  // Listar servicios
+  public function listarServicios()
+  {
+    $consulta = $this->BD->prepare('
+        SELECT id, nombre, descripcion, precio
+        FROM servicio
+    ');
+    $consulta->bind_result($id, $nombre, $descripcion, $precio);
+    $consulta->execute();
+    $i = 0;
+    $this->servicios = null;
+    while ($consulta->fetch()) {
+      $this->servicios[$i]['id'] = $id;
+      $this->servicios[$i]['nombre'] = $nombre;
+      $this->servicios[$i]['descripcion'] = $descripcion;
+      $this->servicios[$i]['precio'] = $precio;
+      $i++;
+    }
+    $consulta->close();
+    return $this->servicios;
+  }
+
 }
