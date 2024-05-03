@@ -54,6 +54,7 @@ class Fotografos
 // Listar Fotografos que trabajen en el mismo estudio que el recepcionista que realiza la llamada
  public function listarFotografosRecepcionista()
  {
+  // Terminar
   return $this->listarFotografos();
  }
 
