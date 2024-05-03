@@ -12,9 +12,11 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   include('../../../model/php/clientes.php');
   include('../../../model/php/fotografos.php');
   include('../../../model/php/servicios.php');
+  include('../../../model/php/citas.php');
   $clientes = new Clientes();
   $fotografos = new Fotografos();
   $servicios = new Servicios();
+  $citas = new Citas();
 
   $listaFotografos = $fotografos->listarFotografosRecepcionista();
   $listaServicios = $servicios->listarServicios();
@@ -42,7 +44,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
     include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['addCita'])) {
-    $result = $clientes->añadirCitaCliente( $_POST['fecha'], $_POST['hora'], $_POST['addCita'], $_SESSION['id_estudio'], $_POST['fotografo'], $_POST['servicio']);
+    $result = $citas->añadirCitaCliente( $_POST['date'], $_POST['time'], $_POST['addCita'], $_SESSION['id_estudio'], $_POST['fotografo'], $_POST['servicio']);
     $msg = 'Se ha creado la cita para el cliente correctamente.';
     $msgError = 'Ha habido un error al crear la cita para el cliente.';
 

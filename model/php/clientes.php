@@ -198,10 +198,4 @@ class Clientes
     return $consulta;
   }
   
-  // Crear cita desde el cliente
-  public function añadirCitaCliente($fecha,$hora, $cliente, $estudio, $fotografo, $servicio)
-  {
-
-  }
-  
 }

@@ -5,13 +5,13 @@ class Citas
   private $BD;
   private $citas;
 
-// Constructor
+  // Constructor
   public function __construct()
   {
     $this->BD = BD::connect();
   }
 
-// Obtain the session solicitudes
+  // Obtain the session solicitudes
   public function getSessionSolicitudes()
   {
     $consulta = $this->BD->prepare('
@@ -27,7 +27,7 @@ class Citas
     return $datos;
   }
 
-// Calcel past session solicitudes
+  // Calcel past session solicitudes
   public function closePastsSessions($solicitudes)
   {
     $sessions = [];
@@ -41,7 +41,7 @@ class Citas
     return $sessions;
   }
 
-// Update the status of the session
+  // Update the status of the session
   public function sessionStatusUpdate($idCita, $nuevoEstado)
   {
     $consulta = $this->BD->prepare('UPDATE cita SET estado = ? WHERE id = ?');
@@ -51,16 +51,28 @@ class Citas
   }
 
 
-// Obtain the session solicitudes for that year
+  // Obtain the session solicitudes for that year
 
 
-// Create a new session for some client
-
-
-// 
+  // Create a new session for some client
 
 
 
-
-
+  // Crear cita desde el cliente
+  public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
+  {
+    $consulta = $this->BD->prepare('
+        INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ');
+    $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
+    $consulta->execute();
+    
+    // Verificamos si la consulta fue exitosa
+    if ($consulta->affected_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
 }
