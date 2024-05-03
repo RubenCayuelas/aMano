@@ -19,6 +19,7 @@ class Clientes
           from cliente
           WHERE nick = ?
               AND pass = ?
+              AND activo = "1"
     ');
     $contraseña = md5(md5(md5(md5(md5($pass)))));
     $consulta->bind_param('ss', $nick, $contraseña);
@@ -196,8 +197,11 @@ class Clientes
     }
     return $consulta;
   }
+  
+  // Crear cita desde el cliente
+  public function añadirCitaCliente($fecha,$hora, $cliente, $estudio, $fotografo, $servicio)
+  {
 
-
-
+  }
   
 }
