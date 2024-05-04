@@ -61,18 +61,23 @@ class Citas
   // Crear cita desde el cliente
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
   {
-    $consulta = $this->BD->prepare('
-        INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
-        VALUES (?, ?, ?, ?, ?, ?)
-    ');
-    $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
-    $consulta->execute();
-    
-    // Verificamos si la consulta fue exitosa
-    if ($consulta->affected_rows > 0) {
-        return true;
+    if (strtotime($fecha) >= strtotime(date('Y-m-d'))){
+      $consulta = $this->BD->prepare('
+          INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
+          VALUES (?, ?, ?, ?, ?, ?)
+      ');
+      $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
+      $consulta->execute();
+      
+      // Verificamos si la consulta fue exitosa
+      if ($consulta->affected_rows > 0) {
+          return true;
+      } else {
+          return false;
+      }
     } else {
-        return false;
+      return false;
     }
   }
+
 }
