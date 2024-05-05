@@ -49,35 +49,31 @@ class Citas
     $consulta->execute();
     $consulta->close();
   }
-
-
-  // Obtain the session solicitudes for that year
-
-
-  // Create a new session for some client
-
-
-
-  // Crear cita desde el cliente
+  
+  // Create a new session for a client
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
   {
     if (strtotime($fecha) >= strtotime(date('Y-m-d'))){
       $consulta = $this->BD->prepare('
-          INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
-          VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
+      VALUES (?, ?, ?, ?, ?, ?)
       ');
       $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
       $consulta->execute();
       
       // Verificamos si la consulta fue exitosa
       if ($consulta->affected_rows > 0) {
-          return true;
+        return true;
       } else {
-          return false;
+        return false;
       }
     } else {
       return false;
     }
   }
+  
+  // Obtain the session solicitudes for that year
 
+
+  
 }

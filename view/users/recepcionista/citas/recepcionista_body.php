@@ -176,8 +176,7 @@
           <div class="c-aside__day">
             <span class="c-aside__num"></span> <span class="c-aside__month"></span>
           </div>
-          <div class="c-aside__eventList">
-          </div>
+          <div class="c-aside__eventList"></div>
         </div>
         <div class="c-cal__container c-calendar__style">
           <script>
@@ -212,10 +211,6 @@
       const monthEl = $(".c-main");
       const dataCel = $(".c-cal__cel");
       const todayBtn = $(".c-today__btn");
-      // const addBtn = $(".js-event__add");
-      const saveBtn = $(".js-event__save");
-      const closeBtn = $(".js-event__close");
-      const winCreator = $(".js-event__creator");
       let dateObj = new Date();
       let month = "<?php echo $month ?>";
       let day = "<?php echo $day ?>";
@@ -228,25 +223,45 @@
       let inputDate = $(this).data();
       today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
-
+      
       // 🟡 ------ Set events -------
-      function createEvents(dataDay, dataName, dataNotes, classTag) {
-        let date = $('*[data-day=' + dataDay + ']');
-        date.attr("data-name", dataName);
-        date.attr("data-notes", dataNotes);
-        date.addClass("event");
-        date.addClass("event--" + classTag);
+      function createEvents(events) {
+        events.forEach(function(event) {
+          let date = $('*[data-day=' + event.dataDay + ']');
+
+          // Verificar si ya hay eventos asignados a este día
+          let currentEvents = date.attr("data-events");
+          if (currentEvents) {
+              // Si ya hay eventos, agregar el nuevo evento a la lista
+              currentEvents += ', ' + event.dataName;
+              currentDescriptions += ', ' + event.description;
+              currentHours += ', ' + event.hour;
+          } else {
+              // Si no hay eventos, establecer el nuevo evento como el único evento
+              currentEvents = event.dataName;
+              currentDescriptions = event.description;
+              currentHours = event.hour;
+          }
+
+          // Asignar los atributos y clases correspondientes
+          date.attr("data-events", currentEvents);
+          date.attr("data-descriptions", currentDescriptions);
+          date.attr("data-hours", currentHours);
+          date.addClass("event");
+        });
       }
 
-      // 🔴 Guardar eventos en el localstorage 
-      // 🔴 Make sure you can have multiple events at the same day
-      // createEvents(today, 'YEAH!', 'Today is your day', 'important');
-      // createEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      // createEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
-      // createEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
+      // Ejemplo de array de eventos
+      let events = [
+          { dataDay: today, dataName: 'YEAH!', description: 'Today is your day', hour: '10:00' },
+          { dataDay: today, dataName: 'MERRY CHRISTMAS', description: 'A lot of gifts!!!!', hour: '15:00' },
+          { dataDay: today, dataName: 'MERRY CHRISTMAS', description: 'A lot of gifts!!!!', hour: '15:00' }
+      ];
+      // Llamar a la función createEvents con el array de eventos
+      createEvents(events);
 
 
-      // 🟡 ------ Controls ------- 
+      // ------ Controls ------- 
 
       // Button of the current day
       todayBtn.on("click", function() {
@@ -261,65 +276,10 @@
         }
       });
 
-
-      // 🟡 Fill sidebar event info
-      // 🔴 Change the names of the events
-      function fillEventSidebar(self) {
-        $(".c-aside__event").remove();
-        let thisName = self.attr("data-name");
-        let thisNotes = self.attr("data-notes");
-        let thisImportant = self.hasClass("event--important");
-        let thisBirthday = self.hasClass("event--birthday");
-        let thisFestivity = self.hasClass("event--festivity");
-        let thisEvent = self.hasClass("event");
-
-        switch (true) {
-          case thisImportant:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--important'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisBirthday:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--birthday'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisFestivity:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--festivity'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisEvent:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-        }
-      };
+      // 
       dataCel.on("click", function() {
-        let thisEl = $(this);
-        let thisDay = $(this)
-          .attr("data-day")
-          .slice(8);
-        let thisMonth = $(this)
-          .attr("data-day")
-          .slice(5, 7);
+        let thisDay = $(this).attr("data-day").slice(8);
+        let thisMonth = $(this).attr("data-day").slice(5, 7);
 
         fillEventSidebar($(this));
 
@@ -327,11 +287,65 @@
         $(".c-aside__month").text(monthText[thisMonth - 1]);
 
         dataCel.removeClass("isSelected");
-        thisEl.addClass("isSelected");
-
+        $(this).addClass("isSelected");
       });
 
-      
+      // Fill sidebar event info
+      function fillEventSidebar(self) {
+        $(".c-aside__event").remove();
+
+        // Obtener los eventos asociados al día seleccionado
+        let eventNames = self.attr("data-events");
+        let eventDescriptions = self.attr("data-descriptions");
+        let eventHours = self.attr("data-hours");
+        if (eventNames) {
+            // Dividir los nombres de los eventos en un array
+            let events = eventNames.split(', ');
+            let eventsDescription = eventDescriptions.split(', ');
+            let eventsHours = eventHours.split(', ');
+
+            // Mostrar cada evento en la barra lateral y su popup
+            for (let i = 0; i < events.length; i++) {
+              $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+i+"'>" + events[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
+                  "<!-- Ver datos de la cita -->" +
+                  "<div class='modal fade' id='seeCita"+i+"' tabindex='-1' aria-labelledby='seeCita"+i+"' style='display: none;' aria-hidden='true'>" +
+                    "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
+                      "<div class='modal-content'>" +
+                        "<div class='modal-header'>" +
+                          "<h1 class='modal-title fs-5' id='modalAddCitaCliente'>"+ eventsDescription[i] +" - "+ eventsHours[i] +"h</h1>" +
+                          "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>" +
+                        "</div>" +
+                        "<div class='modal-body row g-3'>" +
+                          "<form action='#' method='post' class='row mt-3'>" +
+                            "<!-- Date -->" +
+                            "<div class='col-7'>" +
+                              "<label for='date' class='form_label'>Fecha:<span class='text-danger'>*</span> </label>" +
+                              "<input type='date' name='date' id='date' required class='form-control'>" +
+                            "</div>" +
+                            "<!-- Time -->" +
+                            "<div class='col-5'>" +
+                              "<label for='time' class='form_label'>Hora:<span class='text-danger'>*</span> </label>" +
+                              "<input type='time' name='time' id='time' required class='form-control'>" +
+                            "</div>" +
+                            "<!-- Fotógrafo -->" +
+                            "<div class='col-6'>" +
+                              "<label for='fotografo' class='form_label'>Fotógrafo:<span class='text-danger'>*</span> </label>" +
+                              "<select name='fotografo' id='fotografo' required class='form-select'>" +
+                              "</select>" +
+                            "</div>" +
+                            "<!-- Servicio -->" +
+                            "<div class='col-12 d-flex align-items-center justify-content-end'>" +
+                              "<button type='submit' name='addCita' value='' class='btn btn-secondary'>Enviar</button>" +
+                            "</div>" +
+                          "</form>" +
+                        "</div>" +
+                      "</div>" +
+                    "</div>" +
+                  "</div>");
+          }
+        }
+      };
+
       // Functions for move the months
       function moveNext(fakeClick, indexNext) {
         for (let i = 0; i < fakeClick; i++) {
@@ -383,7 +397,7 @@
                 if (window.location.href.includes("?year=")) {
                   window.location.href = window.location.href.replace(/\?year=.*/, "?year=" + (year - 1) + "&prev")
                 } else {
-                  window.location.href += "?year=" + (year - 1);
+                  window.location.href += "?year=" + (year - 1) + "&prev";
                 }
               }
               return indexMonth;
@@ -404,7 +418,7 @@
                 if (window.location.href.includes("?year=")) {
                   window.location.href = window.location.href.replace(/\?year=.*/, "?year=" + (year + 1) + "&next");
                 } else {
-                  window.location.href += "?year=" + (year + 1);
+                  window.location.href += "?year=" + (year + 1) + "&next";
                 }
               }
               return indexMonth;
