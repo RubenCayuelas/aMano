@@ -49,18 +49,18 @@ class Citas
     $consulta->execute();
     $consulta->close();
   }
-  
+
   // Create a new session for a client
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
   {
-    if (strtotime($fecha) >= strtotime(date('Y-m-d'))){
+    if (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
       $consulta = $this->BD->prepare('
       INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
       VALUES (?, ?, ?, ?, ?, ?)
       ');
       $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
       $consulta->execute();
-      
+
       // Verificamos si la consulta fue exitosa
       if ($consulta->affected_rows > 0) {
         return true;
@@ -71,9 +71,27 @@ class Citas
       return false;
     }
   }
-  
+
   // Obtain the session solicitudes for that year
+  public function getSessionsFor($year)
+  {
+    // Obtenemos el primer día del año y el último día del año
+    $startOfYear = $year . '-01-01';
+    $endOfYear = $year . '-12-31';
+
+    $consulta = $this->BD->prepare('SELECT id, fecha, hora, id_cliente, id_fotografo, id_servicio
+                                      FROM cita
+                                      WHERE estado = "1"
+                                        AND id_estudio = ?
+                                        AND fecha BETWEEN ? AND ?
+    ');
+    $consulta->bind_param('iss', $_SESSION['id_estudio'], $startOfYear, $endOfYear);
+    $consulta->execute();
+    $datos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consulta->close();
+    return $datos;
+  }
 
 
-  
+
 }

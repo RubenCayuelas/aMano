@@ -644,7 +644,7 @@ body[data-bs-theme="dark"] .c-cal__cel.other_month {
   display: block;
   width: 10px;
   height: 10px;
-  background-color: #f5f5f5;
+  background-color: #e3b947;
   z-index: 10;
   padding: 0;
   top: 50%;
@@ -654,18 +654,6 @@ body[data-bs-theme="dark"] .c-cal__cel.other_month {
   transform: translate(-50%, calc(50% + 20px/2));
   -webkit-transform: translate(-50%, calc(50% + 20px/2));
 }
-
-/* .event--birthday:before {
-  background-color: #facc2e;
-}
-
-.event--festivity:before {
-  background-color: #10ddc2;
-}
-
-.event--important:before {
-  background-color: #f57170;
-} */
 
 .c-aside {
   padding: 20px;
@@ -688,6 +676,7 @@ body[data-bs-theme="dark"] .c-cal__cel.other_month {
   position: relative;
   padding-left: 20px;
   margin: 20px 0;
+  cursor: pointer;
 }
 
 .c-aside__event:before {
@@ -697,22 +686,10 @@ body[data-bs-theme="dark"] .c-cal__cel.other_month {
   width: 16px;
   height: 16px;
   left: 0;
-  background-color: #f5f5f5;
+  background-color: #e3b947;
   border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-
-/* .c-aside__event--birthday:before {
-  background-color: #facc2e;
-}
-
-.c-aside__event--festivity:before {
-  background-color: #10ddc2;
-}
-
-.c-aside__event--important:before {
-  background-color: #f57170;
-} */
 
 .c-event__creator {
   position: fixed;

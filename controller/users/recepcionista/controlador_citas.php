@@ -35,8 +35,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   $listaFotografos = $fotografos->listarFotografosRecepcionista();
   $listaServicios = $servicios->listarServicios();
   $listaClientes = $clientes->listarClientes();
+  $listaCitas = $citas->getSessionsFor($año);
 
-  // Create a new cite for a client
+  // Create a new session for a client
   if (isset($_POST['addCita'])) {
     $result = $citas->añadirCitaCliente( $_POST['date'], $_POST['time'], $_POST['cliente'], $_SESSION['id_estudio'], $_POST['fotografo'], $_POST['servicio']);
     // $msg = 'Se ha creado la cita para el cliente correctamente.';
@@ -51,6 +52,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   } elseif (isset($_POST['sessionSolicitudeReject'])) {
     $citas->sessionStatusUpdate($_POST['id'], '0');
   }
+
 
   // Get the session solicitudes for this studio
   $solicitudes = $citas->getSessionSolicitudes();
