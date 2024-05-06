@@ -9,7 +9,9 @@
   <!-- Main -->
   <main class="main">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">// Add jQuery</script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">
+      // Add jQuery
+    </script>
     <script>
       // Fill the table with column headings
       function day_title(day_name) {
@@ -215,15 +217,14 @@
       let month = "<?php echo $month ?>";
       let day = "<?php echo $day ?>";
       let year = <?php echo $año ?>;
-      let indexMonth = <?php echo isset($_GET['year']) ? 
-                                          ($_GET['year'] < date('Y') ? 
-                                              (isset($_GET['prev']) ? 12 : 01) : 
-                                              (isset($_GET['next']) ? 01 : 12)
-                                          ) : $month; ?>;
+      let indexMonth = <?php echo isset($_GET['year']) ?
+                          ($_GET['year'] < date('Y') ?
+                            (isset($_GET['prev']) ? 12 : 01) : (isset($_GET['next']) ? 01 : 12)
+                          ) : $month; ?>;
       let inputDate = $(this).data();
       today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
-      
+
       // 🟡 ------ Set events -------
       function createEvents(events) {
         events.forEach(function(event) {
@@ -231,31 +232,45 @@
 
           // Verificar si ya hay eventos asignados a este día
           let currentEvents = date.attr("data-events");
+          let currentDescriptions = JSON.parse(date.attr("data-descriptions") || '[]'); // Obtener el array o inicializarlo como un array vacío
+          let currentHours = date.attr("data-hours");
+
           if (currentEvents) {
-              // Si ya hay eventos, agregar el nuevo evento a la lista
-              currentEvents += ', ' + event.dataName;
-              currentDescriptions += ', ' + event.description;
-              currentHours += ', ' + event.hour;
+            // Si ya hay eventos, agregar el nuevo evento a la lista
+            currentEvents += ', ' + event.dataName;
+            currentHours += ', ' + event.hour;
           } else {
-              // Si no hay eventos, establecer el nuevo evento como el único evento
-              currentEvents = event.dataName;
-              currentDescriptions = event.description;
-              currentHours = event.hour;
+            // Si no hay eventos, establecer el nuevo evento como el único evento
+            currentEvents = event.dataName;
+            currentHours = event.hour;
           }
+          // Agregar la descripción del evento al array
+          currentDescriptions.push(event.description);
 
           // Asignar los atributos y clases correspondientes
           date.attr("data-events", currentEvents);
-          date.attr("data-descriptions", currentDescriptions);
+          date.attr("data-descriptions", JSON.stringify(currentDescriptions)); // Convertir el array a JSON antes de almacenarlo en el atributo
           date.attr("data-hours", currentHours);
           date.addClass("event");
         });
       }
 
-      // Ejemplo de array de eventos
+      // Array de eventos
       let events = [
-          { dataDay: today, dataName: 'YEAH!', description: 'Today is your day', hour: '10:00' },
-          { dataDay: today, dataName: 'MERRY CHRISTMAS', description: 'A lot of gifts!!!!', hour: '15:00' },
-          { dataDay: today, dataName: 'MERRY CHRISTMAS', description: 'A lot of gifts!!!!', hour: '15:00' }
+        <?php
+        foreach ($listaCitas as $cita) {
+          echo "{ 
+              dataDay: '" . $cita['fecha'] . "',
+              dataName: '" . $cita['servicio'] . "',
+              hour: '" . date("H:i", strtotime($cita['hora'])) . "',
+              description: { 
+                \"id\": " . $cita['id'] . " ,
+                \"cliente\": \"$cita[cliente]\" ,
+                \"fotografo\": \"$cita[fotografo]\"
+              }
+            },";
+        }
+        ?>
       ];
       // Llamar a la función createEvents con el array de eventos
       createEvents(events);
@@ -299,20 +314,20 @@
         let eventDescriptions = self.attr("data-descriptions");
         let eventHours = self.attr("data-hours");
         if (eventNames) {
-            // Dividir los nombres de los eventos en un array
-            let events = eventNames.split(', ');
-            let eventsDescription = eventDescriptions.split(', ');
-            let eventsHours = eventHours.split(', ');
 
-            // Mostrar cada evento en la barra lateral y su popup
-            for (let i = 0; i < events.length; i++) {
-              $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+i+"'>" + events[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
+          // Dividir los nombres de los eventos en un array
+          let eventsNames = eventNames.split(', ');
+          let eventsDescriptions = JSON.parse(eventDescriptions);
+          let eventsHours = eventHours.split(', ');
+
+          for (let i = 0; i < eventsNames.length; i++) {
+            $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
                   "<!-- Ver datos de la cita -->" +
-                  "<div class='modal fade' id='seeCita"+i+"' tabindex='-1' aria-labelledby='seeCita"+i+"' style='display: none;' aria-hidden='true'>" +
+                  "<div class='modal fade' id='seeCita"+eventsDescriptions[i].id+"' tabindex='-1' aria-labelledby='seeCita"+eventsDescriptions[i].id+"' style='display: none;' aria-hidden='true'>" +
                     "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
                       "<div class='modal-content'>" +
                         "<div class='modal-header'>" +
-                          "<h1 class='modal-title fs-5' id='modalAddCitaCliente'>"+ events[i] +" - "+ eventsHours[i] +"h</h1>" +
+                          "<h1 class='modal-title fs-5' id='modalSeeCita"+eventsDescriptions[i].id+"'>"+ eventsNames[i] +" - "+ eventsHours[i] +"h</h1>" +
                           "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>" +
                         "</div>" +
                         "<div class='modal-body row g-3'>" +
@@ -362,7 +377,6 @@
           }
         }
       }
-
       function movePrev(fakeClick, indexPrev) {
         for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({

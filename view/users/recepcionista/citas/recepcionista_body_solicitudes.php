@@ -35,11 +35,9 @@
         let fin = inicio + solicitudesPorPagina;
         let html = '';
         function espDate (fecha) {
-          // Dividir la fecha en año, mes y día
           let partes = fecha.split("-");
           // Crear una nueva fecha con el formato dd/mm/yyyy
           let nuevaFecha = partes[2] + "/" + partes[1] + "/" + partes[0];
-          // Devolver la nueva fecha
           return nuevaFecha;
         }
 
@@ -53,14 +51,11 @@
                             '<p class="mb-0 d-flex align-items-center">' + datosClientes[i][0]['nombre'] + '</p>' +
                           '</div>' +
                           '<p> Fotógrafo: ' + datosFotografos[i][0].nombre + '</p>' +
-                          // '<p> ' +  espDate(solicitudes[i].fecha) + ' - ' + solicitudes[i].hora.split(':')[0] + ':' + solicitudes[i].hora.split(':')[1] + 'h </p>' +
                           '<div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end me-5 pe-5">' +
                             '<cite title="hour">'+  espDate(solicitudes[i].fecha) +' - '+ solicitudes[i].hora.split(':')[0] +':'+ solicitudes[i].hora.split(':')[1] +'h</cite>' +
                           '</div>' +
                         '</blockquote>' +
                         '<div class="w-100 d-flex justify-content-end">' +
-                          // '<button type="button" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
-                          // '<button type="button" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +
                           '<form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">' +
                             '<input type="hidden" name="id" value="'+ solicitudes[i].id +'">' +
                             '<button type="submit" name="sessionSolicitudeAccept" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>' +

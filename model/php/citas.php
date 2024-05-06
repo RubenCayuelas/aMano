@@ -78,12 +78,14 @@ class Citas
     // Obtenemos el primer día del año y el último día del año
     $startOfYear = $year . '-01-01';
     $endOfYear = $year . '-12-31';
-
-    $consulta = $this->BD->prepare('SELECT id, fecha, hora, id_cliente, id_fotografo, id_servicio
-                                      FROM cita
-                                      WHERE estado = "1"
-                                        AND id_estudio = ?
-                                        AND fecha BETWEEN ? AND ?
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
+                                    FROM cita c, cliente cl, fotografo f, servicio s
+                                    WHERE c.id_cliente = cl.id
+                                      AND c.id_fotografo = f.id
+                                      AND c.id_servicio = s.id
+                                      AND c.estado = "1"
+                                      AND c.id_estudio = ?
+                                      AND c.fecha BETWEEN ? AND ?
     ');
     $consulta->bind_param('iss', $_SESSION['id_estudio'], $startOfYear, $endOfYear);
     $consulta->execute();
