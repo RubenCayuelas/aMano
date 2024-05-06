@@ -8,10 +8,10 @@
 
   <!-- Main -->
   <main class="main">
-    
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">// Add jQuery</script>
 
-    <!-- <script src="../../../model/js/recepcionista_calendar/script_prev.js">// Script prev</script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">
+      // Add jQuery
+    </script>
     <script>
       // Fill the table with column headings
       function day_title(day_name) {
@@ -70,11 +70,13 @@
 
         document.write("</div>");
       }
-      
-      // Month names array
+
+      // Month names array creation
       let monthText = [];
       for (let i = 0; i < 12; i++) {
-        let monthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date(2022, i, 1));
+        let monthName = new Intl.DateTimeFormat('es-ES', {
+          month: 'long'
+        }).format(new Date(2022, i, 1));
         monthText.push(monthName.charAt(0).toUpperCase() + monthName.slice(1));
       }
     </script>
@@ -87,10 +89,9 @@
               <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
               <div id="c-paginator">
                 <?php
-                  for ($i = 0; $i < 12; $i++) {
-                    // echo '<span class="c-paginator__month">' . date('F', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
-                    echo '<span class="c-paginator__month">' . strftime('%B', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
-                  }
+                for ($i = 0; $i < 12; $i++) {
+                  echo '<span class="c-paginator__month">' . strftime('%B', mktime(0, 0, 0, $i + 1, 1)) . '</span>' . "\n";
+                }
                 ?>
               </div>
               <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
@@ -102,54 +103,82 @@
           </div>
         </div>
         <div class="add_button">
-          <button type="button" class="btn btn-outline-primary me-2 ps-1 pe-1" data-bs-toggle="modal" data-bs-target="#newCliente">Añadir Cita</button>
+          <button type="button" class="btn btn-outline-primary me-2 ps-1 pe-1" data-bs-toggle="modal" data-bs-target="#addCita">Añadir Cita</button>
         </div>
       </div>
     </nav>
 
-    <!-- Modal for add a new session -->
-    <div class="modal fade" id="newCliente" tabindex="-1" aria-labelledby="modalNewCliente" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalNewCliente">Añadir una nueva cita</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Añadir cita -->
+    <div class="modal fade" id="addCita" tabindex="-1" aria-labelledby="modalAddCitaCliente" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAddCitaCliente">Añadir Cita</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body row g-3">
+            <form action="#" method="post" class="row mt-3">
+              <!-- Date -->
+              <div class="col-7">
+                <label for="date" class="form_label">Fecha:<span class="text-danger">*</span> </label>
+                <input type="date" name="date" id="date" required class="form-control">
               </div>
-              <div class="modal-body">
-                <form action="#" method="post" class="row g-3" enctype="multipart/form-data">
-                  <!-- fecha -->
-                  <div class="col-12">
-                    <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
-                    <input type="text" name="nombre" id="nombre" required class="form-control">
-                  </div>
-                  <!-- cliente -->
-                  <div class="col-md-6">
-                    <label for="tlf" class="form_label">Tlf:<span class="text-danger">*</span> </label>
-                    <input type="tlf" name="tlf" id="tlf" required class="form-control">
-                  </div>
-                  <!-- tipo de cita -->
-                  <div class="col-md-6">
-                    <label for="tlf2" class="form_label">Tlf2: </label>
-                    <input type="tlf" name="tlf2" id="tlf2" required class="form-control">
-                  </div>
-                  <div class="col-12 d-flex align-items-center justify-content-end">
-                    <button type="submit" name="newCliente" class="btn btn-secondary">Crear</button>
-                  </div>
-                </form>
+              <!-- Time -->
+              <div class="col-5">
+                <label for="time" class="form_label">Hora:<span class="text-danger">*</span> </label>
+                <input type="time" name="time" id="time" required class="form-control">
               </div>
-            </div>
+              <!-- Fotógrafo -->
+              <div class="col-6">
+                <label for="fotografo" class="form_label">Fotógrafo:<span class="text-danger">*</span> </label>
+                <select name="fotografo" id="fotografo" required class="form-select">';
+                  <?php
+                    foreach ($listaFotografos as $fotografo) {
+                      echo '<option value="'. $fotografo['id'] .'">'. $fotografo['nombre'] .'</option>';
+                    }
+                  ?>
+                </select>
+              </div>
+              <!-- Servicio -->
+              <div class="col-6">
+                <label for="servicio" class="form_label">Servicio:<span class="text-danger">*</span> </label>
+                <select type="text" name="servicio" id="servicio" required class="form-select">';
+                  <?php
+                    foreach ($listaServicios as $servicio) {
+                      echo '<option value="'. $servicio['id'] .'">'. $servicio['nombre'] .'</option>';
+                    }
+                  ?>
+                </select>
+              </div>
+              <!-- Cliente -->
+              <div class="col-12">
+                <label for="cliente" class="form_label">Cliente:<span class="text-danger">*</span> </label>
+                <select type="text" name="cliente" id="cliente" required class="form-select">';
+                  <?php
+                    foreach ($listaClientes as $cliente) {
+                      echo '<option value="'. $cliente['id'] .'">'. $cliente['nombre'] .'</option>';
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="col-12 d-flex align-items-center justify-content-end">
+                <button type="submit" name="addCita" value="" class="btn btn-secondary">Enviar</button>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
+    </div>
 
     <div class="wrapper">
       <div class="c-calendar">
         <div class="c-calendar__style c-aside">
-          <a class="c-add o-btn js-event__add" href="javascript:;">Crear Evento <span class="fa fa-plus"></span></a>
+          <!-- <a class="c-add o-btn js-event__add" href="javascript:;">Crear Evento <span class="fa fa-plus"></span></a> -->
+          <a type="button" class="c-add o-btn" data-bs-toggle="modal" data-bs-target="#addCita">Crear Cita <span class="fa fa-plus"></span></a>
           <div class="c-aside__day">
             <span class="c-aside__num"></span> <span class="c-aside__month"></span>
           </div>
-          <div class="c-aside__eventList">
-          </div>
+          <div class="c-aside__eventList"></div>
         </div>
         <div class="c-cal__container c-calendar__style">
           <script>
@@ -166,34 +195,17 @@
             let start_day = <?php echo $firstWeekDay; ?>;
 
             <?php
-              // Generate the JS script
-              for($i = 0; $i < 12; $i++) {
-                  $monthNumber = $i + 1;
-                  if($monthNumber < 10) {
-                      $monthNumber = '0' . $monthNumber;
-                  }
-                  echo 'fill_table("' . date('F', mktime(0, 0, 0, $i+1, 1))  . '", ' . days_in_month($i + 1, $año) . ', "' . $monthNumber . '");';
+            // Generate the JS script
+            for ($i = 0; $i < 12; $i++) {
+              $monthNumber = $i + 1;
+              if ($monthNumber < 10) {
+                $monthNumber = '0' . $monthNumber;
               }
+              echo 'fill_table("' . date('F', mktime(0, 0, 0, $i + 1, 1))  . '", ' . days_in_month($i + 1, $año) . ', "' . $monthNumber . '");';
+            }
             ?>
           </script>
         </div>
-      </div>
-
-      <div class="c-event__creator c-calendar__style js-event__creator">
-        <a href="javascript:;" class="o-btn js-event__close">Cerrar <span class="fa fa-close"></span></a>
-        <form id="addEvent">
-          <input placeholder="Event name" type="text" name="name">
-          <input type="date" name="date">
-          <textarea placeholder="Notes" name="notes" cols="30" rows="10"></textarea>
-          <select name="tags">
-            <option value="event">event</option>
-            <!-- <option value="important">important</option>
-            <option value="birthday">birthday</option>
-            <option value="festivity">festivity</option> -->
-          </select>
-        </form>
-        <br>
-        <a href="javascript:;" class="o-btn js-event__save">SAVE <span class="fa fa-save"></span></a>
       </div>
     </div>
     <script>
@@ -201,37 +213,70 @@
       const monthEl = $(".c-main");
       const dataCel = $(".c-cal__cel");
       const todayBtn = $(".c-today__btn");
-      const addBtn = $(".js-event__add");
-      const saveBtn = $(".js-event__save");
-      const closeBtn = $(".js-event__close");
-      const winCreator = $(".js-event__creator");
       let dateObj = new Date();
       let month = "<?php echo $month ?>";
       let day = "<?php echo $day ?>";
       let year = <?php echo $año ?>;
-      let indexMonth = <?php echo isset($_GET['year']) ? ($_GET['year'] > date('Y') ? 01 : ($_GET['year'] == date('Y') && isset($_GET['next']) ? 01 : 12)) : $month; ?>;
+      let indexMonth = <?php echo isset($_GET['year']) ?
+                          ($_GET['year'] < date('Y') ?
+                            (isset($_GET['prev']) ? 12 : 01) : (isset($_GET['next']) ? 01 : 12)
+                          ) : $month; ?>;
       let inputDate = $(this).data();
       today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
       // 🟡 ------ Set events -------
-      function createEvents(dataDay, dataName, dataNotes, classTag) {
-        let date = $('*[data-day=' + dataDay + ']');
-        date.attr("data-name", dataName);
-        date.attr("data-notes", dataNotes);
-        date.addClass("event");
-        date.addClass("event--" + classTag);
+      function createEvents(events) {
+        events.forEach(function(event) {
+          let date = $('*[data-day=' + event.dataDay + ']');
+
+          // Verificar si ya hay eventos asignados a este día
+          let currentEvents = date.attr("data-events");
+          let currentDescriptions = JSON.parse(date.attr("data-descriptions") || '[]'); // Obtener el array o inicializarlo como un array vacío
+          let currentHours = date.attr("data-hours");
+
+          if (currentEvents) {
+            // Si ya hay eventos, agregar el nuevo evento a la lista
+            currentEvents += ', ' + event.dataName;
+            currentHours += ', ' + event.hour;
+          } else {
+            // Si no hay eventos, establecer el nuevo evento como el único evento
+            currentEvents = event.dataName;
+            currentHours = event.hour;
+          }
+          // Agregar la descripción del evento al array
+          currentDescriptions.push(event.description);
+
+          // Asignar los atributos y clases correspondientes
+          date.attr("data-events", currentEvents);
+          date.attr("data-descriptions", JSON.stringify(currentDescriptions)); // Convertir el array a JSON antes de almacenarlo en el atributo
+          date.attr("data-hours", currentHours);
+          date.addClass("event");
+        });
       }
 
-      // 🔴 Guardar eventos en el localstorage 
-      // 🔴 Make sure you can have multiple events at the same day
-      // createEvents(today, 'YEAH!', 'Today is your day', 'important');
-      // createEvents(today, 'MERRY CHRISTMAS', 'A lot of gift!!!!', 'festivity');
-      // createEvents(today, "LUCA'S BIRTHDAY", 'Another gifts...?', 'birthday');
-      // createEvents('2024-03-03', "MY LADY'S BIRTHDAY", 'A lot of money to spent!!!!', 'birthday');
+      // Array de eventos
+      let events = [
+        <?php
+        foreach ($listaCitas as $cita) {
+          echo "{ 
+              dataDay: '" . $cita['fecha'] . "',
+              dataName: '" . $cita['servicio'] . "',
+              hour: '" . date("H:i", strtotime($cita['hora'])) . "',
+              description: { 
+                \"id\": " . $cita['id'] . " ,
+                \"cliente\": \"$cita[cliente]\" ,
+                \"fotografo\": \"$cita[fotografo]\"
+              }
+            },";
+        }
+        ?>
+      ];
+      // Llamar a la función createEvents con el array de eventos
+      createEvents(events);
 
 
-      // 🟡 ------ Controls ------- 
+      // ------ Controls ------- 
 
       // Button of the current day
       todayBtn.on("click", function() {
@@ -239,117 +284,17 @@
       });
 
       // Higlight the cel of current day
-      dataCel.each(function () {
+      dataCel.each(function() {
         if ($(this).data("day") === today) {
           $(this).addClass("isToday");
           fillEventSidebar($(this));
         }
       });
 
-      // Window event creator
-      addBtn.on("click", function() {
-        winCreator.addClass("isVisible");
-        $("body").addClass("overlay");
-        dataCel.each(function() {
-          if ($(this).hasClass("isSelected")) {
-            today = $(this).data("day");
-            document.querySelector('input[type="date"]').value = today;
-          } else {
-            document.querySelector('input[type="date"]').value = today;
-          }
-        });
-      });
-      closeBtn.on("click", function() {
-        winCreator.removeClass("isVisible");
-        $("body").removeClass("overlay");
-      });
-      saveBtn.on("click", function() {
-        let inputName = $("input[name=name]").val();
-        let inputDate = $("input[name=date]").val();
-        let inputNotes = $("textarea[name=notes]").val();
-        let inputTag = $("select[name=tags]")
-          .find(":selected")
-          .text();
-
-        dataCel.each(function() {
-          if ($(this).data("day") === inputDate) {
-            if (inputName != null) {
-              $(this).attr("data-name", inputName);
-            }
-            if (inputNotes != null) {
-              $(this).attr("data-notes", inputNotes);
-            }
-            $(this).addClass("event");
-            if (inputTag != null) {
-              $(this).addClass("event--" + inputTag);
-            }
-            fillEventSidebar($(this));
-          }
-        });
-
-        winCreator.removeClass("isVisible");
-        $("body").removeClass("overlay");
-        $("#addEvent")[0].reset();
-      });
-
-      // 🟡 Fill sidebar event info
-      // 🔴 Change the names of the events
-      function fillEventSidebar(self) {
-        $(".c-aside__event").remove();
-        let thisName = self.attr("data-name");
-        let thisNotes = self.attr("data-notes");
-        let thisImportant = self.hasClass("event--important");
-        let thisBirthday = self.hasClass("event--birthday");
-        let thisFestivity = self.hasClass("event--festivity");
-        let thisEvent = self.hasClass("event");
-
-        switch (true) {
-          case thisImportant:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--important'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisBirthday:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--birthday'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisFestivity:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event c-aside__event--festivity'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-          case thisEvent:
-            $(".c-aside__eventList").append(
-              "<p class='c-aside__event'>" +
-              thisName +
-              " <span> • " +
-              thisNotes +
-              "</span></p>"
-            );
-            break;
-        }
-      };
+      // 
       dataCel.on("click", function() {
-        let thisEl = $(this);
-        let thisDay = $(this)
-          .attr("data-day")
-          .slice(8);
-        let thisMonth = $(this)
-          .attr("data-day")
-          .slice(5, 7);
+        let thisDay = $(this).attr("data-day").slice(8);
+        let thisMonth = $(this).attr("data-day").slice(5, 7);
 
         fillEventSidebar($(this));
 
@@ -357,11 +302,66 @@
         $(".c-aside__month").text(monthText[thisMonth - 1]);
 
         dataCel.removeClass("isSelected");
-        thisEl.addClass("isSelected");
-
+        $(this).addClass("isSelected");
       });
 
-      // 🔴 Function for move the months
+      // Fill sidebar event info
+      function fillEventSidebar(self) {
+        $(".c-aside__event").remove();
+
+        // Obtener los eventos asociados al día seleccionado
+        let eventNames = self.attr("data-events");
+        let eventDescriptions = self.attr("data-descriptions");
+        let eventHours = self.attr("data-hours");
+        if (eventNames) {
+
+          // Dividir los nombres de los eventos en un array
+          let eventsNames = eventNames.split(', ');
+          let eventsDescriptions = JSON.parse(eventDescriptions);
+          let eventsHours = eventHours.split(', ');
+
+          for (let i = 0; i < eventsNames.length; i++) {
+            $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
+                  "<!-- Ver datos de la cita -->" +
+                  "<div class='modal fade' id='seeCita"+eventsDescriptions[i].id+"' tabindex='-1' aria-labelledby='seeCita"+eventsDescriptions[i].id+"' style='display: none;' aria-hidden='true'>" +
+                    "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
+                      "<div class='modal-content'>" +
+                        "<div class='modal-header'>" +
+                          "<h1 class='modal-title fs-5' id='modalSeeCita"+eventsDescriptions[i].id+"'>"+ eventsNames[i] +" - "+ eventsHours[i] +"h</h1>" +
+                          "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>" +
+                        "</div>" +
+                        "<div class='modal-body row g-3'>" +
+                          "<form action='#' method='post' class='row mt-3'>" +
+                            "<!-- Date -->" +
+                            "<div class='col-7'>" +
+                              "<label for='date' class='form_label'>Fecha:<span class='text-danger'>*</span> </label>" +
+                              "<input type='date' name='date' id='date' required class='form-control'>" +
+                            "</div>" +
+                            "<!-- Time -->" +
+                            "<div class='col-5'>" +
+                              "<label for='time' class='form_label'>Hora:<span class='text-danger'>*</span> </label>" +
+                              "<input type='time' name='time' id='time' required class='form-control'>" +
+                            "</div>" +
+                            "<!-- Fotógrafo -->" +
+                            "<div class='col-6'>" +
+                              "<label for='fotografo' class='form_label'>Fotógrafo:<span class='text-danger'>*</span> </label>" +
+                              "<select name='fotografo' id='fotografo' required class='form-select'>" +
+                              "</select>" +
+                            "</div>" +
+                            "<!-- Servicio -->" +
+                            "<div class='col-12 d-flex align-items-center justify-content-end'>" +
+                              "<button type='submit' name='addCita' value='' class='btn btn-secondary'>Enviar</button>" +
+                            "</div>" +
+                          "</form>" +
+                        "</div>" +
+                      "</div>" +
+                    "</div>" +
+                  "</div>");
+          }
+        }
+      };
+
+      // Functions for move the months
       function moveNext(fakeClick, indexNext) {
         for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -377,7 +377,6 @@
           }
         }
       }
-
       function movePrev(fakeClick, indexPrev) {
         for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -409,11 +408,10 @@
                 indexMonth -= 1;
               } else {
                 // Redirect to the past year
-                // window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year-1)) : window.location.href+="?year="+(year-1);
                 if (window.location.href.includes("?year=")) {
                   window.location.href = window.location.href.replace(/\?year=.*/, "?year=" + (year - 1) + "&prev")
                 } else {
-                  window.location.href += "?year=" + (year - 1);
+                  window.location.href += "?year=" + (year - 1) + "&prev";
                 }
               }
               return indexMonth;
@@ -431,11 +429,10 @@
                 indexMonth += 1;
               } else {
                 // Redirect to the next year
-                // window.location.href.includes("?year=") ? window.location.href = window.location.href.replace(/\?year=.*/, "?year="+(year+1)+"&next") : window.location.href+="?year="+(year+1);
                 if (window.location.href.includes("?year=")) {
                   window.location.href = window.location.href.replace(/\?year=.*/, "?year=" + (year + 1) + "&next");
                 } else {
-                  window.location.href += "?year=" + (year + 1);
+                  window.location.href += "?year=" + (year + 1) + "&next";
                 }
               }
               return indexMonth;
@@ -450,8 +447,7 @@
       // Launch function to set the current month
       moveNext(indexMonth - 1, false);
 
-      // Fill the sidebar with current day
+      // Fill the sidebar with current day for the first time
       $(".c-aside__num").text(day);
       $(".c-aside__month").text(monthText[month - 1]);
     </script>
-

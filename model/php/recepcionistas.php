@@ -15,10 +15,11 @@ class Recepcionistas
   public function login($nick, $pass)
   {
     $consulta = $this->BD->prepare('
-          SELECT id, nick, nombre
+          SELECT id, nick, nombre, id_estudio
           from recepcionista
           WHERE nick = ?
               AND pass = ?
+              AND activo = "1"
     ');
     $contraseña = md5(md5(md5(md5(md5($pass)))));
     $consulta->bind_param('ss', $nick, $contraseña);
@@ -29,6 +30,7 @@ class Recepcionistas
       $datos['id'] = $datosReseult['id'];
       $datos['nick'] = $datosReseult['nick'];
       $datos['nombre'] = $datosReseult['nombre'];
+      $datos['id_estudio'] = $datosReseult['id_estudio'];
       $datos['tipo'] = 'R';
     } else {
       $datos['id'] = -1;

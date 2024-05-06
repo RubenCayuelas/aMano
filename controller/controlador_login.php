@@ -38,12 +38,13 @@ if (isset($_GET['logout'])) {
         $_SESSION['nombre'] = $datosUsuario['nombre'];
 
         if ($_SESSION['userType'] == 'R') {
+          // Guarda más datos específicos del recepcionista
+          $_SESSION['id_estudio'] = $datosUsuario['id_estudio'];
+          recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre'], 'id_estudio', $_SESSION['id_estudio']);
           if ($_SESSION['id'] == 0) {
-            recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre']);
             // Redicección a la página del administrador
             echo '<meta http-equiv="refresh" content="0;url=./users/admin/controlador_clientes.php">';
           } else {
-            recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre']);
             // Redirección a la pagina principal del los recepcionistas
             echo '<meta http-equiv="refresh" content="0;url=./users/recepcionista/controlador_clientes.php">';
           }

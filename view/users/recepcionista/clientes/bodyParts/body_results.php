@@ -143,11 +143,56 @@
                               <form action="#" method="post" enctype="multipart/form-data">
                                   <!-- Contraseña -->
                                   <div class="col-10">
-                                      <label for="pass" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
+                                      <label for="pass' . $cliente['id'] . '" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
                                       <input type="password" name="pass" id="pass' . $cliente['id'] . '" required class="form-control">
                                   </div>
                                   <div class="col-2 d-flex align-items-center justify-content-end mt-2_5rem">
                                       <button type="submit" name="modPass" value="' . $cliente['id'] . '" class="btn btn-secondary">Enviar</button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal fade" id="addCita' . $cliente['id'] . '" tabindex="-1" aria-labelledby="modalAddCitaCliente' . $cliente['id'] . '" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="modalAddCitaCliente' . $cliente['id'] . '">Añadir Cita</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body row g-3">
+                              <form action="#" method="post">
+                                  <!-- Date -->
+                                  <div class="col-7">
+                                      <label for="date' . $cliente['id'] . '" class="form_label">Fecha:<span class="text-danger">*</span> </label>
+                                      <input type="date" name="date" id="date' . $cliente['id'] . '" required class="form-control">
+                                  </div>
+                                  <!-- Time -->
+                                  <div class="col-5">
+                                      <label for="time' . $cliente['id'] . '" class="form_label">Hora:<span class="text-danger">*</span> </label>
+                                      <input type="time" name="time" id="time' . $cliente['id'] . '" required class="form-control">
+                                  </div>
+                                  <!-- Fotógrafo -->
+                                  <div class="col-6">
+                                      <label for="fotografo' . $cliente['id'] . '" class="form_label">Fotógrafo:<span class="text-danger">*</span> </label>
+                                      <select name="fotografo" id="fotografo' . $cliente['id'] . '" required class="form-select">';
+                                        foreach ($listaFotografos as $fotografo) {
+                                          echo '<option value="'. $fotografo['id'] .'">'. $fotografo['nombre'] .'</option>';
+                                        }
+      echo                            '</select>
+                                  </div>
+                                  <!-- Servicio -->
+                                  <div class="col-6">
+                                      <label for="servicio' . $cliente['id'] . '" class="form_label">Servicio:<span class="text-danger">*</span> </label>
+                                      <select type="text" name="servicio" id="servicio' . $cliente['id'] . '" required class="form-select">';
+                                        foreach ($listaServicios as $servicio) {
+                                          echo '<option value="'. $servicio['id'] .'">'. $servicio['nombre'] .'</option>';
+                                        }
+      echo                            '</select>
+                                  </div>
+                                  <div class="col-12 d-flex align-items-center justify-content-end">
+                                      <button type="submit" name="addCita" value="' . $cliente['id'] . '" class="btn btn-secondary">Enviar</button>
                                   </div>
                               </form>
                           </div>

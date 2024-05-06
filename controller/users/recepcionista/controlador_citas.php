@@ -32,6 +32,20 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   $fotografos = new Fotografos();
   $servicios = new Servicios();
 
+  $listaFotografos = $fotografos->listarFotografosRecepcionista();
+  $listaServicios = $servicios->listarServicios();
+  $listaClientes = $clientes->listarClientes();
+  $listaCitas = $citas->getSessionsFor($año);
+
+  // Create a new session for a client
+  if (isset($_POST['addCita'])) {
+    $result = $citas->añadirCitaCliente( $_POST['date'], $_POST['time'], $_POST['cliente'], $_SESSION['id_estudio'], $_POST['fotografo'], $_POST['servicio']);
+    // $msg = 'Se ha creado la cita para el cliente correctamente.';
+    // $msgError = 'Ha habido un error al crear la cita para el cliente.';
+
+    // include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
+  }
+
   // Accept or denny a solicitude from a client for a session
   if (isset($_POST['sessionSolicitudeAccept'])) {
     $citas->sessionStatusUpdate($_POST['id'], '1');
@@ -39,12 +53,13 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
     $citas->sessionStatusUpdate($_POST['id'], '0');
   }
 
-  $solicitudes = $citas->getSessionSolicitudes();
 
+  // Get the session solicitudes for this studio
+  $solicitudes = $citas->getSessionSolicitudes();
   // Cancel past sessions
   $solicitudes = $citas->closePastsSessions($solicitudes);
 
-  // Get the data of the session solicitude
+  // Get the client data of the session solicitude
   for ($i=0; $i < count($solicitudes) ; $i++) { 
     $datosClientes[$i] = $clientes->getCliente($solicitudes[$i]['id_cliente']);
   }
@@ -56,6 +71,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   for ($i=0; $i < count($solicitudes); $i++) {
     $datosServicios[$i] = $servicios->getServicio($solicitudes[$i]['id_servicio']);
   }
+  
 
   // Head
   include('../../../view/users/recepcionista/citas/recepcionista_head.html');
