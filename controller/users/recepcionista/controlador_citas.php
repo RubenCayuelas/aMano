@@ -71,6 +71,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   for ($i=0; $i < count($solicitudes); $i++) {
     $datosServicios[$i] = $servicios->getServicio($solicitudes[$i]['id_servicio']);
   }
+  
 
   // Head
   include('../../../view/users/recepcionista/citas/recepcionista_head.html');
