@@ -184,7 +184,7 @@
                                   </div>
                                   <!-- Servicio -->
                                   <div class="col-6">
-                                      <label for="servicio' . $cliente['id'] . '" class="form_label">Servicio:<span class="text-danger">*</span> </label>4
+                                      <label for="servicio' . $cliente['id'] . '" class="form_label">Servicio:<span class="text-danger">*</span> </label>
                                       <select type="text" name="servicio" id="servicio' . $cliente['id'] . '" required class="form-select">';
                                         foreach ($listaServicios as $servicio) {
                                           echo '<option value="'. $servicio['id'] .'">'. $servicio['nombre'] .'</option>';
