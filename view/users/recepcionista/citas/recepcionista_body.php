@@ -9,9 +9,7 @@
   <!-- Main -->
   <main class="main">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">
-      // Add jQuery
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">// Add jQuery</script>
     <script>
       // Fill the table with column headings
       function day_title(day_name) {
@@ -37,7 +35,7 @@
         // Pad cells before first day of month
         document.write("<div class='c-cal__row'>");
         for (let i = 1; i < start_day; i++) {
-          // 🔴 For some reason some Mondays return the value 8 and the range is 1..7 xd?
+          // For some reason some Mondays return the value 8 and the range is 1..7 xd?
           if (i <= start_day && start_day != 8) {
             document.write("<div class='c-cal__cel'></div>");
           }
@@ -255,7 +253,7 @@
         });
       }
 
-      // Array de eventos
+      // Array of events
       let events = [
         <?php
         foreach ($listaCitas as $cita) {
@@ -272,18 +270,18 @@
         }
         ?>
       ];
-      // Llamar a la función createEvents con el array de eventos
+      // Call the function createEvents whith the array of events
       createEvents(events);
 
 
-      // ------ Controls ------- 
+      // ------ Caendar Controls ------- 
 
       // Button of the current day
       todayBtn.on("click", function() {
         window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href;
       });
 
-      // Higlight the cel of current day
+      // Higlight the cel of current day and load the events data of the current day
       dataCel.each(function() {
         if ($(this).data("day") === today) {
           $(this).addClass("isToday");
@@ -291,7 +289,7 @@
         }
       });
 
-      // 
+      // Select the cel of the day that the user clicks and load the events data of the selected day
       dataCel.on("click", function() {
         let thisDay = $(this).attr("data-day").slice(8);
         let thisMonth = $(this).attr("data-day").slice(5, 7);
@@ -305,21 +303,22 @@
         $(this).addClass("isSelected");
       });
 
-      // Fill sidebar event info
+      // Fill sidebar with the event info
       function fillEventSidebar(self) {
         $(".c-aside__event").remove();
 
-        // Obtener los eventos asociados al día seleccionado
+        // Obtain the events associated with the selected day
         let eventNames = self.attr("data-events");
         let eventDescriptions = self.attr("data-descriptions");
         let eventHours = self.attr("data-hours");
         if (eventNames) {
 
-          // Dividir los nombres de los eventos en un array
+          // Divide the names of the events in an array
           let eventsNames = eventNames.split(', ');
           let eventsDescriptions = JSON.parse(eventDescriptions);
           let eventsHours = eventHours.split(', ');
 
+          // Draw the event info in the sidebar and create a modal with the event data
           for (let i = 0; i < eventsNames.length; i++) {
             $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
                   "<!-- Ver datos de la cita -->" +
@@ -361,7 +360,7 @@
         }
       };
 
-      // Functions for move the months
+      // Functions for move the months Next and Previous
       function moveNext(fakeClick, indexNext) {
         for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -441,6 +440,7 @@
         }
       }
 
+      // Create the paginator buttons
       buttonsPaginator("#next", monthEl, ".c-paginator__month", false, true);
       buttonsPaginator("#prev", monthEl, ".c-paginator__month", true, false);
 
