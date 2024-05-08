@@ -52,7 +52,7 @@ class Citas
 
   // Create a new session for a client
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
-{
+  {
     // Verificar si ya existe una cita para la misma fecha y hora
     $consultaPrevia = $this->BD->prepare('
         SELECT COUNT(*) as count
@@ -66,28 +66,27 @@ class Citas
 
     // Si ya existe una cita para la misma fecha y hora, retornar falso
     if ($resultado['count'] > 0) {
-        return false;
+      return false;
     } elseif (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
-    // Si la fecha es válida (mayor o igual a la fecha actual)
-        // Insertar la nueva cita
-        $consulta = $this->BD->prepare('
+      // Si la fecha es válida (mayor o igual a la fecha actual)
+      // Insertar la nueva cita
+      $consulta = $this->BD->prepare('
             INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
             VALUES (?, ?, ?, ?, ?, ?)
         ');
-        $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
-        $consulta->execute();
+      $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
+      $consulta->execute();
 
-        // Verificar si la consulta fue exitosa
-        if ($consulta->affected_rows > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
+      // Verificar si la consulta fue exitosa
+      if ($consulta->affected_rows > 0) {
+        return true;
+      } else {
         return false;
+      }
+    } else {
+      return false;
     }
-}
-
+  }
 
   // Obtain the session solicitudes for that year
   public function getSessionsFor($year)
@@ -110,8 +109,4 @@ class Citas
     $consulta->close();
     return $datos;
   }
-  
-
-
-
 }
