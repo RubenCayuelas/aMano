@@ -82,7 +82,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   }
 
   // JS
-  include('../../../view/users/recepcionista/clientes/js/recepcionista_js.html');
+  include('../../../view/users/recepcionista/collapse_js/collapse.html');
 
   // End
   include('../../../view/users/recepcionista/recepcionista_end.html');
