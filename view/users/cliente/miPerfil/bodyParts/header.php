@@ -29,18 +29,18 @@
         <!-- Menú -->
         <ul class="nav nav-pills flex-column mb-10rem">
           <li class="nav-item mb-4">
-            <a href="./controlador_clientes.php" class="nav-link normal_text">
-              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-people-fill me-4"></i> Clientes</h4>
+            <a href="./controlador_miPerfil.php" class="nav-link active" aria-current="page">
+              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-people-fill me-4"></i> Mi Perfil</h4>
             </a>
           </li>
           <li class="nav-item mb-4">
             <a href="./controlador_citas.php" class="nav-link normal_text">
-              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-calendar-week me-4"></i> Citas</h4>
+              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-calendar-week me-4"></i> Mis Citas</h4>
             </a>
           </li>
           <li class="nav-item mb-4">
-            <a href="./controlador_fotografos.php" class="nav-link active" aria-current="page">
-              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-camera me-4"></i> Fotógrafos</h4>
+            <a href="./controlador_trabajos.php" class="nav-link normal_text">
+              <h4 class="d-inline-flex m-0"><i class="icon-aside bi bi-camera me-4"></i> Mis Trabajos</h4>
             </a>
           </li>
         </ul>

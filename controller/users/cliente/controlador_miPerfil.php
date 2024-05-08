@@ -6,6 +6,7 @@ include_once('../../../model/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
+
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   // Head
