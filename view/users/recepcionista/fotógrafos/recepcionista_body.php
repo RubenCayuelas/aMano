@@ -10,7 +10,7 @@
   <main class="main">
     <!-- Menú con la barrra de búsqueda -->
     <nav class="container-fluid mt-5">
-      <div class="row mb-3">
+      <div class="row mb-3 pt-2">
         <div class="d-flex flex-column flex-md-row justify-content-between">
           <div class="col-sm col-12 d-md-block d-flex justify-content-center">
             <h2 class="h1 pt-md-0 pb-md-0 pt-3 pb-3">Fotógrafos</h2>
@@ -27,38 +27,6 @@
           </div>
         </div>
       </div>
-      <!-- Modal para la creacion de un nuevo Fotógrafos -->
-      <!-- <div class="modal fade" id="newFotógrafos" tabindex="-1" aria-labelledby="modalNewFotógrafos" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="modalNewFotógrafos">Añadir un nuevo Fotógrafos</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="#" method="post" class="row g-3" enctype="multipart/form-data">
-                Nombre
-                <div class="col-12">
-                  <label for="nombre" class="form_label">Nombre:<span class="text-danger">*</span> </label>
-                  <input type="text" name="nombre" id="nombre" required class="form-control">
-                </div>
-                tlf
-                <div class="col-md-6">
-                  <label for="tlf" class="form_label">Tlf:<span class="text-danger">*</span> </label>
-                  <input type="tlf" name="tlf" id="tlf" required class="form-control">
-                </div>
-                tlf2
-                <div class="col-md-6">
-                  <label for="tlf2" class="form_label">Tlf2: </label>
-                  <input type="tlf" name="tlf2" id="tlf2" required class="form-control">
-                </div>
-                <div class="col-12 d-flex align-items-center justify-content-end">
-                  <button type="submit" name="newFotógrafos" class="btn btn-secondary">Crear</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> -->
+      
     </nav>
     <section class="container-fluid">

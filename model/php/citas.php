@@ -53,15 +53,31 @@ class Citas
   // Create a new session for a client
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
   {
-    if (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
+    // Verificar si ya existe una cita para la misma fecha y hora
+    $consultaPrevia = $this->BD->prepare('
+        SELECT COUNT(*) as count
+        FROM cita
+        WHERE fecha = ? AND hora = ?
+    ');
+    $consultaPrevia->bind_param('ss', $fecha, $hora);
+    $consultaPrevia->execute();
+    $resultado = $consultaPrevia->get_result()->fetch_assoc();
+    $consultaPrevia->close();
+
+    // Si ya existe una cita para la misma fecha y hora, retornar falso
+    if ($resultado['count'] > 0) {
+      return false;
+    } elseif (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
+      // Si la fecha es válida (mayor o igual a la fecha actual)
+      // Insertar la nueva cita
       $consulta = $this->BD->prepare('
-      INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
-      VALUES (?, ?, ?, ?, ?, ?)
-      ');
+            INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ');
       $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
       $consulta->execute();
 
-      // Verificamos si la consulta fue exitosa
+      // Verificar si la consulta fue exitosa
       if ($consulta->affected_rows > 0) {
         return true;
       } else {
@@ -78,7 +94,7 @@ class Citas
     // Obtenemos el primer día del año y el último día del año
     $startOfYear = $year . '-01-01';
     $endOfYear = $year . '-12-31';
-    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
                                     FROM cita c, cliente cl, fotografo f, servicio s
                                     WHERE c.id_cliente = cl.id
                                       AND c.id_fotografo = f.id
@@ -93,7 +109,4 @@ class Citas
     $consulta->close();
     return $datos;
   }
-
-
-
 }

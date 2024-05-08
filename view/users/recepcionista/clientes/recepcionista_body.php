@@ -9,7 +9,7 @@
   <!-- Main -->
   <main class="main">
     <!-- Menú con la barrra de búsqueda -->
-    <nav class="container-fluid mt-5">
+    <nav class="container-fluid mt-5 pt-2">
       <div class="row mb-3">
         <div class="d-flex flex-column flex-md-row justify-content-between">
           <div class="col-sm col-12 d-md-block d-flex justify-content-center">

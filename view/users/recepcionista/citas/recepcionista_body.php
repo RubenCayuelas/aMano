@@ -9,9 +9,7 @@
   <!-- Main -->
   <main class="main">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">
-      // Add jQuery
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">// Add jQuery</script>
     <script>
       // Fill the table with column headings
       function day_title(day_name) {
@@ -37,7 +35,7 @@
         // Pad cells before first day of month
         document.write("<div class='c-cal__row'>");
         for (let i = 1; i < start_day; i++) {
-          // 🔴 For some reason some Mondays return the value 8 and the range is 1..7 xd?
+          // For some reason some Mondays return the value 8 and the range is 1..7 xd?
           if (i <= start_day && start_day != 8) {
             document.write("<div class='c-cal__cel'></div>");
           }
@@ -126,7 +124,7 @@
               <!-- Time -->
               <div class="col-5">
                 <label for="time" class="form_label">Hora:<span class="text-danger">*</span> </label>
-                <input type="time" name="time" id="time" required class="form-control">
+                <input type="time" name="time" id="time" required class="form-control" min="08:00" max="18:00">
               </div>
               <!-- Fotógrafo -->
               <div class="col-6">
@@ -225,7 +223,7 @@
       today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
-      // 🟡 ------ Set events -------
+      // ------ Set events/session cites -------
       function createEvents(events) {
         events.forEach(function(event) {
           let date = $('*[data-day=' + event.dataDay + ']');
@@ -255,7 +253,7 @@
         });
       }
 
-      // Array de eventos
+      // Array of events
       let events = [
         <?php
         foreach ($listaCitas as $cita) {
@@ -266,24 +264,25 @@
               description: { 
                 \"id\": " . $cita['id'] . " ,
                 \"cliente\": \"$cita[cliente]\" ,
+                \"cliente_picture\": \"$cita[cliente_picture]\" ,
                 \"fotografo\": \"$cita[fotografo]\"
               }
             },";
         }
         ?>
       ];
-      // Llamar a la función createEvents con el array de eventos
+      // Call the function createEvents whith the array of events
       createEvents(events);
 
 
-      // ------ Controls ------- 
+      // ------ Caendar Controls ------- 
 
       // Button of the current day
       todayBtn.on("click", function() {
         window.location.href = window.location.href.includes("?year=") ? window.location.href.replace(/\?year=.*/, " ") : window.location.href;
       });
 
-      // Higlight the cel of current day
+      // Higlight the cel of current day and load the events data of the current day
       dataCel.each(function() {
         if ($(this).data("day") === today) {
           $(this).addClass("isToday");
@@ -291,7 +290,7 @@
         }
       });
 
-      // 
+      // Select the cel of the day that the user clicks and load the events data of the selected day
       dataCel.on("click", function() {
         let thisDay = $(this).attr("data-day").slice(8);
         let thisMonth = $(this).attr("data-day").slice(5, 7);
@@ -305,24 +304,26 @@
         $(this).addClass("isSelected");
       });
 
-      // Fill sidebar event info
+      // Fill sidebar with the event info
       function fillEventSidebar(self) {
         $(".c-aside__event").remove();
+        $(".c-aside__eventList > ").remove();
 
-        // Obtener los eventos asociados al día seleccionado
+        // Obtain the events associated with the selected day
         let eventNames = self.attr("data-events");
         let eventDescriptions = self.attr("data-descriptions");
         let eventHours = self.attr("data-hours");
         if (eventNames) {
 
-          // Dividir los nombres de los eventos en un array
+          // Divide the names of the events in an array
           let eventsNames = eventNames.split(', ');
           let eventsDescriptions = JSON.parse(eventDescriptions);
           let eventsHours = eventHours.split(', ');
 
+          // Draw the event info in the sidebar and create a modal with the event data
           for (let i = 0; i < eventsNames.length; i++) {
+            // Ver datos de la cita
             $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
-                  "<!-- Ver datos de la cita -->" +
                   "<div class='modal fade' id='seeCita"+eventsDescriptions[i].id+"' tabindex='-1' aria-labelledby='seeCita"+eventsDescriptions[i].id+"' style='display: none;' aria-hidden='true'>" +
                     "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
                       "<div class='modal-content'>" +
@@ -331,28 +332,30 @@
                           "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>" +
                         "</div>" +
                         "<div class='modal-body row g-3'>" +
-                          "<form action='#' method='post' class='row mt-3'>" +
-                            "<!-- Date -->" +
-                            "<div class='col-7'>" +
-                              "<label for='date' class='form_label'>Fecha:<span class='text-danger'>*</span> </label>" +
-                              "<input type='date' name='date' id='date' required class='form-control'>" +
-                            "</div>" +
-                            "<!-- Time -->" +
-                            "<div class='col-5'>" +
-                              "<label for='time' class='form_label'>Hora:<span class='text-danger'>*</span> </label>" +
-                              "<input type='time' name='time' id='time' required class='form-control'>" +
-                            "</div>" +
-                            "<!-- Fotógrafo -->" +
-                            "<div class='col-6'>" +
-                              "<label for='fotografo' class='form_label'>Fotógrafo:<span class='text-danger'>*</span> </label>" +
-                              "<select name='fotografo' id='fotografo' required class='form-select'>" +
-                              "</select>" +
-                            "</div>" +
-                            "<!-- Servicio -->" +
-                            "<div class='col-12 d-flex align-items-center justify-content-end'>" +
-                              "<button type='submit' name='addCita' value='' class='btn btn-secondary'>Enviar</button>" +
-                            "</div>" +
-                          "</form>" +
+                          '<blockquote class="blockquote mb-0">' +
+                            '<div>' +
+                              '<p>Cliente: </p>' +
+                            '</div>' +
+                            '<div class="d-flex ms-3 mb-2">' +
+                              '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ eventsDescriptions[i].cliente_picture +'" alt="UserPicture '+ eventsDescriptions[i].cliente +'">' + 
+                              '<p class="mb-0 d-flex align-items-center">'+ eventsDescriptions[i].cliente + '</p>' +
+                            '</div>' +
+                            '<div>' +
+                              '<p class="mb-1">Fotógrafo: </p>' +
+                            '</div>' +
+                            '<div class="d-flex ms-3 mb-2">' +
+                              '<p>'+ eventsDescriptions[i].fotografo + '</p>' +
+                            '</div>' +
+                            '<div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end ms-3 me-5 pe-5">' +
+                              '<cite title="hour">'+ eventsHours[i] +'h - '+ eventsNames[i] +'</cite>' +
+                            '</div>' +
+                          '</blockquote>' +
+                          '<div class="w-100 d-flex justify-content-end">' +
+                            '<form id="rejectForm" action="#" method="post">' +
+                              '<input type="hidden" name="id" value="'+ eventsDescriptions[i].id +'">' +
+                              '<button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                            '</form>' +
+                          '</div>' +
                         "</div>" +
                       "</div>" +
                     "</div>" +
@@ -361,7 +364,7 @@
         }
       };
 
-      // Functions for move the months
+      // Functions for move the months Next and Previous
       function moveNext(fakeClick, indexNext) {
         for (let i = 0; i < fakeClick; i++) {
           $(".c-main").css({
@@ -441,6 +444,7 @@
         }
       }
 
+      // Create the paginator buttons
       buttonsPaginator("#next", monthEl, ".c-paginator__month", false, true);
       buttonsPaginator("#prev", monthEl, ".c-paginator__month", true, false);
 

@@ -22,9 +22,14 @@
 <script>
     // Variables para almacenar los datos y el número de página actual
     let solicitudes = <?php echo json_encode($solicitudes); ?>;
-    let datosClientes = <?php echo json_encode($datosClientes); ?>;
-    let datosServicios = <?php echo json_encode($datosServicios); ?>;
-    let datosFotografos = <?php echo json_encode($datosFotografos); ?>;
+    let datosClientes = '';
+    let datosServicios = '';
+    let datosFotografos = '';
+    <?php if ($solicitudes != []){ ?>
+      datosClientes = <?php echo json_encode($datosClientes); ?>;
+      datosServicios = <?php echo json_encode($datosServicios); ?>;
+      datosFotografos = <?php echo json_encode($datosFotografos); ?>;
+    <?php }?>
     
     let paginaActual = 1;
     let solicitudesPorPagina = 6;
