@@ -52,25 +52,42 @@ class Citas
 
   // Create a new session for a client
   public function añadirCitaCliente($fecha, $hora, $cliente, $estudio, $fotografo, $servicio)
-  {
-    if (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
-      $consulta = $this->BD->prepare('
-      INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
-      VALUES (?, ?, ?, ?, ?, ?)
-      ');
-      $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
-      $consulta->execute();
+{
+    // Verificar si ya existe una cita para la misma fecha y hora
+    $consultaPrevia = $this->BD->prepare('
+        SELECT COUNT(*) as count
+        FROM cita
+        WHERE fecha = ? AND hora = ?
+    ');
+    $consultaPrevia->bind_param('ss', $fecha, $hora);
+    $consultaPrevia->execute();
+    $resultado = $consultaPrevia->get_result()->fetch_assoc();
+    $consultaPrevia->close();
 
-      // Verificamos si la consulta fue exitosa
-      if ($consulta->affected_rows > 0) {
-        return true;
-      } else {
+    // Si ya existe una cita para la misma fecha y hora, retornar falso
+    if ($resultado['count'] > 0) {
         return false;
-      }
+    } elseif (strtotime($fecha) >= strtotime(date('Y-m-d'))) {
+    // Si la fecha es válida (mayor o igual a la fecha actual)
+        // Insertar la nueva cita
+        $consulta = $this->BD->prepare('
+            INSERT INTO cita (fecha, hora, id_cliente, id_estudio, id_fotografo, id_servicio)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ');
+        $consulta->bind_param('ssiiii', $fecha, $hora, $cliente, $estudio, $fotografo, $servicio);
+        $consulta->execute();
+
+        // Verificar si la consulta fue exitosa
+        if ($consulta->affected_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
-      return false;
+        return false;
     }
-  }
+}
+
 
   // Obtain the session solicitudes for that year
   public function getSessionsFor($year)
@@ -93,6 +110,7 @@ class Citas
     $consulta->close();
     return $datos;
   }
+  
 
 
 

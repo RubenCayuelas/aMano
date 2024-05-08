@@ -124,7 +124,7 @@
               <!-- Time -->
               <div class="col-5">
                 <label for="time" class="form_label">Hora:<span class="text-danger">*</span> </label>
-                <input type="time" name="time" id="time" required class="form-control">
+                <input type="time" name="time" id="time" required class="form-control" min="08:00" max="18:00">
               </div>
               <!-- Fotógrafo -->
               <div class="col-6">
@@ -223,7 +223,7 @@
       today = <?php echo date('Y') ?> + "-" + month + "-" + day;
 
 
-      // 🟡 ------ Set events -------
+      // ------ Set events/session cites -------
       function createEvents(events) {
         events.forEach(function(event) {
           let date = $('*[data-day=' + event.dataDay + ']');
@@ -307,6 +307,7 @@
       // Fill sidebar with the event info
       function fillEventSidebar(self) {
         $(".c-aside__event").remove();
+        $(".c-aside__eventList > ").remove();
 
         // Obtain the events associated with the selected day
         let eventNames = self.attr("data-events");
@@ -321,8 +322,8 @@
 
           // Draw the event info in the sidebar and create a modal with the event data
           for (let i = 0; i < eventsNames.length; i++) {
+            // Ver datos de la cita
             $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
-                  "<!-- Ver datos de la cita -->" +
                   "<div class='modal fade' id='seeCita"+eventsDescriptions[i].id+"' tabindex='-1' aria-labelledby='seeCita"+eventsDescriptions[i].id+"' style='display: none;' aria-hidden='true'>" +
                     "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
                       "<div class='modal-content'>" +
