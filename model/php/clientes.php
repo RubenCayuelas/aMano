@@ -96,16 +96,14 @@ class Clientes
     $consulta->bind_param('i', $id);
     $consulta->bind_result($id, $nombre, $nick, $foto, $tlf1, $tlf2);
     $consulta->execute();
-    $i = 0;
     $this->clientes = null;
     while ($consulta->fetch()) {
-      $this->clientes[$i]['id'] = $id;
-      $this->clientes[$i]['nombre'] = $nombre;
-      $this->clientes[$i]['nick'] = $nick;
-      $this->clientes[$i]['foto'] = $foto;
-      $this->clientes[$i]['tlf'] = $tlf1;
-      $this->clientes[$i]['tlf2'] = $tlf2;
-      $i++;
+      $this->clientes['id'] = $id;
+      $this->clientes['nombre'] = $nombre;
+      $this->clientes['nick'] = $nick;
+      $this->clientes['foto'] = $foto;
+      $this->clientes['tlf'] = $tlf1;
+      $this->clientes['tlf2'] = $tlf2;
     }
     $consulta->close();
     return $this->clientes;
