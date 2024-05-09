@@ -280,6 +280,12 @@ body[data-bs-theme="dark"] #loader {
 .h-10 {
   height: 10%;
 }
+.w-15rem {
+  width: 15rem;
+}
+.h-15rem {
+  height: 15rem;
+}
 .w-2_5rem {
   width: 2.5rem;
 }
@@ -415,6 +421,14 @@ header {
   @media screen and (min-width: 768px) {
     width: calc(50% - 2rem);
   }
+}
+
+/* Profile */
+
+.profile_picture {
+  cursor: pointer;
+  width: calc(15rem + 1.5rem);
+  height: calc(15rem + .5rem);
 }
 
 
