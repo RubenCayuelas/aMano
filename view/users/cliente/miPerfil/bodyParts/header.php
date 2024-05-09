@@ -20,7 +20,7 @@
   <!-- Menú desplegable (Mismos datos que en Aside) -->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-      <h3 class="offcanvas-title" id="offcanvasExampleLabel">Pancracio Andres</h3>
+      <h3 class="offcanvas-title" id="offcanvasExampleLabel"><?php echo $_SESSION['nombre'] ?></h3>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <hr class="border-2">
