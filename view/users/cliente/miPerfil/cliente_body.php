@@ -9,10 +9,10 @@
   <!-- Main -->
   <main class="main">
     
-    <section class="container-fluid">
+    <section class="container">
       <div class="container mt-5 pt-4">
         <div class="row mb-3">
-          <div class="col d-flex">
+          <div class="col d-flex flex-wrap flex-sm-nowrap">
             <div class="profile_picture" data-bs-toggle="modal" data-bs-target="#profilePicture">
               <img class="img-fluid w-15rem h-15rem" src="../../../assets/img/usersPictures/<?php echo $cliente['foto'] ?>" alt="@<?php echo $cliente['nick'] ?>">
               <div class="position-absolute color-bg-default rounded-2 color-fg-default px-2 py-1 left-0 ml-2 mb-2 border" style="top: 18rem;">
@@ -44,7 +44,7 @@
                 </div>
               </div>
             </div>
-            <div>
+            <div class="m-auto" style="width: 60%;">
               <form action="#" method="post">
                 <!-- Name -->
                 <label for="name">Nombre: </label>

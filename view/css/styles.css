@@ -427,7 +427,7 @@ header {
 
 .profile_picture {
   cursor: pointer;
-  width: calc(15rem + 1.5rem);
+  width: calc(15rem + 2rem);
   height: calc(15rem + .5rem);
 }
 
