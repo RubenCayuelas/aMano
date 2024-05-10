@@ -427,8 +427,31 @@ header {
 
 .profile_picture {
   cursor: pointer;
-  width: calc(15rem + 2rem);
-  height: calc(15rem + .5rem);
+  width: 15rem;
+  height: 15.5rem;
+}
+@media screen and (min-width: 576px) {
+  .profile_picture {
+    width: 17rem;
+  }
+}
+
+body[data-bs-theme="dark"] .edit_picture_button {
+  border-color: #dbdbdb !important;
+  fill: #dbdbdb;
+}
+.edit_picture_button {
+  border-color: #777879 !important;
+}
+
+
+.profile_form {
+  width: 75%;
+}
+@media screen and (min-width: 576px) {
+  .profile_form {
+    width: 50%;
+  }
 }
 
 

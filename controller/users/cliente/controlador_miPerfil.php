@@ -19,9 +19,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
   // $citas = new Citas();
 
   $cliente = $clientes->getCliente($_SESSION['id']);
-  
+
   // Head
-  include('../../../view/users/cliente/cliente_head.html');
+  include('../../../view/users/cliente/cliente_head.php');
 
   // Body cliente - miPerfil
   include('../../../view/users/cliente/miPerfil/cliente_body.php');
