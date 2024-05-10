@@ -48,12 +48,12 @@
 
         for (let i = inicio; i < fin && i < solicitudes.length; i++) {
             html += '<div class="card col-12 ps-0 pe-0 mt-0">' +
-                      '<div class="card-header">'+ datosServicios[i][0].nombre + ' - <cite title="hour">'+  espDate(solicitudes[i].fecha) +'</cite></div>' +
+                      '<div class="card-header">'+ datosServicios[i].nombre + ' - <cite title="hour">'+  espDate(solicitudes[i].fecha) +'</cite></div>' +
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
                           '<div class="d-flex mb-2">' +
-                            '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i][0]['foto'] +'" alt="UserPicture '+ datosClientes[i][0]['nombre'] +'">' + 
-                            '<p class="mb-0 d-flex align-items-center">' + datosClientes[i][0]['nombre'] + '</p>' +
+                            '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i]['foto'] +'" alt="UserPicture '+ datosClientes[i]['nombre'] +'">' + 
+                            '<p class="mb-0 d-flex align-items-center">' + datosClientes[i]['nombre'] + '</p>' +
                           '</div>' +
                           '<p> Fotógrafo: ' + datosFotografos[i][0].nombre + '</p>' +
                           '<div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end me-5 pe-5">' +
