@@ -129,7 +129,33 @@
         </div>
       </div>
       <div class="row">
-        
+        <div class="col-4">
+          <div class="card col-12 ps-0 pe-0 mt-0">
+            <div class="card-header">'+ datosServicios[i].nombre + ' - <cite title="hour">'+ espDate(solicitudes[i].fecha) +'</cite></div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <div class="d-flex mb-2">
+                  <img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i]['foto'] +'" alt="UserPicture '+ datosClientes[i]['nombre'] +'">
+                  <p class="mb-0 d-flex align-items-center">' + datosClientes[i]['nombre'] + '</p>
+                </div>
+                <p> Fotógrafo: ' + datosFotografos[i][0].nombre + '</p>
+                <div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end me-5 pe-5">
+                  <cite title="hour">'+ espDate(solicitudes[i].fecha) +' - '+ solicitudes[i].hora.split(':')[0] +':'+ solicitudes[i].hora.split(':')[1] +'h</cite>
+                </div>
+              </blockquote>
+              <div class="w-100 d-flex justify-content-end">
+                <form id="acceptForm" action="controlador_citas.php#solicitudes" method="post">
+                  <input type="hidden" name="id" value="'+ solicitudes[i].id +'">
+                  <button type="submit" name="sessionSolicitudeAccept" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Aceptar</button>
+                </form>
+                <form id="rejectForm" action="controlador_citas.php#solicitudes" method="post">
+                  <input type="hidden" name="id" value="'+ solicitudes[i].id +'">
+                  <button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>

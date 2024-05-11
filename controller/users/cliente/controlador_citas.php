@@ -10,7 +10,7 @@ $themeState = session_theme();
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   // Head
-  include('../../../view/users/cliente/cliente_head.html');
+  include('../../../view/users/cliente/cliente_head.php');
 
   // Body cliente - misCitas
   include('../../../view/users/cliente/misCitas/cliente_body.php');

@@ -45,10 +45,10 @@
           let nuevaFecha = partes[2] + "/" + partes[1] + "/" + partes[0];
           return nuevaFecha;
         }
-
+        
         for (let i = inicio; i < fin && i < solicitudes.length; i++) {
             html += '<div class="card col-12 ps-0 pe-0 mt-0">' +
-                      '<div class="card-header">'+ datosServicios[i].nombre + ' - <cite title="hour">'+  espDate(solicitudes[i].fecha) +'</cite></div>' +
+                      '<div class="card-header">'+ datosServicios[i][0].nombre + ' - <cite title="hour">'+  espDate(solicitudes[i].fecha) +'</cite></div>' +
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
                           '<div class="d-flex mb-2">' +
