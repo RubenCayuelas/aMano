@@ -8,11 +8,70 @@ $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
+  include_once('../../../assets/db/db.php');
+  include('../../../model/php/clientes.php');
+  include('../../../model/php/trabajo.php');
+  include('../../../model/php/foto.php');
+  include('../../../model/php/citas.php');
+  $clientes = new Clientes();
+  $trabajos = new Trabajo();
+  $fotos = new Foto();
+  $citas = new Citas();
+
+  // Editar datos del cliente
+  if (isset($_POST['modCliente'])) {
+    $result = $clientes->editCliente($_SESSION['id'], $_POST['name'], $_POST['nick'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'Se han modificado los datos correctamente.';
+    $msgError = 'Ha habido un error al modificar los datos.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['modPass'])) {
+    $result = $clientes->editClientePass($_SESSION['id'], $_POST['pass']);
+    $msg = 'Se ha cambiado la contraseña correctamente.';
+    $msgError = 'Ha habido un error durante el cambio de contraseña.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['changePicture'])) {
+    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture']);
+    $msg = 'Se ha cambiado la foto de perfil correctamente.';
+    $msgError = 'Ha habido un error al cambiar la foto de perfil.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['elimPicture'])) {
+    $result = $clientes->elimPictureForCliente($_SESSION['id']);
+    $msg = 'Se ha cambiado la foto de perfil correctamente.';
+    $msgError = 'Ha habido un error al cambiar la foto de perfil.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  }
+
+  
+  $cliente = $clientes->getCliente($_SESSION['id']);
+  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
+  
+  // $listaCitas = $citas->getAllSessionsForClient($_SESSION['id']);
+  
+  for ($i=0; $i < count($listaTrabajos); $i++) {
+    $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
+  }
+
   // Head
-  include('../../../view/users/cliente/cliente_head.html');
+  include('../../../view/users/cliente/cliente_head.php');
 
   // Body cliente - miPerfil
   include('../../../view/users/cliente/miPerfil/cliente_body.php');
+  // Msg of the result for adding a new client
+  include('../../../view/users/cliente/miPerfil/bodyParts/msg.html');
+
+  if ($listaTrabajos == null || $listaTrabajos == '') {
+    include('../../../view/users/cliente/miPerfil/bodyParts/body_no_results.html');
+  } else {
+    include('../../../view/users/cliente/miPerfil/bodyParts/body_results.php');
+  }
 
   // End
   include('../../../view/users/cliente/cliente_end.html');

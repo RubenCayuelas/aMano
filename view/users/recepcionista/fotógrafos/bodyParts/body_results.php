@@ -12,7 +12,7 @@
             <?php foreach ($listaFotografos as $fotografo) : ?>
                 <tr class="text-center" data-bs-toggle="collapse" href="#infoFotografo<?= $fotografo['id'] ?>" role="button" aria-expanded="false" aria-controls="infoFotografo<?= $fotografo['id'] ?>">
                     <td scope="row">
-                        <img src="../../../assets/img/usersPictures/<?= $fotografo['foto'] ?>" alt="Foto de perfil del fotógrafo" class="img-fluid w-2rem h-2rem">
+                        <img src="../../../assets/img/usersPictures/<?= $fotografo['foto'] ?>" alt="Foto de perfil del fotógrafo" class="img-fluid rounded-circle w-2rem h-2rem">
                     </td>
                     <th><?= $fotografo['nombre'] ?></th>
                     <td><?= $fotografo['nick'] ?></td>
@@ -25,7 +25,7 @@
                             <div class="card card-body w-100 bw-0 row flex-row pt-0 ms-0">
                                 <div class="col-2 d-flex align-items-center justify-content-center">
                                     <div class="imgUsuario">
-                                        <img src="../../../assets/img/usersPictures/<?= $fotografo['foto'] ?>" alt="Foto de perfil del fotógrafo" class="img-fluid">
+                                        <img src="../../../assets/img/usersPictures/<?= $fotografo['foto'] ?>" alt="Foto de perfil del fotógrafo" class="img-fluid rounded-circle w-3_5rem h-3_5rem">
                                     </div>
                                 </div>
                                 <div class="col-9">

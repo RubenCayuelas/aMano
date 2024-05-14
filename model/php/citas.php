@@ -109,4 +109,24 @@ class Citas
     $consulta->close();
     return $datos;
   }
+
+  // Obtain all the sessions for a client
+  public function getAllSessionsForClient($cliente)
+  {
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
+                                    FROM cita c, cliente cl, fotografo f, servicio s
+                                    WHERE c.id_cliente = cl.id
+                                      AND c.id_fotografo = f.id
+                                      AND c.id_servicio = s.id
+                                      AND c.estado = "1"
+                                      AND c.id_estudio = ?
+    ');
+    $consulta->bind_param('i', $cliente);
+    $consulta->execute();
+    $datos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consulta->close();
+    return $datos;
+  }
+
+
 }

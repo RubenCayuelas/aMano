@@ -280,11 +280,23 @@ body[data-bs-theme="dark"] #loader {
 .h-10 {
   height: 10%;
 }
+.w-15rem {
+  width: 15rem;
+}
+.h-15rem {
+  height: 15rem;
+}
 .w-2_5rem {
   width: 2.5rem;
 }
 .h-2_5rem {
   height: 2.5rem;
+}
+.w-3_5rem {
+  width: 3.5rem;
+}
+.h-3_5rem {
+  height: 3.5rem;
 }
 .w-2rem {
   width: 2rem;
@@ -414,6 +426,37 @@ header {
 .solicitudes .card {
   @media screen and (min-width: 768px) {
     width: calc(50% - 2rem);
+  }
+}
+
+/* Profile */
+
+.profile_picture {
+  cursor: pointer;
+  width: 15rem;
+  height: 15.5rem;
+}
+@media screen and (min-width: 576px) {
+  .profile_picture {
+    width: 17rem;
+  }
+}
+
+body[data-bs-theme="dark"] .edit_picture_button {
+  border-color: #dbdbdb !important;
+  fill: #dbdbdb;
+}
+.edit_picture_button {
+  border-color: #777879 !important;
+}
+
+
+.profile_form {
+  width: 75%;
+}
+@media screen and (min-width: 576px) {
+  .profile_form {
+    width: 50%;
   }
 }
 
