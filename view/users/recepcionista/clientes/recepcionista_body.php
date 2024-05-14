@@ -59,8 +59,8 @@
                 </div>
                 <!-- tlf2 -->
                 <div class="col-md-6">
-                  <label for="tlf2" class="form_label">Tlf2: </label>
-                  <input type="tlf" name="tlf2" id="tlf2" class="form-control">
+                  <label for="tlf2c" class="form_label">Tlf2: </label>
+                  <input type="tlf" name="tlf2" id="tlf2c" class="form-control">
                 </div>
                 <div class="col-12 d-flex align-items-center justify-content-end">
                   <button type="submit" name="newCliente" class="btn btn-secondary">Crear</button>
