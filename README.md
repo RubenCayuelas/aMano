@@ -1,8 +1,3 @@
-Datos para mí, a eliminar.
-
- - Logo: https://www.zarla.com/design/f3jjh89rkkq748463h8x/palette
- - Git Buenas practicas: https://midu.dev/buenas-practicas-escribir-commits-git/
-____________________________________________________________________________
 # Información:
 
  La copia de la base de datos se encuentra en `assets/db/DB_BackUp/dbamano.sql`
@@ -37,7 +32,7 @@ ____________________________________________________________________________
 ### Clientes
 | Usuario | Contraseña |
 |---------|------------|
-| `eugenia032` | `eugenia032(lola)` |
+| `eugenia032` | `eugenia032` |
 | `carlos245` | `carlos245` |
 | `maria738` | `maria738` |
 | `juan167` | `juan167` |
