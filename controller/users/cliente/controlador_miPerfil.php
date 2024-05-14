@@ -18,6 +18,38 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
   $fotos = new Foto();
   $citas = new Citas();
 
+  // Editar datos del cliente
+  if (isset($_POST['modCliente'])) {
+    $result = $clientes->editCliente($_SESSION['id'], $_POST['name'], $_POST['nick'], $_POST['tlf'], $_POST['tlf2']);
+    $msg = 'Se han modificado los datos correctamente.';
+    $msgError = 'Ha habido un error al modificar los datos.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['modPass'])) {
+    $result = $clientes->editClientePass($_SESSION['id'], $_POST['pass']);
+    $msg = 'Se ha cambiado la contraseña correctamente.';
+    $msgError = 'Ha habido un error durante el cambio de contraseña.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['changePicture'])) {
+    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture']);
+    $msg = 'Se ha cambiado la foto de perfil correctamente.';
+    $msgError = 'Ha habido un error al cambiar la foto de perfil.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  } elseif (isset($_POST['elimPicture'])) {
+    $result = $clientes->elimPictureForCliente($_SESSION['id']);
+    $msg = 'Se ha cambiado la foto de perfil correctamente.';
+    $msgError = 'Ha habido un error al cambiar la foto de perfil.';
+
+    include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
+
+  }
+
+  
   $cliente = $clientes->getCliente($_SESSION['id']);
   $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
   
@@ -32,6 +64,8 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   // Body cliente - miPerfil
   include('../../../view/users/cliente/miPerfil/cliente_body.php');
+  // Msg of the result for adding a new client
+  include('../../../view/users/cliente/miPerfil/bodyParts/msg.html');
 
   if ($listaTrabajos == null || $listaTrabajos == '') {
     include('../../../view/users/cliente/miPerfil/bodyParts/body_no_results.html');
