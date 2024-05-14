@@ -36,7 +36,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
 
     include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
 
-  }elseif (isset($_POST['newCliente'])) {
+  } elseif (isset($_POST['newCliente'])) {
     $result = $clientes->añadirCliente($_POST['nombre'], $_POST['nick'], $_POST['password'], $_POST['tlf'], $_POST['tlf2']);
     $msg = 'El cliente se ha añadido correctamente.';
     $msgError = 'Ha habido un error al añadir el cliente.';
@@ -49,11 +49,6 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
     $msgError = 'Ha habido un error al crear la cita para el cliente.';
 
     include('../../../view/users/recepcionista/clientes/bodyParts/msg_script.php');
-  }
-
-  // Crear cita para un cliente
-  if (isset($_POST['addCita'])) {
-    
   }
 
   // Controlador de la busqueda de clientes
