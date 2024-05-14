@@ -35,7 +35,7 @@
       echo '
                 <tr class="text-center" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '">
                     <td scope="row">
-                      <img src="../../../assets/img/usersPictures/'. $cliente['foto'] .'" alt="Foto de perfil del usuario" class="img-fluid w-2rem h-2rem">
+                      <img src="../../../assets/img/usersPictures/'. $cliente['foto'] .'" alt="Foto de perfil del usuario" class="img-fluid rounded-circle w-2rem h-2rem">
                     </td>
                     <th>' . $cliente['nombre'] . '</th>
                     <td>' . $cliente['nick'] . '</td>
@@ -61,24 +61,24 @@
                         <div class="collapse" id="infoUsuario' . $cliente['id'] . '">
                             <button type="button" class="btn-close float-end mt-2 me-2" aria-label="Close" data-bs-toggle="collapse" href="#infoUsuario' . $cliente['id'] . '" role="button" aria-expanded="false" aria-controls="infoUsuario' . $cliente['id'] . '"></button>
                             <div class="card card-body w-100 bw-0 row flex-row pt-0 ms-0">
-                                <div class="col-2 d-flex align-items-center justify-content-center">
+                                <div class="col-sm-2 d-flex align-items-center justify-content-center">
                                     <div class="imgUsuario">
-                                    <img src="../../../assets/img/usersPictures/' . $cliente['foto'] . '" alt="Foto de perfil del usuario" class="img-fluid">
+                                    <img src="../../../assets/img/usersPictures/' . $cliente['foto'] . '" alt="Foto de perfil del usuario" class="img-fluid rounded-circle w-3_5rem h-3_5rem">
                                 </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-sm-3 col-6 d-sm-block d-flex flex-column align-items-center">
                                     <h4>Nombre:</h4>
                                     <h5 class="ms-1">' . $cliente['nombre'] . '</h5>
                                     <p>Nick: ' . $cliente['nick'] . '</p>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-sm-3 col-6 d-sm-block d-flex flex-column align-items-center">
                                     <h4>Teléfono/s</h4>
                                     <p class="m-0 ms-1"><i class="bi bi-telephone-fill"></i> ' . $cliente['tlf'] . '</p>';
                                     if ($cliente['tlf2'] != '') {
                                       echo '<p class="m-0 ms-1"><i class="bi bi-telephone-fill"></i> ' . $cliente['tlf2'] . '</p>';
                                     }
       echo                     '</div>
-                                <div class="col-3 d-flex justify-content-around align-items-center flex-wrap">
+                                <div class="col-sm-3 d-flex justify-content-around align-items-center flex-wrap">
                                     <div>
                                         <button type="button" class="btn btn-sm btn-outline-secondary rounded" data-bs-toggle="modal" data-bs-target="#modCliente' . $cliente['id'] . '">Editar</button>
                                     </div>
