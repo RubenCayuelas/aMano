@@ -292,6 +292,12 @@ body[data-bs-theme="dark"] #loader {
 .h-2_5rem {
   height: 2.5rem;
 }
+.w-3_5rem {
+  width: 3.5rem;
+}
+.h-3_5rem {
+  height: 3.5rem;
+}
 .w-2rem {
   width: 2rem;
 }
