@@ -261,6 +261,4 @@ class Clientes
     $consulta->close();
     return $consulta;
   }
-
-
 }
