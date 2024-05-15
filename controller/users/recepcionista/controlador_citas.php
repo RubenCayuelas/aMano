@@ -49,8 +49,10 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   // Accept or denny a solicitude from a client for a session
   if (isset($_POST['sessionSolicitudeAccept'])) {
     $citas->sessionStatusUpdate($_POST['id'], '1');
+    header('Location: #');
   } elseif (isset($_POST['sessionSolicitudeReject'])) {
     $citas->sessionStatusUpdate($_POST['id'], '0');
+    header('Location: #');
   }
 
 
