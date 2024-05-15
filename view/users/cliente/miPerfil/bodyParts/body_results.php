@@ -39,7 +39,7 @@
                   </div>
                 </blockquote>
                 <div class="w-100 d-flex justify-content-end">
-                  <form id="openProyect" action="./controlador_trabajos.php" method="post">
+                  <form id="openProyect" action="./controlador_trabajo.php" method="post">
                     <input type="hidden" name="trabajo_id" value="<?php echo $trabajo['id']; ?>">
                     <button type="submit" name="openProyect" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Ver</button>
                   </form>
