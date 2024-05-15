@@ -15,7 +15,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
     include('../../../view/users/cliente/cliente_head.php');
   
     // Body cliente - misCitas
-    include('../../../view/users/cliente/misCitas/cliente_body.php');
+    include('../../../view/users/cliente/trabajos/cliente_body.php');
   
     // End
     include('../../../view/users/cliente/cliente_end.html');
