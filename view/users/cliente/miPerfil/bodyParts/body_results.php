@@ -18,7 +18,8 @@
       <div class="row flex-wrap justify-content-between">
         <?php 
           $i=0; 
-          foreach ($listaTrabajos as $trabajo) { ?>
+          foreach ($listaTrabajos as $trabajo) { 
+        ?>
           <div class="col-md-5 col-lg-4 mb-3 m-auto">
             <div class="card col-12 ps-0 pe-0 mt-0">
               <div class="card-header"><?php echo $trabajo['nombre']; ?> - <cite title="hour"><?php echo $trabajo['servicio']; ?></cite></div>
@@ -38,8 +39,8 @@
                   </div>
                 </blockquote>
                 <div class="w-100 d-flex justify-content-end">
-                  <form id="openProyect" action="#" method="post">
-                    <input type="hidden" name="id" value="<?php echo $trabajo['id']; ?>">
+                  <form id="openProyect" action="./controlador_trabajos.php" method="post">
+                    <input type="hidden" name="trabajo_id" value="<?php echo $trabajo['id']; ?>">
                     <button type="submit" name="openProyect" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Ver</button>
                   </form>
                 </div>
