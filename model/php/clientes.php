@@ -251,7 +251,7 @@ class Clientes
   }
 
   // Delete the profile picture of a client
-  public function elimPictureForCliente($cliente)
+  public function elimPictureForCliente($cliente, $actualPicture)
   {
     $consulta = $this->BD->prepare('UPDATE cliente
                                       SET foto = "defaultUser.png"
@@ -259,6 +259,7 @@ class Clientes
     $consulta->bind_param('i', $cliente);
     $consulta->execute();
     $consulta->close();
+    unlink("../../../assets/img/usersPictures/$actualPicture");
     return $consulta;
   }
 }

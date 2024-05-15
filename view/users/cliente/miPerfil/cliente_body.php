@@ -37,7 +37,7 @@
                       </div>
                       <div class="col-12 d-flex mt-3">
                         <div class="col-9 d-flex align-items-center justify-content-end pe-3">
-                          <button type="submit" name="elimPicture" class="btn btn-sm btn-outline-danger">Eliminar Foto</button>
+                          <button type="submit" name="elimPicture" value="<?php echo $cliente['foto'] ?>" class="btn btn-sm btn-outline-danger">Eliminar Foto</button>
                         </div>
 
                         <div class="col-2 d-flex align-items-center justify-content-end">

@@ -41,7 +41,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
     include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['elimPicture'])) {
-    $result = $clientes->elimPictureForCliente($_SESSION['id']);
+    $result = $clientes->elimPictureForCliente($_SESSION['id'], $_POST['elimPicture']); #Add the route to eliminate the outdated picture
     $msg = 'Se ha cambiado la foto de perfil correctamente.';
     $msgError = 'Ha habido un error al cambiar la foto de perfil.';
 
