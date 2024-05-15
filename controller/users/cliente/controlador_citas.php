@@ -9,6 +9,15 @@ $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
+  include_once('../../../assets/db/db.php');
+  include('../../../model/php/citas.php');
+
+  $citas = new Citas();
+
+
+  // $listaCitas = $citas->getAllSessionsForClient($_SESSION['id']);
+
+
   // Head
   include('../../../view/users/cliente/cliente_head.php');
 
