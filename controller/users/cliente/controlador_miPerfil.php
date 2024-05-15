@@ -12,11 +12,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
   include('../../../model/php/clientes.php');
   include('../../../model/php/trabajo.php');
   include('../../../model/php/foto.php');
-  include('../../../model/php/citas.php');
   $clientes = new Clientes();
   $trabajos = new Trabajo();
   $fotos = new Foto();
-  $citas = new Citas();
 
   // Editar datos del cliente
   if (isset($_POST['modCliente'])) {
@@ -53,7 +51,6 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
   $cliente = $clientes->getCliente($_SESSION['id']);
   $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
   
-  // $listaCitas = $citas->getAllSessionsForClient($_SESSION['id']);
   
   for ($i=0; $i < count($listaTrabajos); $i++) {
     $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
