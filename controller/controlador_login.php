@@ -53,8 +53,7 @@ if (isset($_GET['logout'])) {
           // Redirección a la pagina principal del los fotógrafo
           echo '<meta http-equiv="refresh" content="0;url=./users/fotografo/controlador_miPerfil.php">';
         } elseif ($_SESSION['userType'] == 'C') {
-          $_SESSION['foto'] = $datosUsuario['foto'];
-          recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre'], 'foto', $_SESSION['foto']);
+          recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre']);
           // Redirección a la pagina principal del cliente
           echo '<meta http-equiv="refresh" content="0;url=./users/cliente/controlador_miPerfil.php">';
         }

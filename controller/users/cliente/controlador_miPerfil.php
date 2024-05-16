@@ -32,14 +32,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
     include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['changePicture'])) {
-    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture']);
+    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture'], $_POST['changePicture']);
     $msg = 'Se ha cambiado la foto de perfil correctamente.';
     $msgError = 'Ha habido un error al cambiar la foto de perfil.';
 
     include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['elimPicture'])) {
-    $result = $clientes->elimPictureForCliente($_SESSION['id'], $_POST['elimPicture']); #Add the route to eliminate the outdated picture
+    $result = $clientes->elimPictureForCliente($_SESSION['id'], $_POST['elimPicture']);
     $msg = 'Se ha cambiado la foto de perfil correctamente.';
     $msgError = 'Ha habido un error al cambiar la foto de perfil.';
 
@@ -49,7 +49,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   
   $cliente = $clientes->getCliente($_SESSION['id']);
-  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
+  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']) != null ? $trabajos->getTrabajos($_SESSION['id']) : [];
   
   
   for ($i=0; $i < count($listaTrabajos); $i++) {
