@@ -445,9 +445,11 @@ header {
 body[data-bs-theme="dark"] .edit_picture_button {
   border-color: #dbdbdb !important;
   fill: #dbdbdb;
+  background: #1d1d1d99;
 }
 .edit_picture_button {
   border-color: #777879 !important;
+  background: #d0d0d099;
 }
 
 
