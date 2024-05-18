@@ -27,6 +27,21 @@ class Citas
     return $datos;
   }
 
+  // Obtain the session requested
+  public function getSession($id_cita)
+  {
+    $consulta = $this->BD->prepare('
+          SELECT fecha, hora, id_cliente, id_fotografo, id_servicio
+          FROM cita
+          WHERE id = ?
+      ');
+    $consulta->bind_param('i', $id_cita);
+    $consulta->execute();
+    $datos = $consulta->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consulta->close();
+    return $datos;
+  }
+
   // Calcel past session solicitudes
   public function closePastsSessions($solicitudes)
   {
@@ -46,6 +61,15 @@ class Citas
   {
     $consulta = $this->BD->prepare('UPDATE cita SET estado = ? WHERE id = ?');
     $consulta->bind_param('si', $nuevoEstado, $idCita);
+    $consulta->execute();
+    $consulta->close();
+  }
+
+  // Update the work asigned to the session
+  public function sessionAddWork($idCita, $id_work)
+  {
+    $consulta = $this->BD->prepare('UPDATE cita SET id_trabajo = ? WHERE id = ?');
+    $consulta->bind_param('si', $id_work, $idCita);
     $consulta->execute();
     $consulta->close();
   }
@@ -94,7 +118,8 @@ class Citas
     // Obtenemos el primer día del año y el último día del año
     $startOfYear = $year . '-01-01';
     $endOfYear = $year . '-12-31';
-    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture,
+                                           c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
                                     FROM cita c, cliente cl, fotografo f, servicio s
                                     WHERE c.id_cliente = cl.id
                                       AND c.id_fotografo = f.id
@@ -113,7 +138,8 @@ class Citas
   // Obtain all the sessions for a client
   public function getAllSessionsForClient($cliente)
   {
-    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture, c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, id_cliente, cl.nombre cliente, cl.foto cliente_picture,
+                                           c.id_fotografo, f.nombre fotografo, c.id_servicio , s.nombre servicio
                                     FROM cita c, cliente cl, fotografo f, servicio s
                                     WHERE c.id_cliente = cl.id
                                       AND c.id_fotografo = f.id
@@ -131,6 +157,32 @@ class Citas
   // Sessions that are able to start a Work
   public function getSessionsAbleForCreateWorkFromPhotographer($fotografo)
   {
-    
+    $fecha_actual = date('Y-m-d');
+
+    $consulta = $this->BD->prepare('SELECT c.id, c.fecha, c.hora, c.id_cliente, cl.nombre, c.id_servicio, s.nombre
+                                    FROM cita c, cliente cl, servicio s
+                                    WHERE c.id_cliente = cl.id AND c.id_servicio = s.id
+                                      AND c.fecha <= ? 
+                                      AND c.estado = "1"
+                                      AND c.id_trabajo IS NULL
+                                      AND c.id_fotografo = ?
+        ');
+    $consulta->bind_param('si', $fecha_actual, $fotografo);
+    $consulta->bind_result($id, $nombre, $hora, $id_cliente, $cliente, $id_servicio, $servicio);
+    $consulta->execute();
+    $i = 0;
+    $this->citas = null;
+    while ($consulta->fetch()) {
+      $this->citas[$i]['id'] = $id;
+      $this->citas[$i]['nombre'] = $nombre;
+      $this->citas[$i]['hora'] = $hora;
+      $this->citas[$i]['id_cliente'] = $id_cliente;
+      $this->citas[$i]['cliente'] = $cliente;
+      $this->citas[$i]['id_servicio'] = $id_servicio;
+      $this->citas[$i]['servicio'] = $servicio;
+      $i++;
+    }
+    $consulta->close();
+    return $this->citas;
   }
 }
