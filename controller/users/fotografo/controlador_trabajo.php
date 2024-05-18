@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 

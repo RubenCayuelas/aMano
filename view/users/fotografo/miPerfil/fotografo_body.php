@@ -76,7 +76,7 @@
                   <p id="charNum" class="d-flex justify-content-end m-0"></p>
                 <?php } ?>
               </div>
-              <script src="../../../model/js/charsCont/index.js"></script>
+              <script src="../../../models/js/charsCont.js"></script>
 
               <div class="col-12 d-flex">
                 <!-- Password -->
@@ -158,7 +158,7 @@
                   <div class="col-12">
                     <label for="proyecto" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
                     <!-- <input type="text" name="password" id="password" required class="form-control"> -->
-                    <select type="text" name="cliente" id="cliente" required class="form-select">';
+                    <select type="text" name="cliente" id="cliente" required class="form-select">
                       <?php
                         foreach ($listaClientes as $cliente) {
                           echo '<option value="'. $cliente['id'] .'">'. $cliente['nombre'] .'</option>';

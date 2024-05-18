@@ -45,4 +45,9 @@ class Trabajo
     return $this->trabajo;
   }
 
+  // Create a new Work
+  public function newTrabajo($nombre, $descripcion, $id_servicio, $id_cliente, $id_fotografo)
+  {
+    
+  }
 }

@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
@@ -20,13 +20,13 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['i
   $año = isset($_GET['year']) ? $_GET['year'] : date('Y');
   $firstWeekDay = date('N', strtotime($año."-01-01"));
 
-  include_once('../../../assets/db/db.php');
+  include_once('../../../models/php/db.php');
 
   // Sessions solicitudes
-  include('../../../model/php/citas.php');
-  include('../../../model/php/clientes.php');
-  include('../../../model/php/fotografos.php');
-  include('../../../model/php/servicios.php');
+  include('../../../models/php/citas.php');
+  include('../../../models/php/clientes.php');
+  include('../../../models/php/fotografos.php');
+  include('../../../models/php/servicios.php');
   $citas = new Citas();
   $clientes = new Clientes();
   $fotografos = new Fotografos();

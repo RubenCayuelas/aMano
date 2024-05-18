@@ -2,15 +2,15 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['id'] > 0) {
 
-  include_once('../../../assets/db/db.php');
-  include('../../../model/php/fotografos.php');
+  include_once('../../../models/php/db.php');
+  include('../../../models/php/fotografos.php');
   $fotografos = new Fotografos();
   
   // Controlador de la busqueda de fotografos

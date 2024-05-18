@@ -2,23 +2,23 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
-  include_once('../../../assets/db/db.php');
-  include('../../../model/php/clientes.php');
-  include('../../../model/php/fotografos.php');
-  include('../../../model/php/trabajo.php');
-  include('../../../model/php/foto.php');
+  include_once('../../../models/php/db.php');
+  include('../../../models/php/clientes.php');
+  include('../../../models/php/fotografos.php');
+  include('../../../models/php/trabajo.php');
+  include('../../../models/php/foto.php');
   $clientes = new Clientes();
   $fotografos = new Fotografos();
   $trabajos = new Trabajo();
   $fotos = new Foto();
 
-  // Editar datos del fotografo
+  // Editar datos del fotografo y crea un nuevo trabajo
   if (isset($_POST['modFotografo'])) {
     $result = $fotografos->editFotografo($_SESSION['id'], $_POST['name'], $_POST['nick'], $_POST['habilidades'], $_POST['descripcion']);
     $msg = 'Se han modificado los datos correctamente.';
@@ -47,11 +47,18 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
     include('../../../view/users/fotografo/miPerfil/bodyParts/msg_script.php');
 
+  } elseif (isset($_POST['newTrabajo'])) {
+    $result = $trabajos->newTrabajo($_POST['nombre'], $_POST['descripcion'], $_POST['servicio'], $_POST['cliente'], $_SESSION['id']); // Actualizar esto a el formulario terminado
+    $msg = 'Se ha creado el trabajo correctamente.';
+    $msgError = 'Ha habido un error crear el trabajo.';
+
+    include('../../../view/users/fotografo/miPerfil/bodyParts/msg_script.php');
   }
 
   
   $fotografo = $fotografos->getFotografo($_SESSION['id']);
   $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
+  // $listaTrabajosPorCrear =
   
   
   for ($i=0; $i < count($listaTrabajos); $i++) {

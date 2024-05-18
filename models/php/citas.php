@@ -128,5 +128,9 @@ class Citas
     return $datos;
   }
 
-
+  // Sessions that are able to start a Work
+  public function getSessionsAbleForCreateWorkFromPhotographer($fotografo)
+  {
+    
+  }
 }

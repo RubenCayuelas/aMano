@@ -30,7 +30,6 @@ class Clientes
       $datos['id'] = $datosReseult['id'];
       $datos['nick'] = $datosReseult['nick'];
       $datos['nombre'] = $datosReseult['nombre'];
-      $datos['foto'] = $datosReseult['foto'];
       $datos['tipo'] = 'C';
     } else {
       $datos['id'] = -1;
