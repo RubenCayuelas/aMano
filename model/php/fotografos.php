@@ -179,12 +179,12 @@ class Fotografos
       $isImg = getimagesize($picture['tmp_name']);
       if ($isImg !== false) {
 
-        if (!$actualPicture == 'defaultUser.png') {
+        if ($actualPicture != 'defaultUser.png') {
           unlink("../../../assets/img/usersPictures/$actualPicture");
         }
         
-        $nombreImagen = 'profilePicture_' . $fotografo . '.' . $extension;
-        $rutaImagen = "../../../assets/img/usersPictures/photograph_$nombreImagen";
+        $nombreImagen = 'photograph_profilePicture_' . $fotografo . '.' . $extension;
+        $rutaImagen = "../../../assets/img/usersPictures/$nombreImagen";
         move_uploaded_file($picture['tmp_name'], $rutaImagen);
 
         $consulta = $this->BD->prepare("UPDATE fotografo SET foto = ? WHERE id = ?");
@@ -204,13 +204,15 @@ class Fotografos
   // Delete the profile picture of a client
   public function elimPictureForPhotograph($cliente, $actualPicture)
   {
-    $consulta = $this->BD->prepare('UPDATE cliente
+    $consulta = $this->BD->prepare('UPDATE fotografo
                                       SET foto = "defaultUser.png"
                                       WHERE id = ?');
     $consulta->bind_param('i', $cliente);
     $consulta->execute();
     $consulta->close();
-    unlink("../../../assets/img/usersPictures/photograph_$actualPicture");
+    if (!$actualPicture == 'defaultUser.png') {
+      unlink("../../../assets/img/usersPictures/$actualPicture");
+    }
     return $consulta;
   }
 }
