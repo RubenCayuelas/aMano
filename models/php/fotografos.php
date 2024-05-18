@@ -5,17 +5,17 @@ class Fotografos
   private $BD;
   private $fotografos;
 
-// Constructor
+  // Constructor
   public function __construct()
   {
     $this->BD = BD::connect();
   }
 
-// Login
+  // Login
   public function login($nick, $pass)
   {
     $consulta = $this->BD->prepare('
-          SELECT id, nick
+          SELECT id, nick, nombre
           from fotografo
           WHERE nick = ?
               AND pass = ?
@@ -37,8 +37,8 @@ class Fotografos
     return $datos;
     $consulta->close();
   }
-  
-// Listar Fotógrafos
+
+  // Listar Fotógrafos
   public function listarFotografos()
   {
     $consulta = $this->BD->query('
@@ -51,7 +51,7 @@ class Fotografos
     return $this->fotografos;
   }
 
-// Listar Fotografos que trabajen en el mismo estudio que el recepcionista que realiza la llamada
+  // Listar Fotografos que trabajen en el mismo estudio que el recepcionista que realiza la llamada
   public function listarFotografosRecepcionista()
   {
     $consulta = $this->BD->prepare('SELECT id, nombre, nick, foto, descripcion, habilidades, id_estudio
@@ -66,7 +66,7 @@ class Fotografos
     return $this->fotografos;
   }
 
-// Buscar fotografo
+  // Buscar fotografo
   public function buscarFotografos($search)
   {
     $busqueda = $search . '%';
@@ -97,7 +97,7 @@ class Fotografos
     return $this->fotografos;
   }
 
-// Obtener datos de fotografo
+  // Obtener datos de fotografo
   public function getFotografo($id)
   {
     $consulta = $this->BD->prepare('
@@ -124,7 +124,95 @@ class Fotografos
     return $this->fotografos;
   }
 
+  // Edit a photographer
+  public function editFotografo($id, $nombre, $nick, $habilidades, $descripcion)
+  {
+    if (trim($id) != '' && trim($nombre) != '' && trim($nick) != '' && trim($habilidades) != '') {
+      // Verificar si el nick es único
+      $consultaNick = $this->BD->prepare('SELECT id FROM fotografo WHERE nick = ? AND id != ?');
+      $consultaNick->bind_param('si', $nick, $id);
+      $consultaNick->execute();
+      $resultadoNick = $consultaNick->get_result();
+      if ($resultadoNick->num_rows > 0) {
+        $consultaNick->close();
+        return false;
+      }
+      $consultaNick->close();
 
+      $consulta = $this->BD->prepare('UPDATE fotografo
+                                      SET nombre=?, 
+                                          nick=?, 
+                                          habilidades=?, 
+                                          descripcion=?  
+                                      WHERE id=?');
+      $consulta->bind_param('ssssi', $nombre, $nick, $habilidades, $descripcion, $id);
+      $consulta->execute();
+      $consulta->close();
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  // Edit password of a photographer
+  public function editPassForPhotographer($id, $password)
+  {
+    if (trim($password) != '') {
+      $pass = md5(md5(md5(md5(md5($password)))));
+      $consulta = $this->BD->prepare('UPDATE fotografo
+                                      SET pass=?
+                                      WHERE id=?');
+      $consulta->bind_param('si', $pass, $id);
+      $consulta->execute();
+      $consulta->close();
+    } else {
+      $consulta = false;
+    }
+    return $consulta;
+  }
 
+  // Change the profile picture of a phothograp
+  public function changePictureForPhotograph($fotografo, $picture, $actualPicture)
+  {
+    if ($picture['error'] === UPLOAD_ERR_OK) {
+      $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
+      $isImg = getimagesize($picture['tmp_name']);
+      if ($isImg !== false) {
+
+        if ($actualPicture != 'defaultUser.png') {
+          unlink("../../../assets/img/usersPictures/$actualPicture");
+        }
+        
+        $nombreImagen = 'photograph_profilePicture_' . $fotografo . '.' . $extension;
+        $rutaImagen = "../../../assets/img/usersPictures/$nombreImagen";
+        move_uploaded_file($picture['tmp_name'], $rutaImagen);
+
+        $consulta = $this->BD->prepare("UPDATE fotografo SET foto = ? WHERE id = ?");
+        $consulta->bind_param('si', $nombreImagen, $fotografo);
+        $consulta->execute();
+        $consulta->close();
+
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  // Delete the profile picture of a client
+  public function elimPictureForPhotograph($cliente, $actualPicture)
+  {
+    $consulta = $this->BD->prepare('UPDATE fotografo
+                                      SET foto = "defaultUser.png"
+                                      WHERE id = ?');
+    $consulta->bind_param('i', $cliente);
+    $consulta->execute();
+    $consulta->close();
+    if (!$actualPicture == 'defaultUser.png') {
+      unlink("../../../assets/img/usersPictures/$actualPicture");
+    }
+    return $consulta;
+  }
 }

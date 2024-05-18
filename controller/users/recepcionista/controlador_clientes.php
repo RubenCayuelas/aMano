@@ -2,17 +2,17 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'R' && $_SESSION['id'] > 0) {
 
-  include_once('../../../assets/db/db.php');
-  include('../../../model/php/clientes.php');
-  include('../../../model/php/fotografos.php');
-  include('../../../model/php/servicios.php');
-  include('../../../model/php/citas.php');
+  include_once('../../../models/php/db.php');
+  include('../../../models/php/clientes.php');
+  include('../../../models/php/fotografos.php');
+  include('../../../models/php/servicios.php');
+  include('../../../models/php/citas.php');
   $clientes = new Clientes();
   $fotografos = new Fotografos();
   $servicios = new Servicios();

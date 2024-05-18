@@ -11,6 +11,8 @@ services:
       - 80
     ports:
       - 80:80
+    environment:
+      - MYSQL_HOST=mysql
     depends_on:
       - mysql
       - phpmyadmin
@@ -29,8 +31,8 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-        MYSQL_ROOT_PASSWORD: ''
-        MYSQL_ALLOW_EMPTY_PASSWORD: true
-        MYSQL_DATABASE: dbamano
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: dbamano
 volumes:
   mysql:

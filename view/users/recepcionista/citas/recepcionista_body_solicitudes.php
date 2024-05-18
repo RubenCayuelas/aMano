@@ -4,7 +4,7 @@
   <hr>
 
   <?php include_once('../../../view/layout/loading.html'); ?>
-  <script src="../../../model/js/loading/loading_recepcionista_solicitudeForm.js"></script>
+  <script src="../../../models/js/loading_recepcionista_solicitudeForm.js"></script>
 
   <div class="row gap-3 justify-content-center" id="solicitudesContainer">
     <?php

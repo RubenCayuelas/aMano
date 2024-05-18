@@ -15,7 +15,7 @@ class Clientes
   public function login($nick, $pass)
   {
     $consulta = $this->BD->prepare('
-          SELECT id, nick, nombre, foto
+          SELECT id, nick, nombre
           from cliente
           WHERE nick = ?
               AND pass = ?
@@ -30,7 +30,6 @@ class Clientes
       $datos['id'] = $datosReseult['id'];
       $datos['nick'] = $datosReseult['nick'];
       $datos['nombre'] = $datosReseult['nombre'];
-      $datos['foto'] = $datosReseult['foto'];
       $datos['tipo'] = 'C';
     } else {
       $datos['id'] = -1;
@@ -222,13 +221,18 @@ class Clientes
   }
 
   // Change the profile picture of a client
-  public function changePictureForClient($cliente, $picture)
+  public function changePictureForClient($cliente, $picture, $actualPicture)
   {
     if ($picture['error'] === UPLOAD_ERR_OK) {
       // Obtiene la extensión del archivo
       $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
       $isImg = getimagesize($picture['tmp_name']);
       if ($isImg !== false) {
+
+        if ($actualPicture != 'defaultUser.png') {
+          unlink("../../../assets/img/usersPictures/$actualPicture");
+        }
+
         // Guarda la imagen con el id del cliente en la carpeta de imágenes
         $nombreImagen = 'profilePicture_'.$cliente.'.'.$extension;
         $rutaImagen = "../../../assets/img/usersPictures/$nombreImagen";
@@ -251,7 +255,7 @@ class Clientes
   }
 
   // Delete the profile picture of a client
-  public function elimPictureForCliente($cliente)
+  public function elimPictureForCliente($cliente, $actualPicture)
   {
     $consulta = $this->BD->prepare('UPDATE cliente
                                       SET foto = "defaultUser.png"
@@ -259,8 +263,7 @@ class Clientes
     $consulta->bind_param('i', $cliente);
     $consulta->execute();
     $consulta->close();
+    unlink("../../../assets/img/usersPictures/$actualPicture");
     return $consulta;
   }
-
-
 }
