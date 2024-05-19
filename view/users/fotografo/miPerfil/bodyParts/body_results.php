@@ -13,7 +13,7 @@
                       if (!empty($previewTrabajosPictures[$i][0]['foto'])) {
                         echo '<img class="img-fluid w-100 object-fit-cover" src="../../../assets/img/trabajos/'. $trabajo['nick'] .'/'. $trabajo['nombre'] .'/'. $previewTrabajosPictures[$i][0]['foto'] .'" alt="ProyectPrewiew'. $trabajo['nombre'] .'-'. $trabajo['id'] .'">';
                       } else {
-                        echo '<img class="img-fluid w-100 object-fit-contain" src="../../../assets/img/trabajos/defaut_proyect.png" alt="ProyectPrewiew_default">';
+                        echo '<img class="img-fluid w-100 object-fit-contain proyectImg" src="../../../assets/img/trabajos/defaut_proyect.png" alt="ProyectPrewiew_default">';
                       }
                     ?>
                   </div>

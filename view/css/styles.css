@@ -462,6 +462,10 @@ body[data-bs-theme="dark"] .edit_picture_button {
   }
 }
 
+/* Work list img */
+body[data-bs-theme="light"] .proyectImg {
+  filter: invert(1);
+}
 
 /* Footer ------------------------------ */
 
