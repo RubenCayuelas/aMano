@@ -45,9 +45,24 @@ class Trabajo
     return $this->trabajo;
   }
 
+  // Obtain the id of the last work created by the photographer
+  public function lastWorkId($fotografo)
+  {
+    $consulta = $this->BD->prepare('SELECT MAX(id) AS last_work_id FROM trabajo WHERE id_fotografo = ?');
+    $consulta->bind_param('i', $fotografo);
+    $consulta->execute();
+    $resultado = $consulta->get_result()->fetch_assoc();
+    $consulta->close();
+    return $resultado['last_work_id'];
+  }
+
   // Create a new Work
   public function newTrabajo($nombre, $descripcion, $id_servicio, $id_cliente, $id_fotografo)
   {
-    
+    $consulta = $this->BD->prepare('INSERT INTO trabajo (nombre, descripcion, publico, id_servicio, id_cliente, id_fotografo) VALUES (?, ?, "0", ?, ?, ?)');
+    $consulta->bind_param('ssiii', $nombre, $descripcion, $id_servicio, $id_cliente, $id_fotografo);
+    $resultado = $consulta->execute();
+    $consulta->close();
+    return $resultado;
   }
 }

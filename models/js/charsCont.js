@@ -1,6 +1,6 @@
 
 // Execute the script for first time.
-charsCount(document.getElementById("descripcion"));
+charsCount(document.getElementById("descripcionEdit"));
 function charsCount(texarea) {
   let maxLength = 250;
   let strLength = texarea.value.length;

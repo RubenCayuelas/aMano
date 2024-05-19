@@ -13,10 +13,12 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
   include('../../../models/php/fotografos.php');
   include('../../../models/php/trabajo.php');
   include('../../../models/php/foto.php');
+  include('../../../models/php/citas.php');
   $clientes = new Clientes();
   $fotografos = new Fotografos();
   $trabajos = new Trabajo();
   $fotos = new Foto();
+  $citas = new Citas();
 
   // Editar datos del fotografo y crea un nuevo trabajo
   if (isset($_POST['modFotografo'])) {
@@ -47,8 +49,26 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
     include('../../../view/users/fotografo/miPerfil/bodyParts/msg_script.php');
 
-  } elseif (isset($_POST['newTrabajo'])) {
-    $result = $trabajos->newTrabajo($_POST['nombre'], $_POST['descripcion'], $_POST['servicio'], $_POST['cliente'], $_SESSION['id']); // Actualizar esto a el formulario terminado
+  } elseif (isset($_POST['newWork'])) {
+    // Get service and client id for the session assigned to create the new work
+    $datosCita = $citas->getSession($_POST['session']);
+
+    if (!empty($datosCita)) {
+      $newWork = $trabajos->newTrabajo($_POST['nombre'], $_POST['descripcion'], $datosCita[0]['id_servicio'], $datosCita[0]['id_cliente'], $_SESSION['id']);
+      if ($newWork) {
+        $lastWorkId = $trabajos->lastWorkId($_SESSION['id']);
+        if (!empty($lastWorkId)) {
+          $result = $citas->sessionAddWork($_POST['session'], $lastWorkId);
+        } else {
+          $result = false;
+        }
+      } else {
+        $result = false;
+      }
+    } else {
+      $result = false;
+    }
+
     $msg = 'Se ha creado el trabajo correctamente.';
     $msgError = 'Ha habido un error crear el trabajo.';
 
@@ -58,8 +78,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
   
   $fotografo = $fotografos->getFotografo($_SESSION['id']);
   $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
-  // $listaTrabajosPorCrear =
-  
+  $listaTrabajosPorCrear = $citas->getSessionsAbleForCreateWorkFromPhotographer($_SESSION['id']);
   
   for ($i=0; $i < count($listaTrabajos); $i++) {
     $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
@@ -70,7 +89,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
   // Body fotografo - miPerfil
   include('../../../view/users/fotografo/miPerfil/fotografo_body.php');
-  // Msg of the result for adding a new photograph
+  // Msg of the result (success or failure)
   include('../../../view/users/fotografo/miPerfil/bodyParts/msg.html');
 
   if ($listaTrabajos == null || $listaTrabajos == '') {

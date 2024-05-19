@@ -65,14 +65,14 @@
 
               <!-- Desciption -->
               <div class="col-12 d-flex flex-column">
-                <label for="descripcion">Descipción: </label>
+                <label for="descripcionEdit">Descipción: </label>
                 <?php if (trim($fotografo[0]['descripcion']) == '' || $fotografo[0]['descripcion'] == null) { ?>
                   <div class="form-floating">
-                    <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escriba una descripción aquí"></textarea>
+                    <textarea name="descripcion" id="descripcionEdit" class="form-control" placeholder="Escriba una descripción aquí"></textarea>
                     <label for="floatingTextarea">Añade una descripción</label>
                   </div>
                 <?php } else { ?>
-                  <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escriba una descripción aquí" maxlength="250" onkeyup="charsCount(this)" style="height: 100px;"><?php echo $fotografo[0]['descripcion'] ?></textarea>
+                  <textarea name="descripcion" id="descripcionEdit" class="form-control" placeholder="Escriba una descripción aquí" maxlength="250" onkeyup="charsCount(this)" style="height: 100px;"><?php echo $fotografo[0]['descripcion'] ?></textarea>
                   <p id="charNum" class="d-flex justify-content-end m-0"></p>
                 <?php } ?>
               </div>
@@ -156,19 +156,30 @@
                   </div>
                   <!-- Lista de proyectos sin trabajo asignado aún -->
                   <div class="col-12">
-                    <label for="proyecto" class="form_label">Contraseña:<span class="text-danger">*</span> </label>
-                    <!-- <input type="text" name="password" id="password" required class="form-control"> -->
-                    <select type="text" name="cliente" id="cliente" required class="form-select">
+                    <label for="session" class="form_label">Proyecto:<span class="text-danger">*</span> </label>
+                    <select type="text" name="session" id="session" required class="form-select">
                       <?php
-                        foreach ($listaClientes as $cliente) {
-                          echo '<option value="'. $cliente['id'] .'">'. $cliente['nombre'] .'</option>';
+                        if (!empty($listaTrabajosPorCrear)) {
+                          foreach ($listaTrabajosPorCrear as $trabajo) {
+                            echo '<option value="'. $trabajo['id'] .'">'. $trabajo['cliente'] .' - '. $trabajo['servicio'] .'</option>';
+                          }
+                        } else {
+                          echo '<option disabled>No hay trabajos disponibles para su creación</option>';
                         }
                       ?>
                     </select>
                   </div>
-                  <div class="col-12 d-flex align-items-center justify-content-end">
-                    <button type="submit" name="newWork" class="btn btn-secondary">Crear</button>
-                  </div>
+                  <?php
+                    if (!empty($listaTrabajosPorCrear)) {
+                      echo '<div class="col-12 d-flex align-items-center justify-content-end">
+                              <button type="submit" name="newWork" class="btn btn-secondary">Crear</button>
+                            </div>';
+                    } else {
+                      echo '<div class="col-12 d-flex align-items-center justify-content-end">
+                              <button type="submit" disabled class="btn btn-secondary">Crear</button>
+                            </div>';
+                    }
+                  ?>
                 </form>
               </div>
             </div>

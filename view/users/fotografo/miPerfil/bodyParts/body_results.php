@@ -8,8 +8,14 @@
               <div class="card-header"><?php echo $trabajo['nombre']; ?> - <cite title="hour"><?php echo $trabajo['servicio']; ?></cite></div>
               <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                  <div class="d-flex mb-2">
-                    <img class="img-fluid" src="../../../assets/img/trabajos/<?php echo $trabajo['nick']; ?>/<?php echo $trabajo['nombre']; ?>/<?php echo $previewTrabajosPictures[$i][0]['foto']; ?>" alt="ProyectPrewiew<?php echo $trabajo['nombre']; ?>-<?php echo $trabajo['id']; ?>">
+                  <div class="d-flex mb-2" style="height: 10rem;">
+                    <?php 
+                      if (!empty($previewTrabajosPictures[$i][0]['foto'])) {
+                        echo '<img class="img-fluid w-100 object-fit-cover" src="../../../assets/img/trabajos/'. $trabajo['nick'] .'/'. $trabajo['nombre'] .'/'. $previewTrabajosPictures[$i][0]['foto'] .'" alt="ProyectPrewiew'. $trabajo['nombre'] .'-'. $trabajo['id'] .'">';
+                      } else {
+                        echo '<img class="img-fluid w-100 object-fit-contain" src="../../../assets/img/trabajos/defaut_proyect.png" alt="ProyectPrewiew_default">';
+                      }
+                    ?>
                   </div>
                   <p class="mb-0 d-flex align-items-center"><?php echo $trabajo['descripcion']; ?></p>
                   <p> Fotógrafo: <?php echo $trabajo['fotografo']; ?></p>
@@ -22,7 +28,7 @@
                   </div>
                 </blockquote>
                 <div class="w-100 d-flex justify-content-end">
-                  <form id="openProyect" action="./controlador_trabajo.php" method="post">
+                  <form id="openProyect<?php echo $trabajo['id']; ?>" action="./controlador_trabajo.php" method="post">
                     <input type="hidden" name="trabajo_id" value="<?php echo $trabajo['id']; ?>">
                     <button type="submit" name="openProyect" class="btn btn-outline-primary me-2 ps-3 pe-3 pt-1 pb-1">Ver</button>
                   </form>
