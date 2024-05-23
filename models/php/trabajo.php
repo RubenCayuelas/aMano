@@ -11,6 +11,40 @@ class Trabajo
     $this->BD = BD::connect();
   }
 
+  // 
+  public function getTrabajo($id_trabajo)
+  {
+    $consulta = $this->BD->prepare('SELECT t.id, t.nombre, t.descripcion, t.publico, t.id_servicio, se.nombre servicio,
+                                           t.id_fotografo, f.nombre fotografo, t.id_cliente, c.nombre cliente, c.nick nick
+                                      FROM trabajo t, cliente c, fotografo f, servicio se
+                                      WHERE t.id_servicio = se.id
+                                        AND t.id_fotografo = f.id
+                                        AND t.id_cliente = c.id
+                                        AND t.id = ?
+    ');
+    $consulta->bind_param('i', $id_trabajo);
+    $consulta->bind_result($id, $nombre, $descripcion, $publico, $id_servicio, $servicio, $id_fotografo, $fotografo, $id_cliente, $cliente, $nick);
+    $consulta->execute();
+    $i = 0;
+    $this->trabajo = null;
+    while ($consulta->fetch()) {
+      $this->trabajo['id'] = $id;
+      $this->trabajo['nombre'] = $nombre;
+      $this->trabajo['descripcion'] = $descripcion;
+      $this->trabajo['publico'] = $publico;
+      $this->trabajo['id_servicio'] = $id_servicio;
+      $this->trabajo['servicio'] = $servicio;
+      $this->trabajo['id_fotografo'] = $id_fotografo;
+      $this->trabajo['fotografo'] = $fotografo;
+      $this->trabajo['id_cliente'] = $id_cliente;
+      $this->trabajo['cliente'] = $cliente;
+      $this->trabajo['nick'] = $nick;
+      $i++;
+    }
+    $consulta->close();
+    return $this->trabajo;
+  }
+
   // Obtain all the works for a client
   public function getTrabajos($cliente)
   {
