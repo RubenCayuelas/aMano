@@ -24,4 +24,46 @@
       <p><?php echo $trabajo['descripcion'] ?></p>
       <p>Tipo de servicio: <?php echo $trabajo['servicio'] ?></p>
       <span class="d-block text-end me-5"> Trabajo realizado para <?php echo $trabajo['cliente'] ?></span>
+
+      <div class="d-flex form-check form-switch p-0 pt-1">
+        
+        <?php if ($trabajo['publico']) { ?>
+          <input class="form-check-input ms-1 me-1" type="checkbox" checked role="switch" id="workStatus">
+          <cite id="workStatusCite">Proyecto Público</cite>
+        <?php } else { ?>
+          <input class="form-check-input ms-1 me-1" type="checkbox" role="switch" id="workStatus">
+          <cite id="workStatusCite">Proyecto Privado</cite>
+        <?php } ?>
+        <script>
+          const workStatus = document.getElementById('workStatus');
+          const statusCite = document.getElementById('workStatusCite');
+
+          workStatus.addEventListener('change', ()=>{
+            isChecked = workStatus.checked;
+            statusCite.innerHTML = isChecked ? 'Proyecto Público' : 'Proyecto Privado';
+
+            // ----------------------------------------------------------------
+            fetch('controlador_trabajo.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                openProyect: true,
+                updateWorkStatus: true,
+                trabajo_id: <?php echo $trabajo['id']; ?>,
+                publico: isChecked
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.mensaje);
+            })
+            .catch(error => console.error('Error:', error));
+          });
+        </script>
+        
+      </div>
+
     </section>
+    
