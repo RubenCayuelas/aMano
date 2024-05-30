@@ -77,7 +77,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
   
   $fotografo = $fotografos->getFotografo($_SESSION['id']);
-  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
+  $listaTrabajos = $trabajos->getTrabajosForPhotographer($_SESSION['id']);
   $listaTrabajosPorCrear = $citas->getSessionsAbleForCreateWorkFromPhotographer($_SESSION['id']);
   
   for ($i=0; $i < count($listaTrabajos); $i++) {
