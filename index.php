@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('./model/php/funciones.php');
+include_once('./models/php/funciones.php');
 $themeState = session_theme();
 ?>
 <!DOCTYPE html>
@@ -24,6 +24,6 @@ $themeState = session_theme();
 
   <?php // include_once('./view/layout/footer_index.php'); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./model/js/theme/script.js"></script>
+<script src="./models/js/theme.js"></script>
 </body>
 </html>

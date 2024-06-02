@@ -313,6 +313,7 @@
         let eventNames = self.attr("data-events");
         let eventDescriptions = self.attr("data-descriptions");
         let eventHours = self.attr("data-hours");
+        let eventDay = self.attr("data-day");
         if (eventNames) {
 
           // Divide the names of the events in an array
@@ -323,7 +324,7 @@
           // Draw the event info in the sidebar and create a modal with the event data
           for (let i = 0; i < eventsNames.length; i++) {
             // Ver datos de la cita
-            $(".c-aside__eventList").append("<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
+            let text = "<p class='c-aside__event' data-bs-toggle='modal' data-bs-target='#seeCita"+eventsDescriptions[i].id+"'>" + eventsNames[i] +"<span> • "+ eventsHours[i] +"h</span></p>" +
                   "<div class='modal fade' id='seeCita"+eventsDescriptions[i].id+"' tabindex='-1' aria-labelledby='seeCita"+eventsDescriptions[i].id+"' style='display: none;' aria-hidden='true'>" +
                     "<div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
                       "<div class='modal-content'>" +
@@ -337,7 +338,7 @@
                               '<p>Cliente: </p>' +
                             '</div>' +
                             '<div class="d-flex ms-3 mb-2">' +
-                              '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ eventsDescriptions[i].cliente_picture +'" alt="UserPicture '+ eventsDescriptions[i].cliente +'">' + 
+                              '<img class="img-fluid rounded-circle w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ eventsDescriptions[i].cliente_picture +'" alt="UserPicture '+ eventsDescriptions[i].cliente +'">' + 
                               '<p class="mb-0 d-flex align-items-center">'+ eventsDescriptions[i].cliente + '</p>' +
                             '</div>' +
                             '<div>' +
@@ -349,17 +350,20 @@
                             '<div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end ms-3 me-5 pe-5">' +
                               '<cite title="hour">'+ eventsHours[i] +'h - '+ eventsNames[i] +'</cite>' +
                             '</div>' +
-                          '</blockquote>' +
-                          '<div class="w-100 d-flex justify-content-end">' +
-                            '<form id="rejectForm" action="#" method="post">' +
-                              '<input type="hidden" name="id" value="'+ eventsDescriptions[i].id +'">' +
-                              '<button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
-                            '</form>' +
-                          '</div>' +
-                        "</div>" +
+                          '</blockquote>';
+                          if (eventDay > today) {
+                    text += '<div class="w-100 d-flex justify-content-end">' +
+                              '<form id="rejectForm" action="#" method="post">' +
+                                '<input type="hidden" name="id" value="'+ eventsDescriptions[i].id +'">' +
+                                '<button type="submit" name="sessionSolicitudeReject" class="btn btn-outline-danger me-2 ps-3 pe-3 pt-1 pb-1">Rechazar</button>' +
+                              '</form>' +
+                            '</div>';
+                          }
+                text += "</div>" +
                       "</div>" +
                     "</div>" +
-                  "</div>");
+                  "</div>";
+            $(".c-aside__eventList").append(text);
           }
         }
       };

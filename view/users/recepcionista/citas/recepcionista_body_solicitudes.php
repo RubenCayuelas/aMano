@@ -4,7 +4,7 @@
   <hr>
 
   <?php include_once('../../../view/layout/loading.html'); ?>
-  <script src="../../../model/js/loading/loading_recepcionista_solicitudeForm.js"></script>
+  <script src="../../../models/js/loading_recepcionista_solicitudeForm.js"></script>
 
   <div class="row gap-3 justify-content-center" id="solicitudesContainer">
     <?php
@@ -52,7 +52,7 @@
                       '<div class="card-body">' +
                         '<blockquote class="blockquote mb-0">' +
                           '<div class="d-flex mb-2">' +
-                            '<img class="img-fluid w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i]['foto'] +'" alt="UserPicture '+ datosClientes[i]['nombre'] +'">' + 
+                            '<img class="img-fluid rounded-circle w-2_5rem h-2_5rem me-3" src="../../../assets/img/usersPictures/'+ datosClientes[i]['foto'] +'" alt="UserPicture '+ datosClientes[i]['nombre'] +'">' + 
                             '<p class="mb-0 d-flex align-items-center">' + datosClientes[i]['nombre'] + '</p>' +
                           '</div>' +
                           '<p> Fotógrafo: ' + datosFotografos[i][0].nombre + '</p>' +

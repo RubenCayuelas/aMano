@@ -322,6 +322,9 @@ body[data-bs-theme="dark"] #loader {
 .mb-10rem {
   margin-bottom: 10rem;
 }
+.mb-0_5- {
+  margin-bottom: -0.5rem;
+}
 .bw-0 {
   border-width: 0;
 }
@@ -445,9 +448,11 @@ header {
 body[data-bs-theme="dark"] .edit_picture_button {
   border-color: #dbdbdb !important;
   fill: #dbdbdb;
+  background: #1d1d1d99;
 }
 .edit_picture_button {
   border-color: #777879 !important;
+  background: #d0d0d099;
 }
 
 
@@ -460,6 +465,10 @@ body[data-bs-theme="dark"] .edit_picture_button {
   }
 }
 
+/* Work list img */
+body[data-bs-theme="light"] .proyectImg {
+  filter: invert(1);
+}
 
 /* Footer ------------------------------ */
 

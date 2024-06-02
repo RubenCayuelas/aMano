@@ -2,7 +2,7 @@
   <nav class="d-flex justify-content-between ps-2 pt-2 pb-2">
     <div>
       <h3 class="m-0"><i id="desplegar-aside" class="bi bi-list"></i></h3>
-      <a id="desplegar-aside2" class="normal_text" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+      <a id="desplegar-aside2" class="normal_text" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
         <h3><i class="bi bi-list"></i></h3>
       </a>
     </div>
@@ -17,9 +17,9 @@
   </nav>
 
   <!-- Menú desplegable (Mismos datos que en Aside) -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-toggle="collapse" href="#infoUsuario1" role="button" aria-expanded="false">
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel" data-bs-toggle="collapse" role="button" aria-expanded="false">
     <div class="offcanvas-header pb-0">
-      <h3 class="offcanvas-title" id="offcanvasExampleLabel"><?php echo $_SESSION['nombre']?></h3>
+      <h3 class="offcanvas-title" id="offcanvasMenuLabel"><?php echo $_SESSION['nombre']?></h3>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <hr class="border-2">

@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-include_once('../model/php/funciones.php');
+include_once('../models/php/funciones.php');
 $themeState = session_theme();
 
 
@@ -21,12 +21,12 @@ if (isset($_GET['logout'])) {
   // Compruebla que se ha enviado el formulario y que los datos son correctos y almacenandolos en la sesión y en una cookie si el usuario quiere, por el contrario si los datos no son correctos muestra un mensaje de error.
     if (trim($_POST['user']) != '' && trim($_POST['password']) != '') {
 
-      include_once('../assets/db/db.php');
+      include_once('../models/php/db.php');
 
-      include_once('../model/php/usuarios.php');
-      include_once('../model/php/recepcionistas.php');
-      include_once('../model/php/fotografos.php');
-      include_once('../model/php/clientes.php');
+      include_once('../models/php/usuarios.php');
+      include_once('../models/php/recepcionistas.php');
+      include_once('../models/php/fotografos.php');
+      include_once('../models/php/clientes.php');
       $usuarios = new Usuarios();
       $datosUsuario = $usuarios->login($_POST['user'], $_POST['password']);
 
@@ -51,10 +51,9 @@ if (isset($_GET['logout'])) {
         } elseif ($_SESSION['userType'] == 'F') {
           recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre']);
           // Redirección a la pagina principal del los fotógrafo
-          echo '<meta http-equiv="refresh" content="0;url=./users/fotografo/controlador_trabajos.php">';
+          echo '<meta http-equiv="refresh" content="0;url=./users/fotografo/controlador_miPerfil.php">';
         } elseif ($_SESSION['userType'] == 'C') {
-          $_SESSION['foto'] = $datosUsuario['foto'];
-          recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre'], 'foto', $_SESSION['foto']);
+          recordarme('id', $_SESSION['id'],'nick', $_SESSION['nick'],'userType', $_SESSION['userType'], 'nombre', $_SESSION['nombre']);
           // Redirección a la pagina principal del cliente
           echo '<meta http-equiv="refresh" content="0;url=./users/cliente/controlador_miPerfil.php">';
         }

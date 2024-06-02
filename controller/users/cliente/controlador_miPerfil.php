@@ -2,21 +2,19 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include_once('../../../model/php/funciones.php');
+include_once('../../../models/php/funciones.php');
 session_init();
 $themeState = session_theme();
 
 if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
-  include_once('../../../assets/db/db.php');
-  include('../../../model/php/clientes.php');
-  include('../../../model/php/trabajo.php');
-  include('../../../model/php/foto.php');
-  include('../../../model/php/citas.php');
+  include_once('../../../models/php/db.php');
+  include('../../../models/php/clientes.php');
+  include('../../../models/php/trabajo.php');
+  include('../../../models/php/foto.php');
   $clientes = new Clientes();
   $trabajos = new Trabajo();
   $fotos = new Foto();
-  $citas = new Citas();
 
   // Editar datos del cliente
   if (isset($_POST['modCliente'])) {
@@ -34,14 +32,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
     include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['changePicture'])) {
-    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture']);
+    $result = $clientes->changePictureForClient($_SESSION['id'], $_FILES['picture'], $_POST['changePicture']);
     $msg = 'Se ha cambiado la foto de perfil correctamente.';
     $msgError = 'Ha habido un error al cambiar la foto de perfil.';
 
     include('../../../view/users/cliente/miPerfil/bodyParts/msg_script.php');
 
   } elseif (isset($_POST['elimPicture'])) {
-    $result = $clientes->elimPictureForCliente($_SESSION['id']);
+    $result = $clientes->elimPictureForCliente($_SESSION['id'], $_POST['elimPicture']);
     $msg = 'Se ha cambiado la foto de perfil correctamente.';
     $msgError = 'Ha habido un error al cambiar la foto de perfil.';
 
@@ -51,9 +49,8 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   
   $cliente = $clientes->getCliente($_SESSION['id']);
-  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']);
+  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']) != null ? $trabajos->getTrabajos($_SESSION['id']) : [];
   
-  // $listaCitas = $citas->getAllSessionsForClient($_SESSION['id']);
   
   for ($i=0; $i < count($listaTrabajos); $i++) {
     $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
