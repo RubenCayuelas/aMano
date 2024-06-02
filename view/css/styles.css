@@ -322,6 +322,9 @@ body[data-bs-theme="dark"] #loader {
 .mb-10rem {
   margin-bottom: 10rem;
 }
+.mb-0_5- {
+  margin-bottom: -0.5rem;
+}
 .bw-0 {
   border-width: 0;
 }
