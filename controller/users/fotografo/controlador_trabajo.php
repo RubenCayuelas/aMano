@@ -62,7 +62,7 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
     // Head
     include('../../../view/users/fotografo/fotografo_head.php');
 
-    // Body fotografo - misCitas
+    // Body fotografo - trabajo
     include('../../../view/users/fotografo/trabajos/fotografo_body.php');
 
     if ($listaFotos != []) {
