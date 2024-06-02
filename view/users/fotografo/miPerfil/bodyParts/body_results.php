@@ -18,7 +18,7 @@
                     ?>
                   </div>
                   <p class="mb-0 d-flex align-items-center"><?php echo $trabajo['descripcion']; ?></p>
-                  <p> Fotógrafo: <?php echo $trabajo['fotografo']; ?></p>
+                  <p> Cliente: <?php echo $trabajo['cliente']; ?></p>
                   <div class="blockquote-footer text-secondary-emphasis .d-flex .justify-content-end me-5 pe-5">
                     <?php if ($trabajo['publico']) { ?>
                       <cite title="hour">Proyecto Público</cite>
