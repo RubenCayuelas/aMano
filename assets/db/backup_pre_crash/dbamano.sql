@@ -113,7 +113,7 @@ INSERT INTO `cliente` (`id`, `nombre`, `nick`, `pass`, `foto`, `tlf`, `tlf2`, `a
 
 CREATE TABLE `estudio` (
   `id` int(11) NOT NULL,
-  `dirreccion` varchar(80) NOT NULL,
+  `direccion` varchar(80) NOT NULL,
   `tlf` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -121,7 +121,7 @@ CREATE TABLE `estudio` (
 -- Volcado de datos para la tabla `estudio`
 --
 
-INSERT INTO `estudio` (`id`, `dirreccion`, `tlf`) VALUES
+INSERT INTO `estudio` (`id`, `direccion`, `tlf`) VALUES
 (0, 'c/admin', 123456789),
 (1, 'c/marinador', 957658421),
 (2, 'Calle del Sol, 23', 957860201),
