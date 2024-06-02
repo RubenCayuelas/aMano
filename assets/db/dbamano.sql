@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2024 a las 21:07:54
+-- Tiempo de generación: 03-06-2024 a las 00:29:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,7 +59,8 @@ INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`,
 (14, '2024-05-06', '09:30:00', '0', 2, NULL, 1, 9, 1),
 (23, '2024-05-20', '01:33:00', '1', 19, 4, 1, 1, 1),
 (24, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
-(25, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1);
+(25, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
+(33, '2024-06-07', '09:17:00', NULL, 1, NULL, 1, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -338,7 +339,7 @@ ALTER TABLE `trabajo`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -356,7 +357,7 @@ ALTER TABLE `estudio`
 -- AUTO_INCREMENT de la tabla `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `fotografo`
