@@ -25,15 +25,17 @@
       <p>Tipo de servicio: <?php echo $trabajo['servicio'] ?></p>
       <span class="d-block text-end me-5"> Trabajo realizado para <?php echo $trabajo['cliente'] ?></span>
 
-      <div class="d-flex form-check form-switch p-0 pt-1">
-        
-        <?php if ($trabajo['publico']) { ?>
-          <input class="form-check-input ms-1 me-1" type="checkbox" checked role="switch" id="workStatus">
-          <cite id="workStatusCite">Proyecto Público</cite>
-        <?php } else { ?>
-          <input class="form-check-input ms-1 me-1" type="checkbox" role="switch" id="workStatus">
-          <cite id="workStatusCite">Proyecto Privado</cite>
-        <?php } ?>
+      <div class="d-flex flex-column flex-md-row justify-content-between pt-3">
+        <div>
+          <?php if ($trabajo['publico']) { ?>
+            <input class="form-check-input ms-1 me-1" type="checkbox" checked role="switch" id="workStatus">
+            <cite id="workStatusCite">Proyecto Público</cite>
+          <?php } else { ?>
+            <input class="form-check-input ms-1 me-1" type="checkbox" role="switch" id="workStatus">
+            <cite id="workStatusCite">Proyecto Privado</cite>
+          <?php } ?>
+        </div>
+        <!-- Fix Ajax solicitude doesn't work -->
         <script>
           const workStatus = document.getElementById('workStatus');
           const statusCite = document.getElementById('workStatusCite');
@@ -46,23 +48,43 @@
             fetch('controlador_trabajo.php', {
               method: 'POST',
               headers: {
-                  'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
               },
               body: JSON.stringify({
                 openProyect: true,
                 updateWorkStatus: true,
-                trabajo_id: <?php echo $trabajo['id']; ?>,
+                trabajo_id: <?php echo json_encode($trabajo['id']); ?>,
                 publico: isChecked
               })
             })
             .then(response => response.json())
-            .then(data => {
-                console.log(data.mensaje);
-            })
             .catch(error => console.error('Error:', error));
           });
         </script>
-        
+        <button type="button" class="btn btn-outline-primary me-0 me-md-5 ps-1 pe-1" data-bs-toggle="modal" data-bs-target="#newPictures"><i class="bi bi-folder-plus"></i> Añadir Fotografías</button>
+        <div class="modal fade" id="newPictures" tabindex="-1" aria-labelledby="modalNewPictures" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalNewPictures">Selecciona las fotografías</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="#" method="post" class="row g-3" enctype="multipart/form-data">
+                  <div class="col-12">
+                    <label for="pictures" class="form_label">Fotografías: </label>
+                    <input type="file" name="pictures[]" id="pictures" multiple class="form-control">
+                  </div>
+                  <div class="col-12 d-flex align-items-center justify-content-end">
+                    <input type="hidden" name="openProyect">
+                    <input type="hidden" name="trabajo_id" value="<?php echo $trabajo['id']; ?>">
+                    <button type="submit" name="newPictures" class="btn btn-secondary">Añadir</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </section>
