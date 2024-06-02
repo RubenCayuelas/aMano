@@ -22,28 +22,30 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
     // Manejo de la actualización del estado del proyecto vía AJAX
     // Fix it's not working
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-      $input = json_decode(file_get_contents('php://input'), true);
-      if (isset($input['publico']) && isset($input['trabajo_id'])) {
+    //   $input = json_decode(file_get_contents('php://input'), true);
+    //   if (isset($input['publico']) && isset($input['trabajo_id'])) {
 
-        $publico = $input['publico'] ? 1 : 0;
-        $trabajo_id = $input['trabajo_id'];
-        $trabajos->updateWorkPublicStatus($trabajo_id, $publico);
+    //     $publico = $input['publico'] ? 1 : 0;
+    //     $trabajo_id = $input['trabajo_id'];
+    //     $trabajos->updateWorkPublicStatus($trabajo_id, $publico);
 
-        echo json_encode(['mensaje' => 'Estado del proyecto actualizado']);
-        exit;
-      } else {
-        echo json_encode(['error' => 'Datos inválidos']);
-        exit;
-      }
-    }
+    //     echo json_encode(['mensaje' => 'Estado del proyecto actualizado']);
+    //     exit;
+    //   } else {
+    //     echo json_encode(['error' => 'Datos inválidos']);
+    //     exit;
+    //   }
+    // }
 
     if (isset($_POST['newPictures'])) {
       $datos_trabajo = $trabajos->getTrabajo($trabajo_id);
       $datos_usuario = $clientes->getCliente($datos_trabajo['id_cliente']);
       
       $result = $fotos->savePictures($trabajo_id, $_FILES['pictures'], $datos_usuario['nick'], $datos_trabajo['nombre']);
+    } elseif (isset($_POST['selectPreviewPicture'])) {
+      $fotos->setPreview($_POST['selectPreviewPicture'], $trabajo_id);
 
     } elseif (isset($_POST['deletePicture'])) {
       $datos_trabajo = $trabajos->getTrabajo($trabajo_id);

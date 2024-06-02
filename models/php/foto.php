@@ -133,5 +133,24 @@ class Foto
     $consulta->close();
   }
 
+  // Set preview image for a job
+  public function setPreview($id_foto, $id_trabajo)
+  {
+    $this->setAllPreviewTo0($id_trabajo);
+
+    $consulta = $this->BD->prepare('UPDATE foto SET preview = "1" WHERE id = ?');
+    $consulta->bind_param('i', $id_foto);
+    $consulta->execute();
+    $consulta->close();
+  }
+  
+  // Discard the preview image for a job
+  private function setAllPreviewTo0($id_trabajo)
+  {
+    $consulta = $this->BD->prepare('UPDATE foto SET preview = "0" WHERE id_trabajo = ? AND preview = "1"');
+    $consulta->bind_param('i', $id_trabajo);
+    $consulta->execute();
+    $consulta->close();
+  }
 
 }
