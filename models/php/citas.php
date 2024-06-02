@@ -71,6 +71,11 @@ class Citas
     $consulta = $this->BD->prepare('UPDATE cita SET id_trabajo = ? WHERE id = ?');
     $consulta->bind_param('si', $id_work, $idCita);
     $consulta->execute();
+    if ($consulta->affected_rows > 0) {
+      return true;
+    } else {
+      return false;
+    }
     $consulta->close();
   }
 
