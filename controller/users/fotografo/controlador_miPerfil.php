@@ -80,10 +80,6 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
   $listaTrabajos = $trabajos->getTrabajosForPhotographer($_SESSION['id']);
   $listaTrabajosPorCrear = $citas->getSessionsAbleForCreateWorkFromPhotographer($_SESSION['id']);
   
-  for ($i=0; $i < count($listaTrabajos); $i++) {
-    $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
-  }
-
   // Head
   include('../../../view/users/fotografo/fotografo_head.php');
 
@@ -95,6 +91,9 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
   if ($listaTrabajos == null || $listaTrabajos == '') {
     include('../../../view/users/fotografo/miPerfil/bodyParts/body_no_results.html');
   } else {
+    for ($i=0; $i < count($listaTrabajos); $i++) {
+      $previewTrabajosPictures[$i] = $fotos->getPreviewForTrabajo($listaTrabajos[$i]['id']);
+    }
     include('../../../view/users/fotografo/miPerfil/bodyParts/body_results.php');
   }
 
