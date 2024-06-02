@@ -5,19 +5,35 @@
 
   <!-- Main -->
   <main class="main w-100 m-0">
-    <section class="container-fluid mt-5 pt-4">
-      <div class="row mb-3">
-        <div class="col d-flex flex-sm-nowrap flex-wrap ">
-          hola
-          <div class="m-auto m-sm-auto profile_form">
-            adios
+    <section style="width: 100%; height: 30vh;">
+      <?php if (isset($previewPicture[0]['foto'])) { ?>
+        <div style="width: 100%; height: 100%; background-image:url('../../../assets/img/trabajos/<?php echo $trabajo['nick'] ?>/<?php echo $trabajo['nombre'] ?>/<?php echo $previewPicture[0]['foto'] ?>'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position: center;">
+          <div style="height: 100%; background-color: #00000045; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1><?php echo $trabajo['nombre'] ?></h1>
           </div>
         </div>
+      <?php } else { ?>
+        <div style="width: 100%; height: 100%; ">
+          <div style="height: 100%; background-color: #00000045; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1><?php echo $trabajo['nombre'] ?></h1>
+          </div>
+        </div>
+      <?php } ?>
+    </section>
+    <section class="container-fluid mt-1 pt-4">
+      <p><?php echo $trabajo['descripcion'] ?></p>
+      <p>Tipo de servicio: <?php echo $trabajo['servicio'] ?></p>
+      <span class="d-block text-end me-5"> Trabajo realizado por <?php echo $trabajo['fotografo'] ?></span>
+
+      <div class="d-flex flex-column flex-md-row justify-content-between pt-3">
+        <div>
+          <?php if ($trabajo['publico']) { ?>
+            <cite>Proyecto Público</cite>
+          <?php } else { ?>
+            <cite>Proyecto Privado</cite>
+          <?php } ?>
+        </div>
       </div>
+
     </section>
-    <hr>
-    <section class="container">
-      me cago
-    </section>
-  </main>
-</body>
+    
