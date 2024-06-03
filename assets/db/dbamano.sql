@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-06-2024 a las 00:29:54
+-- Tiempo de generación: 03-06-2024 a las 17:08:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -60,7 +60,7 @@ INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`,
 (23, '2024-05-20', '01:33:00', '1', 19, 4, 1, 1, 1),
 (24, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
 (25, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
-(33, '2024-06-07', '09:17:00', NULL, 1, NULL, 1, 9, 1);
+(33, '2024-06-07', '09:17:00', '1', 1, NULL, 1, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -226,15 +226,18 @@ CREATE TABLE `servicio` (
   `id` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `descripcion` varchar(500) NOT NULL,
-  `precio` double(7,2) NOT NULL
+  `img` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `servicio`
 --
 
-INSERT INTO `servicio` (`id`, `nombre`, `descripcion`, `precio`) VALUES
-(1, 'Sesión Estándar', 'Sesión de fotos básica (foto carnet, dni, etc...)', 10.00);
+INSERT INTO `servicio` (`id`, `nombre`, `descripcion`, `img`) VALUES
+(1, 'Sesión Estándar', 'Fotos rápidas y profesionales para carnet, DNI, y pasaporte. Cumple con todos los requisitos oficiales y asegura imágenes claras y bien iluminadas. ¡Calidad y eficiencia garantizadas!', 'f_estandar.jpg'),
+(2, 'Fotografía de Productos', 'Imágenes de alta calidad que destacan cada detalle, perfectas para catálogos, e-commerce y publicidad. ¡Haz que tus productos brillen!', 'f_producto.jpg'),
+(3, 'Sesión en estudio', 'Ofrece un entorno controlado y profesional para capturar retratos, fotografía familiar, infantil y más. Obtenemos imágenes que reflejan tu esencia y personalidad.', 'f_estudio2.jpg'),
+(4, 'Sesión en exteriores', 'Ideal para comuniones, bodas, cumpleaños y más, capturamos la magia de tus eventos fuera del estudio y en entornos naturales. Fotos llenas de vida y emoción para recordar siempre.', 'f_exterior.jpg');
 
 -- --------------------------------------------------------
 
@@ -257,7 +260,7 @@ CREATE TABLE `trabajo` (
 --
 
 INSERT INTO `trabajo` (`id`, `nombre`, `descripcion`, `publico`, `id_servicio`, `id_fotografo`, `id_cliente`) VALUES
-(3, 'Eugenia Sánchez Sesión Estándar', 'Eugenia Sánchez Sesión Estándar Test', '0', 1, 1, 1),
+(3, 'Eugenia Sánchez Sesión Estándar', 'Eugenia Sánchez Sesión Estándar Test', '1', 1, 1, 1),
 (4, 'Paula Vázquez Sesión Estándar', 'Paula Vázquez Sesión Estándar Test', '0', 1, 1, 19);
 
 --
@@ -357,7 +360,7 @@ ALTER TABLE `estudio`
 -- AUTO_INCREMENT de la tabla `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `fotografo`
@@ -381,7 +384,7 @@ ALTER TABLE `recepcionista`
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `trabajo`

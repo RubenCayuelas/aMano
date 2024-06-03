@@ -15,12 +15,12 @@ class Servicios
   public function getServicio($id)
   {
     $consulta = $this->BD->prepare('
-        SELECT id, nombre, descripcion, precio
+        SELECT id, nombre, descripcion, img
         FROM servicio
         WHERE id = ?
     ');
     $consulta->bind_param('i', $id);
-    $consulta->bind_result($id, $nombre, $descripcion, $precio);
+    $consulta->bind_result($id, $nombre, $descripcion, $img);
     $consulta->execute();
     $i = 0;
     $this->servicios = null;
@@ -28,7 +28,7 @@ class Servicios
       $this->servicios[$i]['id'] = $id;
       $this->servicios[$i]['nombre'] = $nombre;
       $this->servicios[$i]['descripcion'] = $descripcion;
-      $this->servicios[$i]['precio'] = $precio;
+      $this->servicios[$i]['img'] = $img;
       $i++;
     }
     $consulta->close();
@@ -39,10 +39,10 @@ class Servicios
   public function listarServicios()
   {
     $consulta = $this->BD->prepare('
-        SELECT id, nombre, descripcion, precio
+        SELECT id, nombre, descripcion, img
         FROM servicio
     ');
-    $consulta->bind_result($id, $nombre, $descripcion, $precio);
+    $consulta->bind_result($id, $nombre, $descripcion, $img);
     $consulta->execute();
     $i = 0;
     $this->servicios = null;
@@ -50,7 +50,7 @@ class Servicios
       $this->servicios[$i]['id'] = $id;
       $this->servicios[$i]['nombre'] = $nombre;
       $this->servicios[$i]['descripcion'] = $descripcion;
-      $this->servicios[$i]['precio'] = $precio;
+      $this->servicios[$i]['img'] = $img;
       $i++;
     }
     $consulta->close();

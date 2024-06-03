@@ -11,13 +11,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="./controller/controlador_trabajos.php">Trabajos</a>
+            <a class="nav-link" href="#our_services">Servicios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./controller/controlador_fotografos.php">Fotógrafos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./controller/controlador_contacto.php">Contacto</a>
+            <a class="nav-link" href="#photographers">Fotógrafos</a>
           </li>
         </ul>
         <div class="navbar-text me-4 d-flex align-items-md-center justify-content-between pt-0" style="width: 190px;">
