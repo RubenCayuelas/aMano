@@ -150,7 +150,7 @@ class Citas
                                       AND c.id_fotografo = f.id
                                       AND c.id_servicio = s.id
                                       AND c.estado = "1"
-                                      AND c.id_estudio = ?
+                                      AND c.id_cliente = ?
     ');
     $consulta->bind_param('i', $cliente);
     $consulta->execute();
