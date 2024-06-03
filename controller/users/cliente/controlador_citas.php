@@ -37,8 +37,10 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
   
   // Create a new session solicitude in two steps
   if (isset($_POST['addCita'])) {
+    // Step 1: Date, time and studio
     $listaFotografos = $fotografos->listarFotografosDelEstudio($_POST['estudio']);
   } elseif (isset($_POST['addCita2'])) {
+    // Stept 2: Photographer and service
     $result = $citas->añadirCitaCliente( $_POST['date'], $_POST['time'], $_SESSION['id'], $_POST['estudio'], $_POST['fotografo'], $_POST['servicio']);
     // header('Location: #');
   }

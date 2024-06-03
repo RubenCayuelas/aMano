@@ -229,7 +229,8 @@ class Clientes
       $isImg = getimagesize($picture['tmp_name']);
       if ($isImg !== false) {
 
-        if ($actualPicture != 'defaultUser.png') {
+        $datosCliente = $this->getCliente($cliente);
+        if ($actualPicture != 'defaultUser.png' && $datosCliente['foto'] != $actualPicture) {
           unlink("../../../assets/img/usersPictures/$actualPicture");
         }
 
@@ -246,11 +247,10 @@ class Clientes
 
         return true;
       } else {
-        // Si el archivo no es una imagen, devuelve false
-        return false;
+        return false; // Si el archivo no es una imagen
       }
     } else {
-      return false;
+      return false; // Si el archivo no se ha subido correctamente
     }
   }
 
