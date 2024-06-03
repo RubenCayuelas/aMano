@@ -547,6 +547,16 @@ main section .services {
             border-color: #ffffff00;
           }
 
+/* Index API saludo */
+
+#saludoAPI {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  background: #3d3b35f5;
+}
 
 /* Footer ------------------------------ */
 

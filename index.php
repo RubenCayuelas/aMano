@@ -102,7 +102,7 @@ $themeState = session_theme();
               $servicios = $servicios->listarServicios();
               for ($i = 0; $i < count($servicios); $i++) {
                 $imagen = "&quot;./assets/img/services/" . $servicios[$i]['img'] . "&quot;";
-                echo '<article class="col-md-5 mx-2 p-0 mb-3" style="background-image:url(' . $imagen . '); background-repeat: no-repeat; background-size: cover;">
+                echo '<article class="col-md-5 col-11 mx-2 p-0 mb-3" style="background-image:url(' . $imagen . '); background-repeat: no-repeat; background-size: cover;">
                         <div>
                           <h3>' . $servicios[$i]["nombre"] . '</h3>
                           <p class="pe-5">' . $servicios[$i]["descripcion"] . '</p>
@@ -119,7 +119,7 @@ $themeState = session_theme();
         </div>
       </div>
     </section>
-    
+
     <!-- <section id="photographers" class="container pt-5">
       <div class="row">
         <div class="col">
@@ -130,8 +130,19 @@ $themeState = session_theme();
       </div>
     </section> -->
 
+    <div id="saludoAPI" class="px-2 py-3">
+      <div class="d-flex justify-content-between">
+        <h6>Frase del dia: </h6>
+        <div id="buttonCloseSaludo" class="w-20px h-20px me-2">
+          <a class="btn-close d-block"></a>
+        </div>
+      </div>
+      <p id="saludo" class="ps-3 pe-2 mb-0">Cargando frase del dia ...</p>
+    </div>
+
   </main>
   <?php include_once('./view/layout/footer_index.html'); ?>
+  <script src="./models/js/saludo_api.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./models/js/theme.js"></script>
 </body>
