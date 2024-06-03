@@ -49,7 +49,14 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'C') {
 
   
   $cliente = $clientes->getCliente($_SESSION['id']);
-  $listaTrabajos = $trabajos->getTrabajos($_SESSION['id']) != null ? $trabajos->getTrabajos($_SESSION['id']) : [];
+  
+  if (isset($_POST['busqueda'])) {
+    $listaTrabajosData = $trabajos->getTrabajosSearch($_SESSION['id'], $_POST['search']);
+    $listaTrabajos = $listaTrabajosData != null ? $listaTrabajosData : [];
+  } else {
+    $listaTrabajosData = $trabajos->getTrabajos($_SESSION['id']);
+    $listaTrabajos = $listaTrabajosData != null ? $listaTrabajosData : [];
+  }
   
   
   for ($i=0; $i < count($listaTrabajos); $i++) {

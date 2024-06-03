@@ -77,7 +77,13 @@ if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'F') {
 
   
   $fotografo = $fotografos->getFotografo($_SESSION['id']);
-  $listaTrabajos = $trabajos->getTrabajosForPhotographer($_SESSION['id']);
+
+  if (isset($_POST['busqueda'])) {
+    $listaTrabajos = $trabajos->getTrabajosForPhotographerSearch($_SESSION['id'], $_POST['search']);
+  } else {
+    $listaTrabajos = $trabajos->getTrabajosForPhotographer($_SESSION['id']);
+  } 
+  
   $listaTrabajosPorCrear = $citas->getSessionsAbleForCreateWorkFromPhotographer($_SESSION['id']);
   
   // Head
