@@ -79,10 +79,45 @@ class Trabajo
     return $this->trabajo;
   }
 
+  // Obtain all the public works
+  public function getLastPublicWork()
+  {
+    $consulta = $this->BD->prepare('
+        SELECT t.id, t.nombre, t.descripcion, t.publico, t.id_servicio, se.nombre servicio, t.id_fotografo, f.nombre fotografo, t.id_cliente, c.nombre cliente, c.nick nick
+        FROM trabajo t
+        INNER JOIN cliente c ON t.id_cliente = c.id
+        INNER JOIN fotografo f ON t.id_fotografo = f.id
+        INNER JOIN servicio se ON t.id_servicio = se.id
+        WHERE t.publico = "1"
+        ORDER BY t.id DESC
+        LIMIT 1
+    ');
+
+    $consulta->execute();
+    $consulta->bind_result($id, $nombre, $descripcion, $publico, $id_servicio, $servicio, $id_fotografo, $fotografo, $id_cliente, $cliente, $nick);
+    $this->trabajo = null;
+    if ($consulta->fetch()) {
+      $this->trabajo['id'] = $id;
+      $this->trabajo['nombre'] = $nombre;
+      $this->trabajo['descripcion'] = $descripcion;
+      $this->trabajo['publico'] = $publico;
+      $this->trabajo['id_servicio'] = $id_servicio;
+      $this->trabajo['servicio'] = $servicio;
+      $this->trabajo['id_fotografo'] = $id_fotografo;
+      $this->trabajo['fotografo'] = $fotografo;
+      $this->trabajo['id_cliente'] = $id_cliente;
+      $this->trabajo['cliente'] = $cliente;
+      $this->trabajo['nick'] = $nick;
+    }
+    $consulta->close();
+    return $this->trabajo;
+  }
+
+
   // Obtain all the works for a client that match the search data
   public function getTrabajosSearch($cliente, $search)
   {
-    $busqueda = $search."%";
+    $busqueda = $search . "%";
     $consulta = $this->BD->prepare('
         SELECT t.id, t.nombre, t.descripcion, t.publico, t.id_servicio, se.nombre servicio, t.id_fotografo, f.nombre fotografo, t.id_cliente, c.nombre cliente, c.nick nick
         FROM trabajo t, cliente c, fotografo f, servicio se
@@ -155,7 +190,7 @@ class Trabajo
   // Obtain all the works for a photographer  that match the search data
   public function getTrabajosForPhotographerSearch($fotografo, $search)
   {
-    $busqueda = $search."%";
+    $busqueda = $search . "%";
     $consulta = $this->BD->prepare('
         SELECT t.id, t.nombre, t.descripcion, t.publico, t.id_servicio, se.nombre servicio, t.id_fotografo, f.nombre fotografo, t.id_cliente, c.nombre cliente, c.nick nick
         FROM trabajo t, cliente c, fotografo f, servicio se

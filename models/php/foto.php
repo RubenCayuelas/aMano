@@ -21,7 +21,7 @@ class Foto
     return $resultado;
   }
 
-  // Obtain the Pictures for a work
+  // Obtain the preview picture for a work
   public function getPreviewForTrabajo($id_trabajo)
   {
     $consulta = $this->BD->prepare('
@@ -143,7 +143,7 @@ class Foto
     $consulta->execute();
     $consulta->close();
   }
-  
+
   // Discard the preview image for a job
   private function setAllPreviewTo0($id_trabajo)
   {
@@ -152,5 +152,4 @@ class Foto
     $consulta->execute();
     $consulta->close();
   }
-
 }
