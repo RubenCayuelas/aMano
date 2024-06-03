@@ -310,6 +310,11 @@ body[data-bs-theme="dark"] #loader {
 .h-20px {
   height: 20px;
 }
+.w-sm-50 {
+  @media screen and (min-width: 576px) {
+    width: 50%!important;
+  }
+}
 .mt-5rem {
   margin-top: 5rem!important;
 }
@@ -515,11 +520,12 @@ footer {
           height:36px;
           display:inline-block;
           margin:0 8px;
-          opacity:0.75;
-          filter: contrast(0.95);
+          /* opacity:0.75; */
+          filter: contrast(0) brightness(1.7);
       }
       footer .bloque.social > a:hover {
           opacity:1;
+          filter: brightness(2);
       }
           footer .bloque.social > a img {
               width: 100%;
