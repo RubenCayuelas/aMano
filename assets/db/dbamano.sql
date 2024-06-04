@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2024 a las 14:02:45
+-- Tiempo de generación: 04-06-2024 a las 16:19:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -186,22 +186,6 @@ INSERT INTO `fotografo` (`id`, `nombre`, `nick`, `pass`, `foto`, `descripcion`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `peticion`
---
-
-CREATE TABLE `peticion` (
-  `id` int(11) NOT NULL,
-  `tipo` set('edit','elim') NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `hora` time DEFAULT NULL,
-  `estado` set('1','0') DEFAULT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `id_cita` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `recepcionista`
 --
 
@@ -311,14 +295,6 @@ ALTER TABLE `fotografo`
   ADD KEY `fotografo_ibfk_1` (`id_estudio`);
 
 --
--- Indices de la tabla `peticion`
---
-ALTER TABLE `peticion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `peticion_ibfk_1` (`id_cita`),
-  ADD KEY `peticion_ibfk_2` (`id_cliente`);
-
---
 -- Indices de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
@@ -375,12 +351,6 @@ ALTER TABLE `fotografo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `peticion`
---
-ALTER TABLE `peticion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
@@ -423,13 +393,6 @@ ALTER TABLE `foto`
 --
 ALTER TABLE `fotografo`
   ADD CONSTRAINT `fotografo_ibfk_1` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`);
-
---
--- Filtros para la tabla `peticion`
---
-ALTER TABLE `peticion`
-  ADD CONSTRAINT `peticion_ibfk_1` FOREIGN KEY (`id_cita`) REFERENCES `cita` (`id`),
-  ADD CONSTRAINT `peticion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
 -- Filtros para la tabla `recepcionista`
