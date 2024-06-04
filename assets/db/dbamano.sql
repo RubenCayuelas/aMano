@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-06-2024 a las 17:08:17
+-- Tiempo de generación: 04-06-2024 a las 14:02:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -55,9 +55,9 @@ INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`,
 (10, '2024-05-25', '08:45:00', NULL, 8, NULL, 2, 9, 1),
 (11, '2024-05-28', '12:15:00', NULL, 9, NULL, 3, 10, 1),
 (12, '2024-05-30', '17:00:00', NULL, 10, NULL, 4, 11, 1),
-(13, '2024-05-30', '17:00:00', '1', 1, 3, 1, 1, 1),
+(13, '2024-05-30', '17:00:00', '1', 1, 5, 1, 1, 1),
 (14, '2024-05-06', '09:30:00', '0', 2, NULL, 1, 9, 1),
-(23, '2024-05-20', '01:33:00', '1', 19, 4, 1, 1, 1),
+(23, '2024-05-20', '01:33:00', '1', 19, NULL, 1, 1, 1),
 (24, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
 (25, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
 (33, '2024-06-07', '09:17:00', '1', 1, NULL, 1, 9, 1);
@@ -143,6 +143,13 @@ CREATE TABLE `foto` (
   `id_trabajo` int(11) NOT NULL,
   `preview` set('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `foto`
+--
+
+INSERT INTO `foto` (`id`, `foto`, `id_trabajo`, `preview`) VALUES
+(20, 'Trabajo 1_5_20.jpg', 5, '1');
 
 -- --------------------------------------------------------
 
@@ -260,8 +267,7 @@ CREATE TABLE `trabajo` (
 --
 
 INSERT INTO `trabajo` (`id`, `nombre`, `descripcion`, `publico`, `id_servicio`, `id_fotografo`, `id_cliente`) VALUES
-(3, 'Eugenia Sánchez Sesión Estándar', 'Eugenia Sánchez Sesión Estándar Test', '1', 1, 1, 1),
-(4, 'Paula Vázquez Sesión Estándar', 'Paula Vázquez Sesión Estándar Test', '0', 1, 1, 19);
+(5, 'Trabajo 1', 'Eugenia Sánchez Sesión Estándar', '1', 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -360,7 +366,7 @@ ALTER TABLE `estudio`
 -- AUTO_INCREMENT de la tabla `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `fotografo`
@@ -390,7 +396,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
