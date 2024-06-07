@@ -53,7 +53,6 @@ $themeState = session_theme();
                   <h1 class="w-75 w-sm-50">
                     <img src="./assets/img/logo/logo+text_noBackground.png" class="w-100" alt="Fotografía aMano">
                   </h1>
-                  <p>Texto de ejemplo</p>
                 </div>
               </div>
             </section>';

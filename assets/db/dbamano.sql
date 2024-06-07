@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2024 a las 14:02:45
+-- Tiempo de generación: 07-06-2024 a las 03:17:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -57,10 +57,13 @@ INSERT INTO `cita` (`id`, `fecha`, `hora`, `estado`, `id_cliente`, `id_trabajo`,
 (12, '2024-05-30', '17:00:00', NULL, 10, NULL, 4, 11, 1),
 (13, '2024-05-30', '17:00:00', '1', 1, 5, 1, 1, 1),
 (14, '2024-05-06', '09:30:00', '0', 2, NULL, 1, 9, 1),
-(23, '2024-05-20', '01:33:00', '1', 19, NULL, 1, 1, 1),
+(23, '2024-05-20', '01:33:00', '1', 19, 6, 1, 1, 1),
 (24, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
 (25, '2024-05-17', '10:15:00', '0', 20, NULL, 1, 9, 1),
-(33, '2024-06-07', '09:17:00', '1', 1, NULL, 1, 9, 1);
+(33, '2024-06-06', '09:17:00', '1', 1, NULL, 1, 1, 1),
+(34, '2024-06-14', '11:30:00', NULL, 17, NULL, 1, 1, 2),
+(35, '2024-06-14', '17:00:00', NULL, 1, NULL, 1, 10, 3),
+(36, '2024-06-12', '11:20:00', NULL, 1, NULL, 1, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -85,7 +88,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`id`, `nombre`, `nick`, `pass`, `foto`, `tlf`, `tlf2`, `activo`) VALUES
 (1, 'Eugenia Sanchez', 'eugenia032', 'dd0befdf1a53577eb5aecd8c4551c3d0', 'profilePicture_1.jpg', 680574032, NULL, '1'),
-(2, 'Carlos Rodriguez', 'carlos245', '10e750bb99efafbddf5856663606b344', 'profilePicture_2.jpg', 612345245, NULL, '1'),
+(2, 'Carlos Rodriguez', 'carlos', '371c26ae06024553d45bd1414d384cf2', 'profilePicture_2.jpg', 612345245, NULL, '1'),
 (3, 'Maria Lopez', 'maria738', '86c40d75020fc7134743a2d3880f563b', 'defaultUser.png', 615678738, NULL, '1'),
 (4, 'Juan Martinez', 'juan167', '956633bcaca263775c37800b3aec1ddd', 'defaultUser.png', 619876167, NULL, '1'),
 (5, 'Laura Garcia', 'laura084', 'b285ff7b4261de42f26256ca30f08e7b', 'defaultUser.png', 629543084, NULL, '1'),
@@ -163,7 +166,7 @@ CREATE TABLE `fotografo` (
   `nick` varchar(25) NOT NULL,
   `pass` varchar(32) NOT NULL,
   `foto` varchar(50) NOT NULL DEFAULT 'defaultUser.png',
-  `descripcion` varchar(200) DEFAULT NULL,
+  `descripcion` varchar(250) DEFAULT NULL,
   `habilidades` varchar(100) NOT NULL,
   `id_estudio` int(11) NOT NULL,
   `activo` set('0','1') NOT NULL DEFAULT '1'
@@ -174,30 +177,14 @@ CREATE TABLE `fotografo` (
 --
 
 INSERT INTO `fotografo` (`id`, `nombre`, `nick`, `pass`, `foto`, `descripcion`, `habilidades`, `id_estudio`, `activo`) VALUES
-(1, 'Pablo Motos', 'pablo', '2a6757c83da3e883cd3cb842b8ec9a60', 'photograph_profilePicture_1.jpeg', 'Pablito y las motillos', 'retrato', 1, '1'),
-(9, 'Laura Garcia', 'laura01', '6f2919e2c7ecb96ed2b1b354de12d597', 'defaultUser.png', NULL, 'naturaleza', 1, '1'),
-(10, 'Daniel Sanchez', 'daniel', 'a257ace644b15df945947078d49b8b4b', 'defaultUser.png', NULL, 'eventos sociales', 3, '1'),
+(1, 'Pablo Motos', 'pablo', '2a6757c83da3e883cd3cb842b8ec9a60', 'photograph_profilePicture_1.jpeg', 'Soy un fotógrafo especializado en retrato con una pasión por capturar la esencia y la personalidad de cada persona. Me encanta crear imágenes que no solo sean visualmente impactantes, sino que también cuenten historias profundas y auténticas.', 'Retrato', 1, '1'),
+(9, 'Laura Garcia', 'laura', '6f2919e2c7ecb96ed2b1b354de12d597', 'defaultUser.png', '', 'Exteriores y naturaleza', 1, '1'),
+(10, 'Daniel Sanchez', 'daniel', 'a257ace644b15df945947078d49b8b4b', 'defaultUser.png', NULL, 'eventos sociales', 1, '1'),
 (11, 'Maria Rodriguez', 'maria', 'f79059d29aa4304412ba65cd2847dd1b', 'defaultUser.png', NULL, 'moda y publicidad', 2, '1'),
 (12, 'Javier Fernandez', 'javier01', 'a4305d04a138058868493f642cc9f96c', 'defaultUser.png', 'Apasionado por la fotografía de paisajes.', 'paisajes', 6, '1'),
 (13, 'Ana Martinez', 'ana', '2be3656036b8c326ffd09dc719d4a45e', 'defaultUser.png', 'Especialista en fotografía de arquitectura.', 'arquitectura', 4, '1'),
 (14, 'Carlos Gomez', 'carlos', '371c26ae06024553d45bd1414d384cf2', 'defaultUser.png', 'Experto en fotografía deportiva.', 'deportes', 5, '1'),
-(15, 'Sofia Lopez', 'sofia01', '3f7a8bd2627ee14d60f21457391287f7', 'defaultUser.png', 'Fotógrafa aficionada con un ojo para el detalle.', 'bodas', 3, '1');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `peticion`
---
-
-CREATE TABLE `peticion` (
-  `id` int(11) NOT NULL,
-  `tipo` set('edit','elim') NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `hora` time DEFAULT NULL,
-  `estado` set('1','0') DEFAULT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `id_cita` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(15, 'Sofia Lopez', 'sofia01', '3f7a8bd2627ee14d60f21457391287f7', 'defaultUser.png', 'Fotógrafa aficionada con un ojo para el detalle.', 'bodas', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -267,7 +254,8 @@ CREATE TABLE `trabajo` (
 --
 
 INSERT INTO `trabajo` (`id`, `nombre`, `descripcion`, `publico`, `id_servicio`, `id_fotografo`, `id_cliente`) VALUES
-(5, 'Trabajo 1', 'Eugenia Sánchez Sesión Estándar', '1', 1, 1, 1);
+(5, 'Trabajo 1', 'Eugenia Sánchez Sesión Estándar', '1', 1, 1, 1),
+(6, 'Trabajo 2', 'Paula Vázquez Sesión Estándar', '0', 1, 1, 19);
 
 --
 -- Índices para tablas volcadas
@@ -311,14 +299,6 @@ ALTER TABLE `fotografo`
   ADD KEY `fotografo_ibfk_1` (`id_estudio`);
 
 --
--- Indices de la tabla `peticion`
---
-ALTER TABLE `peticion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `peticion_ibfk_1` (`id_cita`),
-  ADD KEY `peticion_ibfk_2` (`id_cliente`);
-
---
 -- Indices de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
@@ -348,7 +328,7 @@ ALTER TABLE `trabajo`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -375,12 +355,6 @@ ALTER TABLE `fotografo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `peticion`
---
-ALTER TABLE `peticion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `recepcionista`
 --
 ALTER TABLE `recepcionista`
@@ -396,7 +370,7 @@ ALTER TABLE `servicio`
 -- AUTO_INCREMENT de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -423,13 +397,6 @@ ALTER TABLE `foto`
 --
 ALTER TABLE `fotografo`
   ADD CONSTRAINT `fotografo_ibfk_1` FOREIGN KEY (`id_estudio`) REFERENCES `estudio` (`id`);
-
---
--- Filtros para la tabla `peticion`
---
-ALTER TABLE `peticion`
-  ADD CONSTRAINT `peticion_ibfk_1` FOREIGN KEY (`id_cita`) REFERENCES `cita` (`id`),
-  ADD CONSTRAINT `peticion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
 -- Filtros para la tabla `recepcionista`
