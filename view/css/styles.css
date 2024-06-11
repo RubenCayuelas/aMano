@@ -538,6 +538,9 @@ main section .services {
         padding: 5% 2% 2% 5%;
         border-radius: 5px;
       }
+      body[data-bs-theme="light"] main section .services>div>article>div {
+        color: white;
+      }
         main section .services>div>article>div>div {
           display: flex;
           flex-direction: row-reverse;
@@ -557,6 +560,11 @@ main section .services {
   z-index: 999;
   background: #3d3b35f5;
 }
+
+body[data-bs-theme="light"] #saludoAPI {
+  background-color: #cfcfcff5;
+}
+
 
 /* Footer ------------------------------ */
 
