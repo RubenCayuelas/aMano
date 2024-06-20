@@ -1,10 +1,8 @@
 # Información:
 
- La copia de la base de datos se encuentra en `assets/db/DB_BackUp/dbamano.sql`
+ La copia de la base de datos se encuentra en `assets/db/dbamano.sql`
 ____________________________________________________________________________
 
-
-____________________________________________________________________________
 # Usuarios:
 
 ### Admin
